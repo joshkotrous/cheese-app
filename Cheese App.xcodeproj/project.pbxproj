@@ -1,0 +1,615 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3751F0382C5F1289006499C2 /* Cheese_AppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751F0372C5F1289006499C2 /* Cheese_AppApp.swift */; };
+		3751F03A2C5F1289006499C2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751F0392C5F1289006499C2 /* ContentView.swift */; };
+		3751F03C2C5F128A006499C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3751F03B2C5F128A006499C2 /* Assets.xcassets */; };
+		3751F03F2C5F128A006499C2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3751F03E2C5F128A006499C2 /* Preview Assets.xcassets */; };
+		3751F0492C5F128A006499C2 /* Cheese_AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751F0482C5F128A006499C2 /* Cheese_AppTests.swift */; };
+		3751F0532C5F128A006499C2 /* Cheese_AppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751F0522C5F128A006499C2 /* Cheese_AppUITests.swift */; };
+		3751F0552C5F128A006499C2 /* Cheese_AppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751F0542C5F128A006499C2 /* Cheese_AppUITestsLaunchTests.swift */; };
+		3751F0632C5F1407006499C2 /* CustomColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751F0622C5F1407006499C2 /* CustomColors.swift */; };
+		3751F0662C5F1A49006499C2 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751F0652C5F1A49006499C2 /* LoginView.swift */; };
+		3751F0682C5F25F8006499C2 /* SignInWithAppleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751F0672C5F25F8006499C2 /* SignInWithAppleButton.swift */; };
+		3751F06A2C5F28FB006499C2 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 3751F0692C5F28FB006499C2 /* .gitignore */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		3751F0452C5F128A006499C2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3751F02C2C5F1289006499C2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3751F0332C5F1289006499C2;
+			remoteInfo = "Cheese App";
+		};
+		3751F04F2C5F128A006499C2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3751F02C2C5F1289006499C2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3751F0332C5F1289006499C2;
+			remoteInfo = "Cheese App";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		3751F0342C5F1289006499C2 /* Cheese App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Cheese App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3751F0372C5F1289006499C2 /* Cheese_AppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cheese_AppApp.swift; sourceTree = "<group>"; };
+		3751F0392C5F1289006499C2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		3751F03B2C5F128A006499C2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3751F03E2C5F128A006499C2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		3751F0442C5F128A006499C2 /* Cheese AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Cheese AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3751F0482C5F128A006499C2 /* Cheese_AppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cheese_AppTests.swift; sourceTree = "<group>"; };
+		3751F04E2C5F128A006499C2 /* Cheese AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Cheese AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3751F0522C5F128A006499C2 /* Cheese_AppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cheese_AppUITests.swift; sourceTree = "<group>"; };
+		3751F0542C5F128A006499C2 /* Cheese_AppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cheese_AppUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		3751F0622C5F1407006499C2 /* CustomColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomColors.swift; sourceTree = "<group>"; };
+		3751F0642C5F1879006499C2 /* Cheese-App-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Cheese-App-Info.plist"; sourceTree = SOURCE_ROOT; };
+		3751F0652C5F1A49006499C2 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		3751F0672C5F25F8006499C2 /* SignInWithAppleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInWithAppleButton.swift; sourceTree = "<group>"; };
+		3751F0692C5F28FB006499C2 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3751F0312C5F1289006499C2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3751F0412C5F128A006499C2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3751F04B2C5F128A006499C2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3751F02B2C5F1289006499C2 = {
+			isa = PBXGroup;
+			children = (
+				3751F0692C5F28FB006499C2 /* .gitignore */,
+				3751F0612C5F13F5006499C2 /* Utilities */,
+				3751F0362C5F1289006499C2 /* Cheese App */,
+				3751F0472C5F128A006499C2 /* Cheese AppTests */,
+				3751F0512C5F128A006499C2 /* Cheese AppUITests */,
+				3751F0352C5F1289006499C2 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		3751F0352C5F1289006499C2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3751F0342C5F1289006499C2 /* Cheese App.app */,
+				3751F0442C5F128A006499C2 /* Cheese AppTests.xctest */,
+				3751F04E2C5F128A006499C2 /* Cheese AppUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3751F0362C5F1289006499C2 /* Cheese App */ = {
+			isa = PBXGroup;
+			children = (
+				3751F0642C5F1879006499C2 /* Cheese-App-Info.plist */,
+				3751F0372C5F1289006499C2 /* Cheese_AppApp.swift */,
+				3751F0392C5F1289006499C2 /* ContentView.swift */,
+				3751F03B2C5F128A006499C2 /* Assets.xcassets */,
+				3751F03D2C5F128A006499C2 /* Preview Content */,
+				3751F0652C5F1A49006499C2 /* LoginView.swift */,
+				3751F0672C5F25F8006499C2 /* SignInWithAppleButton.swift */,
+			);
+			path = "Cheese App";
+			sourceTree = "<group>";
+		};
+		3751F03D2C5F128A006499C2 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				3751F03E2C5F128A006499C2 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		3751F0472C5F128A006499C2 /* Cheese AppTests */ = {
+			isa = PBXGroup;
+			children = (
+				3751F0482C5F128A006499C2 /* Cheese_AppTests.swift */,
+			);
+			path = "Cheese AppTests";
+			sourceTree = "<group>";
+		};
+		3751F0512C5F128A006499C2 /* Cheese AppUITests */ = {
+			isa = PBXGroup;
+			children = (
+				3751F0522C5F128A006499C2 /* Cheese_AppUITests.swift */,
+				3751F0542C5F128A006499C2 /* Cheese_AppUITestsLaunchTests.swift */,
+			);
+			path = "Cheese AppUITests";
+			sourceTree = "<group>";
+		};
+		3751F0612C5F13F5006499C2 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				3751F0622C5F1407006499C2 /* CustomColors.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		3751F0332C5F1289006499C2 /* Cheese App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3751F0582C5F128A006499C2 /* Build configuration list for PBXNativeTarget "Cheese App" */;
+			buildPhases = (
+				3751F0302C5F1289006499C2 /* Sources */,
+				3751F0312C5F1289006499C2 /* Frameworks */,
+				3751F0322C5F1289006499C2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Cheese App";
+			productName = "Cheese App";
+			productReference = 3751F0342C5F1289006499C2 /* Cheese App.app */;
+			productType = "com.apple.product-type.application";
+		};
+		3751F0432C5F128A006499C2 /* Cheese AppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3751F05B2C5F128A006499C2 /* Build configuration list for PBXNativeTarget "Cheese AppTests" */;
+			buildPhases = (
+				3751F0402C5F128A006499C2 /* Sources */,
+				3751F0412C5F128A006499C2 /* Frameworks */,
+				3751F0422C5F128A006499C2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3751F0462C5F128A006499C2 /* PBXTargetDependency */,
+			);
+			name = "Cheese AppTests";
+			productName = "Cheese AppTests";
+			productReference = 3751F0442C5F128A006499C2 /* Cheese AppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		3751F04D2C5F128A006499C2 /* Cheese AppUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3751F05E2C5F128A006499C2 /* Build configuration list for PBXNativeTarget "Cheese AppUITests" */;
+			buildPhases = (
+				3751F04A2C5F128A006499C2 /* Sources */,
+				3751F04B2C5F128A006499C2 /* Frameworks */,
+				3751F04C2C5F128A006499C2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3751F0502C5F128A006499C2 /* PBXTargetDependency */,
+			);
+			name = "Cheese AppUITests";
+			productName = "Cheese AppUITests";
+			productReference = 3751F04E2C5F128A006499C2 /* Cheese AppUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		3751F02C2C5F1289006499C2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1540;
+				LastUpgradeCheck = 1540;
+				TargetAttributes = {
+					3751F0332C5F1289006499C2 = {
+						CreatedOnToolsVersion = 15.4;
+					};
+					3751F0432C5F128A006499C2 = {
+						CreatedOnToolsVersion = 15.4;
+						TestTargetID = 3751F0332C5F1289006499C2;
+					};
+					3751F04D2C5F128A006499C2 = {
+						CreatedOnToolsVersion = 15.4;
+						TestTargetID = 3751F0332C5F1289006499C2;
+					};
+				};
+			};
+			buildConfigurationList = 3751F02F2C5F1289006499C2 /* Build configuration list for PBXProject "Cheese App" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 3751F02B2C5F1289006499C2;
+			productRefGroup = 3751F0352C5F1289006499C2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				3751F0332C5F1289006499C2 /* Cheese App */,
+				3751F0432C5F128A006499C2 /* Cheese AppTests */,
+				3751F04D2C5F128A006499C2 /* Cheese AppUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		3751F0322C5F1289006499C2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3751F03F2C5F128A006499C2 /* Preview Assets.xcassets in Resources */,
+				3751F06A2C5F28FB006499C2 /* .gitignore in Resources */,
+				3751F03C2C5F128A006499C2 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3751F0422C5F128A006499C2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3751F04C2C5F128A006499C2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3751F0302C5F1289006499C2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3751F0682C5F25F8006499C2 /* SignInWithAppleButton.swift in Sources */,
+				3751F03A2C5F1289006499C2 /* ContentView.swift in Sources */,
+				3751F0632C5F1407006499C2 /* CustomColors.swift in Sources */,
+				3751F0662C5F1A49006499C2 /* LoginView.swift in Sources */,
+				3751F0382C5F1289006499C2 /* Cheese_AppApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3751F0402C5F128A006499C2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3751F0492C5F128A006499C2 /* Cheese_AppTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3751F04A2C5F128A006499C2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3751F0532C5F128A006499C2 /* Cheese_AppUITests.swift in Sources */,
+				3751F0552C5F128A006499C2 /* Cheese_AppUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3751F0462C5F128A006499C2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3751F0332C5F1289006499C2 /* Cheese App */;
+			targetProxy = 3751F0452C5F128A006499C2 /* PBXContainerItemProxy */;
+		};
+		3751F0502C5F128A006499C2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3751F0332C5F1289006499C2 /* Cheese App */;
+			targetProxy = 3751F04F2C5F128A006499C2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		3751F0562C5F128A006499C2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		3751F0572C5F128A006499C2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		3751F0592C5F128A006499C2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Cheese App/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Cheese-App-Info.plist";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "JoshKotrous.Cheese-App";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		3751F05A2C5F128A006499C2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Cheese App/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Cheese-App-Info.plist";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "JoshKotrous.Cheese-App";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		3751F05C2C5F128A006499C2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "JoshKotrous.Cheese-AppTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cheese App.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Cheese App";
+			};
+			name = Debug;
+		};
+		3751F05D2C5F128A006499C2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "JoshKotrous.Cheese-AppTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cheese App.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Cheese App";
+			};
+			name = Release;
+		};
+		3751F05F2C5F128A006499C2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "JoshKotrous.Cheese-AppUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Cheese App";
+			};
+			name = Debug;
+		};
+		3751F0602C5F128A006499C2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "JoshKotrous.Cheese-AppUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Cheese App";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3751F02F2C5F1289006499C2 /* Build configuration list for PBXProject "Cheese App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3751F0562C5F128A006499C2 /* Debug */,
+				3751F0572C5F128A006499C2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3751F0582C5F128A006499C2 /* Build configuration list for PBXNativeTarget "Cheese App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3751F0592C5F128A006499C2 /* Debug */,
+				3751F05A2C5F128A006499C2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3751F05B2C5F128A006499C2 /* Build configuration list for PBXNativeTarget "Cheese AppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3751F05C2C5F128A006499C2 /* Debug */,
+				3751F05D2C5F128A006499C2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3751F05E2C5F128A006499C2 /* Build configuration list for PBXNativeTarget "Cheese AppUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3751F05F2C5F128A006499C2 /* Debug */,
+				3751F0602C5F128A006499C2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 3751F02C2C5F1289006499C2 /* Project object */;
+}

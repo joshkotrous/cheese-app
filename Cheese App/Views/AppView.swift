@@ -13,15 +13,12 @@ struct AppView: View {
             CustomColors.background
                 .edgesIgnoringSafeArea(.all)
             VStack{
-                Text("Hello, World!")
-                ZStack{
-                    Color.white
-                        .edgesIgnoringSafeArea(.all)
-                    VStack{
-                        Text("Hello, World!")
-                    }
+                VStack{
+                    Text("Test")
                 }
-                .frame(height: 100)
+                .frame(height: .infinity)
+                Spacer()
+                Navigation()
             }
        
             

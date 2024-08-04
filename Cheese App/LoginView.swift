@@ -10,25 +10,49 @@ import AuthenticationServices
 
 struct LoginView: View {
     var body: some View {
-        ZStack {
-            // Background color
-            CustomColors.background
-                .edgesIgnoringSafeArea(.all) // Extend the color to the edges of the screen
-            // Foreground content
-            VStack {
-                Text("Sign In")
-                    .font(.custom("IowanOldStyle-Roman", size: 48))
-                    .fontWeight(.bold)
-                    .foregroundColor(CustomColors.textColor)
-                    .multilineTextAlignment(.center)
-                SignInWithAppleButton(
-                                 onRequest: handleSignInWithApple,
-                                 onCompletion: handleSignInWithAppleCompletion
-                             )
-                             .frame(width: 200, height: 50)
-
+        NavigationView {
+            
+            
+            ZStack {
+                // Background color
+                CustomColors.background
+                    .edgesIgnoringSafeArea(.all) // Extend the color to the edges of the screen
+                // Foreground content
+                VStack {
+                    Text("Sign In")
+                        .font(.custom("IowanOldStyle-Roman", size: 48))
+                        .fontWeight(.bold)
+                        .foregroundColor(CustomColors.textColor)
+                        .multilineTextAlignment(.center)
+                    SignInWithAppleButton(
+                        onRequest: handleSignInWithApple,
+                        onCompletion: handleSignInWithAppleCompletion
+                    )
+                    .frame(width: 200, height: 50)
+                    Button(action: {}) {
+                        HStack {
+                            Image(systemName: "globe")
+                                .imageScale(.large)
+                                .foregroundColor(.black)
+                            Text("Sign in with Google")
+                                .foregroundColor(.black)
+                        }
+                        .frame(width: 200, height: 50)
+                        .background(Color.white)
+                        .cornerRadius(8)
+                        .padding()
+                    }
+                    NavigationLink(destination: AppView()) {
+                        Text("Skip Login")
+                            .font(.custom("IowanOldStyle-Roman", size: 16))
+                            .fontWeight(.bold)
+                            .foregroundColor(CustomColors.textColor)
+                            .multilineTextAlignment(.center)
+                    }
+               
+                }
+                .padding()
             }
-            .padding()
         }
     }
 

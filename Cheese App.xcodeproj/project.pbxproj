@@ -13,6 +13,9 @@
 		3742A8DE2C60547F00705D5E /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3742A8DD2C60547F00705D5E /* ProfileView.swift */; };
 		3742A8E02C6054AC00705D5E /* DiscoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3742A8DF2C6054AC00705D5E /* DiscoverView.swift */; };
 		3742A8E22C605EDD00705D5E /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3742A8E12C605EDD00705D5E /* SearchBar.swift */; };
+		3742A8E52C60797300705D5E /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3742A8E42C60797300705D5E /* Database.swift */; };
+		374AE4D32C607AB900FB6063 /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = 374AE4D22C607AB900FB6063 /* Supabase */; };
+		374AE4D52C607FB800FB6063 /* DatabaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374AE4D42C607FB800FB6063 /* DatabaseTests.swift */; };
 		3751F0382C5F1289006499C2 /* Cheese_AppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751F0372C5F1289006499C2 /* Cheese_AppApp.swift */; };
 		3751F03C2C5F128A006499C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3751F03B2C5F128A006499C2 /* Assets.xcassets */; };
 		3751F03F2C5F128A006499C2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3751F03E2C5F128A006499C2 /* Preview Assets.xcassets */; };
@@ -54,6 +57,8 @@
 		3742A8DD2C60547F00705D5E /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		3742A8DF2C6054AC00705D5E /* DiscoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverView.swift; sourceTree = "<group>"; };
 		3742A8E12C605EDD00705D5E /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		3742A8E42C60797300705D5E /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
+		374AE4D42C607FB800FB6063 /* DatabaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseTests.swift; sourceTree = "<group>"; };
 		3751F0342C5F1289006499C2 /* Cheese App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Cheese App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3751F0372C5F1289006499C2 /* Cheese_AppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cheese_AppApp.swift; sourceTree = "<group>"; };
 		3751F03B2C5F128A006499C2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -79,6 +84,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				374AE4D32C607AB900FB6063 /* Supabase in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,6 +105,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		374AE4D12C607AB900FB6063 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		3751F02B2C5F1289006499C2 = {
 			isa = PBXGroup;
 			children = (
@@ -108,6 +121,7 @@
 				3751F0472C5F128A006499C2 /* Cheese AppTests */,
 				3751F0512C5F128A006499C2 /* Cheese AppUITests */,
 				3751F0352C5F1289006499C2 /* Products */,
+				374AE4D12C607AB900FB6063 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -145,6 +159,7 @@
 			isa = PBXGroup;
 			children = (
 				3751F0482C5F128A006499C2 /* Cheese_AppTests.swift */,
+				374AE4D42C607FB800FB6063 /* DatabaseTests.swift */,
 			);
 			path = "Cheese AppTests";
 			sourceTree = "<group>";
@@ -162,6 +177,7 @@
 			isa = PBXGroup;
 			children = (
 				3751F0622C5F1407006499C2 /* CustomColors.swift */,
+				3742A8E42C60797300705D5E /* Database.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -209,6 +225,9 @@
 			dependencies = (
 			);
 			name = "Cheese App";
+			packageProductDependencies = (
+				374AE4D22C607AB900FB6063 /* Supabase */,
+			);
 			productName = "Cheese App";
 			productReference = 3751F0342C5F1289006499C2 /* Cheese App.app */;
 			productType = "com.apple.product-type.application";
@@ -281,6 +300,9 @@
 				Base,
 			);
 			mainGroup = 3751F02B2C5F1289006499C2;
+			packageReferences = (
+				3742A8E32C60794F00705D5E /* XCRemoteSwiftPackageReference "supabase-swift" */,
+			);
 			productRefGroup = 3751F0352C5F1289006499C2 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -328,6 +350,7 @@
 				3742A8DE2C60547F00705D5E /* ProfileView.swift in Sources */,
 				3742A8D62C6053ED00705D5E /* HomeView.swift in Sources */,
 				3742A8D82C60546700705D5E /* MyCheesesView.swift in Sources */,
+				3742A8E52C60797300705D5E /* Database.swift in Sources */,
 				37959DA62C5F5836004E4A02 /* SignInWithAppleButton.swift in Sources */,
 				3742A8DC2C60547900705D5E /* SearchView.swift in Sources */,
 				37959DA02C5F5823004E4A02 /* LoginView.swift in Sources */,
@@ -346,6 +369,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				374AE4D52C607FB800FB6063 /* DatabaseTests.swift in Sources */,
 				3751F0492C5F128A006499C2 /* Cheese_AppTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -414,7 +438,6 @@
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				EXCLUDED_ARCHS = "";
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -480,7 +503,6 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				EXCLUDED_ARCHS = "";
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -672,6 +694,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		3742A8E32C60794F00705D5E /* XCRemoteSwiftPackageReference "supabase-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/supabase/supabase-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.5.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		374AE4D22C607AB900FB6063 /* Supabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3742A8E32C60794F00705D5E /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Supabase;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 3751F02C2C5F1289006499C2 /* Project object */;
 }

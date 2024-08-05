@@ -8,15 +8,16 @@
 import SwiftUI
 
 struct MyCheesesView: View {
+    @State public var showCupboardPopover = false
+    @State public var showCheesePopover = false
+
     var body: some View {
         VStack(spacing: 0){
-
             ZStack{
                 CustomColors.background
                     .edgesIgnoringSafeArea(.all)
                 VStack{
                     HStack{
-                            Text("+")
                         Text("My Cheeses")
                         
                     }
@@ -70,7 +71,7 @@ struct MyCheesesView: View {
                     
                     HStack{
                         Button(action: {
-                            // Action to perform when the button is tapped
+                            showCupboardPopover = true
                             print("Button tapped!")
                         }) {
                             Text("+ New Cupboard")
@@ -80,8 +81,20 @@ struct MyCheesesView: View {
                                 .foregroundColor(CustomColors.textColor)
                                 .cornerRadius(100)
                         }
+                   
+                        Button(action: {
+                            showCheesePopover = true
+                            print("Button tapped!")
+                        }) {
+                            Text("+ Add Cheese")
+                                .font(.custom("IowanOldStyle-Roman", size: 16))
+                                .padding(6)
+                                .background(CustomColors.tan1)
+                                .foregroundColor(CustomColors.textColor)
+                                .cornerRadius(100)
+                        }
                     }
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .frame(maxWidth: .infinity, alignment: .center)
                     .padding(.leading)
                     .padding(.bottom)
                  
@@ -91,6 +104,37 @@ struct MyCheesesView: View {
 
             }
             .foregroundColor(CustomColors.textColor)
+        }
+        .popover(isPresented: $showCupboardPopover) {
+            ZStack{
+                CustomColors.background
+                    .ignoresSafeArea(.all)
+                VStack {
+                    Text("Add Cupboard")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .font(.custom("IowanOldStyle-Roman", size: 24))
+                    Spacer()
+
+                }
+                .foregroundColor(CustomColors.textColor)
+                .padding()
+
+            }
+     
+        }
+        .popover(isPresented: $showCheesePopover) {
+            ZStack{
+                CustomColors.background
+                    .ignoresSafeArea(.all)
+                VStack {
+                    Text("Add Cheese")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .font(.custom("IowanOldStyle-Roman", size: 24))
+                    Spacer()
+                }
+                .foregroundColor(CustomColors.textColor)
+                .padding()
+            }
         }
     }
 }

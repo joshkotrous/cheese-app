@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct AppView: View {
+
     init() {
         let navigationBarAppearance = UINavigationBarAppearance()
         navigationBarAppearance.configureWithOpaqueBackground()
@@ -58,8 +59,6 @@ struct AppView: View {
                         }
                 }
                 .tint(Color(CustomColors.tan2))
-                .frame(width: .infinity)
-                .frame(height: .infinity)
                 .navigationBarBackButtonHidden(true)
     }
 }

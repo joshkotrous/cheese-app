@@ -16,6 +16,8 @@
 		3742A8E52C60797300705D5E /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3742A8E42C60797300705D5E /* Database.swift */; };
 		374AE4D32C607AB900FB6063 /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = 374AE4D22C607AB900FB6063 /* Supabase */; };
 		374AE4D52C607FB800FB6063 /* DatabaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374AE4D42C607FB800FB6063 /* DatabaseTests.swift */; };
+		374AE4D72C6182DB00FB6063 /* debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 374AE4D62C6182DB00FB6063 /* debug.xcconfig */; };
+		374AE4D92C61893900FB6063 /* debug.xcconfig.example in Resources */ = {isa = PBXBuildFile; fileRef = 374AE4D82C61893900FB6063 /* debug.xcconfig.example */; };
 		3751F0382C5F1289006499C2 /* Cheese_AppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751F0372C5F1289006499C2 /* Cheese_AppApp.swift */; };
 		3751F03C2C5F128A006499C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3751F03B2C5F128A006499C2 /* Assets.xcassets */; };
 		3751F03F2C5F128A006499C2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3751F03E2C5F128A006499C2 /* Preview Assets.xcassets */; };
@@ -59,6 +61,8 @@
 		3742A8E12C605EDD00705D5E /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		3742A8E42C60797300705D5E /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		374AE4D42C607FB800FB6063 /* DatabaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseTests.swift; sourceTree = "<group>"; };
+		374AE4D62C6182DB00FB6063 /* debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = debug.xcconfig; sourceTree = "<group>"; };
+		374AE4D82C61893900FB6063 /* debug.xcconfig.example */ = {isa = PBXFileReference; lastKnownFileType = text; path = debug.xcconfig.example; sourceTree = "<group>"; };
 		3751F0342C5F1289006499C2 /* Cheese App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Cheese App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3751F0372C5F1289006499C2 /* Cheese_AppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cheese_AppApp.swift; sourceTree = "<group>"; };
 		3751F03B2C5F128A006499C2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -115,6 +119,8 @@
 		3751F02B2C5F1289006499C2 = {
 			isa = PBXGroup;
 			children = (
+				374AE4D82C61893900FB6063 /* debug.xcconfig.example */,
+				374AE4D62C6182DB00FB6063 /* debug.xcconfig */,
 				37DFBE1D2C5F33720079A637 /* Cheese-App-Info.plist */,
 				3751F0692C5F28FB006499C2 /* .gitignore */,
 				3751F0362C5F1289006499C2 /* Cheese App */,
@@ -330,6 +336,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				374AE4D92C61893900FB6063 /* debug.xcconfig.example in Resources */,
+				374AE4D72C6182DB00FB6063 /* debug.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -401,6 +409,7 @@
 /* Begin XCBuildConfiguration section */
 		3751F0562C5F128A006499C2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 374AE4D62C6182DB00FB6063 /* debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;

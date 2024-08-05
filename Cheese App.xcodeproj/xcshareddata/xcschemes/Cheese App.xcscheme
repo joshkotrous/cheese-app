@@ -76,13 +76,13 @@
       </BuildableProductRunnable>
       <EnvironmentVariables>
          <EnvironmentVariable
-            key = "SUPABASE_ANON_KEY"
-            value = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtkYmRzdnJxaGttc2dzZ2lsZHJ0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcyMjgyOTg4NywiZXhwIjoyMDM4NDA1ODg3fQ.omFN9ZBtCNeIWBplfNo0L-eWMyY1gM-AT5YU5H_od1A"
+            key = "SUPABASE_URL"
+            value = "$(SUPABASE_URL)"
             isEnabled = "YES">
          </EnvironmentVariable>
          <EnvironmentVariable
-            key = "SUPABASE_URL"
-            value = "https://kdbdsvrqhkmsgsgildrt.supabase.co"
+            key = "SUPABASE_ANON_KEY"
+            value = "$(SUPABASE_ANON_KEY)"
             isEnabled = "YES">
          </EnvironmentVariable>
       </EnvironmentVariables>

@@ -13,7 +13,6 @@ struct SearchBar: View {
         ZStack{
             Color(CustomColors.tan1)
                 .edgesIgnoringSafeArea(.all)
-
             HStack{
                 Image("BiSearchAlt2")
                     .resizable()

@@ -6,7 +6,7 @@ class UtilitiesTests: XCTestCase {
         // Test case 1: Positive number
         let db = Database()
         let results = await db.getAllCheeses()
-        print(results)
+        print(results[0])
         XCTAssert(results.count > 0)
     }
 }

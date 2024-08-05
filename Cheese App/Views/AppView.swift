@@ -18,11 +18,13 @@ struct AppView: View {
         UINavigationBar.appearance().standardAppearance = navigationBarAppearance
         UINavigationBar.appearance().compactAppearance = navigationBarAppearance
         UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
-        
-        // MARK: Tab bar appearance
+//        
         let tabBarAppearance = UITabBarAppearance()
         tabBarAppearance.configureWithOpaqueBackground()
         tabBarAppearance.backgroundColor = UIColor(CustomColors.background)
+        tabBarAppearance.stackedLayoutAppearance.normal.iconColor = UIColor(CustomColors.textColor)
+        tabBarAppearance.stackedLayoutAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor(CustomColors.textColor)]
+    tabBarAppearance.stackedItemSpacing = 20.0
         UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
         UITabBar.appearance().standardAppearance = tabBarAppearance
 
@@ -31,7 +33,7 @@ struct AppView: View {
                 TabView{
                     HomeView()
                         .tabItem {
-                                Image("AiOutlineHome")
+                            Image("AiOutlineHome")
                                 Text("Home")
                         }
                     MyCheesesView()
@@ -55,7 +57,7 @@ struct AppView: View {
                             Text("Profile")
                         }
                 }
-                .tint(Color(hex: "#6C5B30"))
+                .tint(Color(CustomColors.tan2))
                 .frame(width: .infinity)
                 .frame(height: .infinity)
                 .navigationBarBackButtonHidden(true)

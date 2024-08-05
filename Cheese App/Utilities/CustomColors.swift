@@ -14,6 +14,8 @@ struct CustomColors {
     static let background = Color(hex: "#FFF5DC")
     static let textColor = Color(hex: "#C2A253")
     static let tan1 = Color(hex: "#FAEBC6")
+    static let tan2 = Color(hex: "#6C5B30")
+
 
     // Add more colors as needed
 }

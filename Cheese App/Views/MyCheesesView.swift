@@ -76,8 +76,8 @@ struct MyCheesesView: View {
                             Text("+ New Cupboard")
                                 .font(.custom("IowanOldStyle-Roman", size: 16))
                                 .padding(6)
-                                .background(CustomColors.textColor)
-                                .foregroundColor(CustomColors.background)
+                                .background(CustomColors.tan1)
+                                .foregroundColor(CustomColors.textColor)
                                 .cornerRadius(100)
                         }
                     }

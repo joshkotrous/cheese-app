@@ -46,7 +46,7 @@ class Database {
         var results: [Cheese] = []
         
         do {
-            results  = try await supabase.from("cheese").select().execute().value
+            results  = try await supabase.from("cheese").select().order("created_on").execute().value
         }
         catch {
          print(error)

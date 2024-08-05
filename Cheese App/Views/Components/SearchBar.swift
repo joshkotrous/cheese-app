@@ -12,7 +12,7 @@ struct SearchBar: View {
 
     var body: some View {
         ZStack{
-            Color(hex: "#FAEBC6")
+            Color(CustomColors.tan1)
                 .edgesIgnoringSafeArea(.all)
 
             HStack{
@@ -29,6 +29,7 @@ struct SearchBar: View {
             .frame(height: 35)
             .cornerRadius(100.0)
         }
+        .offset(x: 0, y: 0)
         .frame(height: 100)
     }
 }

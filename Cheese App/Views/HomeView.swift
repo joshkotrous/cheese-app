@@ -12,15 +12,83 @@ struct HomeView: View {
         VStack(spacing: 0){
             SearchBar()
             ZStack{
-                CustomColors.background
-                    .edgesIgnoringSafeArea(.all)
-                VStack{
-                    Text("Home")
-                        .font(.custom("IowanOldStyle-Roman", size: 36))
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    Spacer()
+                ScrollView {
+                    VStack{
+                        Text("Trending")
+                            .font(.custom("IowanOldStyle-Roman", size: 24))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        VStack{
+                            VStack{
+                                CustomColors.tan1
+                                
+                            }
+                            .frame(height: 200)
+                            .frame(width: .infinity)
+                            .cornerRadius(12.0)
+                            .overlay( /// apply a rounded border
+                                RoundedRectangle(cornerRadius: 12)
+                                    .stroke(CustomColors.textColor, lineWidth: 1)
+                            )
+
+                            
+                            
+                        }
+                        Text("New")
+                            .font(.custom("IowanOldStyle-Roman", size: 24))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        VStack{
+                            VStack{
+                                CustomColors.tan1
+                                
+                            }
+                            .frame(height: 200)
+                            .frame(width: .infinity)
+                            .cornerRadius(12.0)
+                            .overlay( /// apply a rounded border
+                                RoundedRectangle(cornerRadius: 12)
+                                    .stroke(CustomColors.textColor, lineWidth: 1)
+                            )
+                            VStack{
+                                CustomColors.tan1
+                                
+                            }
+                            .frame(height: 200)
+                            .frame(width: .infinity)
+                            .cornerRadius(12.0)
+                            .overlay( /// apply a rounded border
+                                RoundedRectangle(cornerRadius: 12)
+                                    .stroke(CustomColors.textColor, lineWidth: 1)
+                            )
+                            VStack{
+                                CustomColors.tan1
+                                
+                            }
+                            .frame(height: 200)
+                            .frame(width: .infinity)
+                            .cornerRadius(12.0)
+                            .overlay( /// apply a rounded border
+                                RoundedRectangle(cornerRadius: 12)
+                                    .stroke(CustomColors.textColor, lineWidth: 1)
+                            )
+                            VStack{
+                                CustomColors.tan1
+                                
+                            }
+                            .frame(height: 200)
+                            .frame(width: .infinity)
+                            .cornerRadius(12.0)
+                            .overlay( /// apply a rounded border
+                                RoundedRectangle(cornerRadius: 12)
+                                    .stroke(CustomColors.textColor, lineWidth: 1)
+                            )
+                            
+                            
+                        }
+                    }
+                    .padding()
                 }
-                .padding()
+                .background(CustomColors.background)
+
             }
             .foregroundColor(CustomColors.textColor)
         }
@@ -29,5 +97,5 @@ struct HomeView: View {
 }
 
 #Preview {
-    HomeView()
+    AppView()
 }

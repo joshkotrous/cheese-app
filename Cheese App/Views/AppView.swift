@@ -9,20 +9,30 @@ import SwiftUI
 
 struct AppView: View {
     init() {
-        UITabBar.appearance().backgroundColor = UIColor(CustomColors.background)
+        let navigationBarAppearance = UINavigationBarAppearance()
+        navigationBarAppearance.configureWithOpaqueBackground()
+        navigationBarAppearance.titleTextAttributes = [
+            NSAttributedString.Key.foregroundColor : UIColor(CustomColors.background)
+        ]
+        navigationBarAppearance.backgroundColor = UIColor(CustomColors.background)
+        UINavigationBar.appearance().standardAppearance = navigationBarAppearance
+        UINavigationBar.appearance().compactAppearance = navigationBarAppearance
+        UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
+        
+        // MARK: Tab bar appearance
+        let tabBarAppearance = UITabBarAppearance()
+        tabBarAppearance.configureWithOpaqueBackground()
+        tabBarAppearance.backgroundColor = UIColor(CustomColors.background)
+        UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
+        UITabBar.appearance().standardAppearance = tabBarAppearance
 
     }
     var body: some View {
-
-        ZStack{
-            CustomColors.background
-                .edgesIgnoringSafeArea(.all)
                 TabView{
                     HomeView()
                         .tabItem {
                                 Image("AiOutlineHome")
                                 Text("Home")
-
                         }
                     MyCheesesView()
                         .tabItem {
@@ -48,10 +58,8 @@ struct AppView: View {
                 .tint(Color(hex: "#6C5B30"))
                 .frame(width: .infinity)
                 .frame(height: .infinity)
-        }
-        .navigationBarBackButtonHidden(true)
+                .navigationBarBackButtonHidden(true)
     }
-
 }
 
 #Preview {

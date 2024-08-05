@@ -13,6 +13,8 @@ import SwiftUI
 struct CustomColors {
     static let background = Color(hex: "#FFF5DC")
     static let textColor = Color(hex: "#C2A253")
+    static let tan1 = Color(hex: "#FAEBC6")
+
     // Add more colors as needed
 }
 

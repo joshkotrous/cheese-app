@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct EntryView: View {
     @State private var showLoginScreen = false
 
     var body: some View {
@@ -21,7 +21,8 @@ struct ContentView: View {
     }
 }
 
+
 #Preview {
-    ContentView()
+    EntryView()
 }
 

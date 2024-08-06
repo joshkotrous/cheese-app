@@ -22,6 +22,7 @@
 		374AE4E12C61A6FE00FB6063 /* NewCheesePopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374AE4E02C61A6FE00FB6063 /* NewCheesePopover.swift */; };
 		374AE4E32C61C76600FB6063 /* CheeseItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374AE4E22C61C76600FB6063 /* CheeseItem.swift */; };
 		374AE4E52C61C81C00FB6063 /* CheeseDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374AE4E42C61C81C00FB6063 /* CheeseDetailView.swift */; };
+		374AE4E82C61E04900FB6063 /* Cheese.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374AE4E72C61E04900FB6063 /* Cheese.swift */; };
 		3751F0382C5F1289006499C2 /* Cheese_AppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751F0372C5F1289006499C2 /* Cheese_AppApp.swift */; };
 		3751F03C2C5F128A006499C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3751F03B2C5F128A006499C2 /* Assets.xcassets */; };
 		3751F03F2C5F128A006499C2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3751F03E2C5F128A006499C2 /* Preview Assets.xcassets */; };
@@ -71,6 +72,7 @@
 		374AE4E02C61A6FE00FB6063 /* NewCheesePopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCheesePopover.swift; sourceTree = "<group>"; };
 		374AE4E22C61C76600FB6063 /* CheeseItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheeseItem.swift; sourceTree = "<group>"; };
 		374AE4E42C61C81C00FB6063 /* CheeseDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheeseDetailView.swift; sourceTree = "<group>"; };
+		374AE4E72C61E04900FB6063 /* Cheese.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cheese.swift; sourceTree = "<group>"; };
 		3751F0342C5F1289006499C2 /* Cheese App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Cheese App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3751F0372C5F1289006499C2 /* Cheese_AppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cheese_AppApp.swift; sourceTree = "<group>"; };
 		3751F03B2C5F128A006499C2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -124,6 +126,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		374AE4E62C61E03300FB6063 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				374AE4E72C61E04900FB6063 /* Cheese.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		3751F02B2C5F1289006499C2 = {
 			isa = PBXGroup;
 			children = (
@@ -152,6 +162,7 @@
 		3751F0362C5F1289006499C2 /* Cheese App */ = {
 			isa = PBXGroup;
 			children = (
+				374AE4E62C61E03300FB6063 /* Models */,
 				37959D9C2C5F579B004E4A02 /* Views */,
 				3751F0612C5F13F5006499C2 /* Utilities */,
 				3751F0372C5F1289006499C2 /* Cheese_AppApp.swift */,
@@ -383,6 +394,7 @@
 				37959DA52C5F5836004E4A02 /* Navigation.swift in Sources */,
 				3751F0632C5F1407006499C2 /* CustomColors.swift in Sources */,
 				3751F0382C5F1289006499C2 /* Cheese_AppApp.swift in Sources */,
+				374AE4E82C61E04900FB6063 /* Cheese.swift in Sources */,
 				3742A8E02C6054AC00705D5E /* DiscoverView.swift in Sources */,
 				37959DA12C5F5823004E4A02 /* WelcomeView.swift in Sources */,
 				37959DAA2C5F592A004E4A02 /* EntryView.swift in Sources */,

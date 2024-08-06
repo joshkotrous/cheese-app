@@ -30,7 +30,7 @@ struct SearchBar: View {
             .cornerRadius(100.0)
         }
         .offset(x: 0, y: 0)
-        .frame(height: 100)
+        .frame(height: 75)
     }
 }
 

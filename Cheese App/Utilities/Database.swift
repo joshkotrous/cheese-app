@@ -9,15 +9,15 @@ import Foundation
 import Supabase
 
 struct Cheese: Decodable, Identifiable {
-    let id: String
-    let name: String
-    let category: String
-    let url: String
-    let description: String
-    let notes: String
-    let allergens: String
-    let ingredients: String
-    let additionalFacts: String
+    let id: String?
+    let name: String?
+    let category: String?
+    let url: String?
+    let description: String?
+    let notes: String?
+    let allergens: String?
+    let ingredients: String?
+    let additionalFacts: String?
 }
 
 class Database {

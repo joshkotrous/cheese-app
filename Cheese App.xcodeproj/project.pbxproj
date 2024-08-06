@@ -20,6 +20,8 @@
 		374AE4D92C61893900FB6063 /* debug.xcconfig.example in Resources */ = {isa = PBXBuildFile; fileRef = 374AE4D82C61893900FB6063 /* debug.xcconfig.example */; };
 		374AE4DD2C61A67A00FB6063 /* NewCupboardPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374AE4DC2C61A67900FB6063 /* NewCupboardPopover.swift */; };
 		374AE4E12C61A6FE00FB6063 /* NewCheesePopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374AE4E02C61A6FE00FB6063 /* NewCheesePopover.swift */; };
+		374AE4E32C61C76600FB6063 /* CheeseItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374AE4E22C61C76600FB6063 /* CheeseItem.swift */; };
+		374AE4E52C61C81C00FB6063 /* CheeseDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374AE4E42C61C81C00FB6063 /* CheeseDetailView.swift */; };
 		3751F0382C5F1289006499C2 /* Cheese_AppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751F0372C5F1289006499C2 /* Cheese_AppApp.swift */; };
 		3751F03C2C5F128A006499C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3751F03B2C5F128A006499C2 /* Assets.xcassets */; };
 		3751F03F2C5F128A006499C2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3751F03E2C5F128A006499C2 /* Preview Assets.xcassets */; };
@@ -67,6 +69,8 @@
 		374AE4D82C61893900FB6063 /* debug.xcconfig.example */ = {isa = PBXFileReference; lastKnownFileType = text; path = debug.xcconfig.example; sourceTree = "<group>"; };
 		374AE4DC2C61A67900FB6063 /* NewCupboardPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCupboardPopover.swift; sourceTree = "<group>"; };
 		374AE4E02C61A6FE00FB6063 /* NewCheesePopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCheesePopover.swift; sourceTree = "<group>"; };
+		374AE4E22C61C76600FB6063 /* CheeseItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheeseItem.swift; sourceTree = "<group>"; };
+		374AE4E42C61C81C00FB6063 /* CheeseDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheeseDetailView.swift; sourceTree = "<group>"; };
 		3751F0342C5F1289006499C2 /* Cheese App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Cheese App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3751F0372C5F1289006499C2 /* Cheese_AppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cheese_AppApp.swift; sourceTree = "<group>"; };
 		3751F03B2C5F128A006499C2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -205,6 +209,7 @@
 				3742A8D72C60546700705D5E /* MyCheesesView.swift */,
 				3742A8DB2C60547900705D5E /* SearchView.swift */,
 				3742A8DD2C60547F00705D5E /* ProfileView.swift */,
+				374AE4E42C61C81C00FB6063 /* CheeseDetailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -217,6 +222,7 @@
 				3742A8E12C605EDD00705D5E /* SearchBar.swift */,
 				374AE4DC2C61A67900FB6063 /* NewCupboardPopover.swift */,
 				374AE4E02C61A6FE00FB6063 /* NewCheesePopover.swift */,
+				374AE4E22C61C76600FB6063 /* CheeseItem.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -366,8 +372,10 @@
 				3742A8D62C6053ED00705D5E /* HomeView.swift in Sources */,
 				3742A8D82C60546700705D5E /* MyCheesesView.swift in Sources */,
 				3742A8E52C60797300705D5E /* Database.swift in Sources */,
+				374AE4E32C61C76600FB6063 /* CheeseItem.swift in Sources */,
 				37959DA62C5F5836004E4A02 /* SignInWithAppleButton.swift in Sources */,
 				3742A8DC2C60547900705D5E /* SearchView.swift in Sources */,
+				374AE4E52C61C81C00FB6063 /* CheeseDetailView.swift in Sources */,
 				37959DA02C5F5823004E4A02 /* LoginView.swift in Sources */,
 				37959DA82C5F584F004E4A02 /* AppView.swift in Sources */,
 				374AE4DD2C61A67A00FB6063 /* NewCupboardPopover.swift in Sources */,

@@ -10,6 +10,8 @@ import SwiftUI
 struct MyCheesesView: View {
     @State public var showCupboardPopover = false
     @State public var showCheesePopover = false
+    @State private var newCupboardInput: String = ""
+
 
     var body: some View {
         VStack(spacing: 0){
@@ -106,35 +108,11 @@ struct MyCheesesView: View {
             .foregroundColor(CustomColors.textColor)
         }
         .popover(isPresented: $showCupboardPopover) {
-            ZStack{
-                CustomColors.background
-                    .ignoresSafeArea(.all)
-                VStack {
-                    Text("Add Cupboard")
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .font(.custom("IowanOldStyle-Roman", size: 24))
-                    Spacer()
-
-                }
-                .foregroundColor(CustomColors.textColor)
-                .padding()
-
-            }
+           NewCupboardPopover()
      
         }
         .popover(isPresented: $showCheesePopover) {
-            ZStack{
-                CustomColors.background
-                    .ignoresSafeArea(.all)
-                VStack {
-                    Text("Add Cheese")
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .font(.custom("IowanOldStyle-Roman", size: 24))
-                    Spacer()
-                }
-                .foregroundColor(CustomColors.textColor)
-                .padding()
-            }
+            NewCheesePopover()
         }
     }
 }

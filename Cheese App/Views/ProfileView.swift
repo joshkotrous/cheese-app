@@ -14,8 +14,38 @@ struct ProfileView: View {
                 .edgesIgnoringSafeArea(.all)
             VStack{
                 Text("Profile")
-                    .font(.custom("IowanOldStyle-Roman", size: 36))
+                    .font(.custom("IowanOldStyle-Roman", size: 28))
                     .frame(maxWidth: .infinity, alignment: .leading)
+                HStack{
+                    Image("AiOutlineUser")
+                    Spacer()
+                    VStack{
+                        Text("0")
+                        Text("Cheeses")
+                    }
+                    Divider()
+                        .frame(width: 25)
+                        .frame(height: 75)
+                    VStack{
+                        Text("0")
+                        Text("Followers")
+                    }
+                    Divider()
+                        .frame(width: 25)
+                        .frame(height: 75)
+                    VStack{
+                        Text("0")
+                        Text("Following")
+                    }
+                }
+                Button(action: {}){
+                    Text("Edit Profile")
+                        .padding()
+                        .font(.custom("IowanOldStyle-Roman", size: 16))
+                }
+                .frame(maxWidth: .infinity)
+                .background(CustomColors.tan1)
+                .cornerRadius(16)
                 Spacer()
             }
             .padding()

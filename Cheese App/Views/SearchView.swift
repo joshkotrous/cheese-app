@@ -16,7 +16,7 @@ struct SearchView: View {
                     .edgesIgnoringSafeArea(.all)
                 VStack{
                     Text("Search")
-                        .font(.custom("IowanOldStyle-Roman", size: 36))
+                        .font(.custom("IowanOldStyle-Roman", size: 28))
                         .frame(maxWidth: .infinity, alignment: .leading)
                     Spacer()
                 }

@@ -15,8 +15,8 @@ struct DiscoverView: View {
                 CustomColors.background
                     .edgesIgnoringSafeArea(.all)
                 VStack{
-                    Text("Discover")
-                        .font(.custom("IowanOldStyle-Roman", size: 36))
+                    Text("Explore Categories")
+                        .font(.custom("IowanOldStyle-Roman", size: 28))
                         .frame(maxWidth: .infinity, alignment: .leading)
                     Spacer()
                 }

@@ -28,12 +28,35 @@ class Database {
             supabaseKey: supabaseKey
         )
     }
+    
     func getAllCheeses() async -> [Cheese] {
 
         var results: [Cheese] = []
         
         do {
             results  = try await supabase.from("cheese").select().order("created_on").execute().value
+        }
+        catch {
+            print(error)
+        }
+        return results
+    }
+    
+    func getAllCategories() async -> [Category] {
+        var results: [Category] = []
+        do {
+            results = try await supabase.from("categories").select().execute().value
+        }
+        catch {
+            print (error)
+        }
+        return results
+    }
+    
+    func getAllGateways() async -> [Gateway] {
+        var results: [Gateway] = []
+        do {
+            results = try await supabase.from("gateways").select().execute().value
         }
         catch {
             print(error)

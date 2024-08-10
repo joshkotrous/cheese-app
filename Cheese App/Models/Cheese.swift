@@ -18,3 +18,14 @@ struct Cheese: Decodable, Identifiable {
     let ingredients: String?
     let additionalFacts: String?
 }
+
+
+struct Category: Decodable, Identifiable {
+    let id: Int?
+    let category: String
+}
+
+struct Gateway: Decodable, Identifiable {
+    let id: Int?
+    let gateway: String
+}

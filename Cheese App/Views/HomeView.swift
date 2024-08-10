@@ -34,27 +34,32 @@ struct HomeView: View {
                 ZStack{
                     ScrollView {
                         VStack{
-                            Text("Trending")
-                                .font(.custom("IowanOldStyle-Roman", size: 24))
-                                .fontWeight(.bold)
-                                .frame(maxWidth: .infinity, alignment: .leading)
+//                            VStack {
+//                                Text("Trending This Week")
+//                                    .font(.custom("IowanOldStyle-Roman", size: 24))
+//                                    .fontWeight(.bold)
+//                                    .frame(maxWidth: .infinity, alignment: .leading)
+//                                VStack{
+//                        
+//                                    ForEach(viewModel.cheeses.suffix(from: 0).suffix(5)) { cheese in
+//                                        CheeseItem(cheese: cheese)
+//                                    }
+//                                    
+//                                }
+//                            }
                             VStack{
-                    
-                                ForEach(viewModel.cheeses.suffix(from: 0).suffix(5)) { cheese in
-                                    CheeseItem(cheese: cheese)
+                                Text("New This Week")
+                                    .font(.custom("IowanOldStyle-Roman", size: 24))
+                                    .fontWeight(.bold)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                VStack{
+                                    ForEach(viewModel.cheeses.suffix(from: 0).suffix(5)) { cheese in
+                                        CheeseItem(cheese: cheese)
+                                    }
+                                    
                                 }
-                                
                             }
-                            Text("New")
-                                .font(.custom("IowanOldStyle-Roman", size: 24))
-                                .fontWeight(.bold)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                            VStack{
-                                ForEach(viewModel.cheeses.suffix(from: 0).suffix(5)) { cheese in
-                                    CheeseItem(cheese: cheese)
-                                }
-                                
-                            }
+        
                         }
                         .padding()
                     }

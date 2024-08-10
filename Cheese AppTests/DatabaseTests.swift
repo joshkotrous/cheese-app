@@ -23,4 +23,11 @@ class UtilitiesTests: XCTestCase {
         print(results[0])
         XCTAssert(results.count > 0)
     }
+    
+    func testGetCheeseByCategory() async {
+        let db = Database()
+        let results = await db.getCheesesByCategory(category: "Brie & Creamy")
+        print(results[0])
+        XCTAssert(results.count > 0)
+    }
 }

@@ -37,6 +37,7 @@
 		37959DA62C5F5836004E4A02 /* SignInWithAppleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37959DA32C5F5836004E4A02 /* SignInWithAppleButton.swift */; };
 		37959DA82C5F584F004E4A02 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37959DA72C5F584F004E4A02 /* AppView.swift */; };
 		37959DAA2C5F592A004E4A02 /* EntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37959DA92C5F592A004E4A02 /* EntryView.swift */; };
+		37B9B3E82C6726B500CB433E /* CategoryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B9B3E72C6726B500CB433E /* CategoryListView.swift */; };
 		37DFBE1E2C5F33720079A637 /* Cheese-App-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 37DFBE1D2C5F33720079A637 /* Cheese-App-Info.plist */; };
 /* End PBXBuildFile section */
 
@@ -90,6 +91,7 @@
 		37959DA32C5F5836004E4A02 /* SignInWithAppleButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInWithAppleButton.swift; sourceTree = "<group>"; };
 		37959DA72C5F584F004E4A02 /* AppView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
 		37959DA92C5F592A004E4A02 /* EntryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryView.swift; sourceTree = "<group>"; };
+		37B9B3E72C6726B500CB433E /* CategoryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryListView.swift; sourceTree = "<group>"; };
 		37DFBE1D2C5F33720079A637 /* Cheese-App-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Cheese-App-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -221,6 +223,7 @@
 				3742A8DB2C60547900705D5E /* SearchView.swift */,
 				3742A8DD2C60547F00705D5E /* ProfileView.swift */,
 				374AE4E42C61C81C00FB6063 /* CheeseDetailView.swift */,
+				37B9B3E72C6726B500CB433E /* CategoryListView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -390,6 +393,7 @@
 				37959DA02C5F5823004E4A02 /* LoginView.swift in Sources */,
 				37959DA82C5F584F004E4A02 /* AppView.swift in Sources */,
 				374AE4DD2C61A67A00FB6063 /* NewCupboardPopover.swift in Sources */,
+				37B9B3E82C6726B500CB433E /* CategoryListView.swift in Sources */,
 				3742A8E22C605EDD00705D5E /* SearchBar.swift in Sources */,
 				37959DA52C5F5836004E4A02 /* Navigation.swift in Sources */,
 				3751F0632C5F1407006499C2 /* CustomColors.swift in Sources */,

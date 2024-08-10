@@ -63,6 +63,17 @@ class Database {
         }
         return results
     }
+    
+    func getCheesesByCategory(category: String) async -> [Cheese] {
+        var results: [Cheese] = []
+        do {
+            results = try await supabase.from("cheese").select().eq("category", value: category).execute().value
+        }
+        catch {
+            print(error)
+        }
+        return results
+    }
 
 }
 

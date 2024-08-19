@@ -8,7 +8,10 @@
 import SwiftUI
 
 struct CheeseItem: View {
+    @State private var opacity: Double = 0.0
+    let delay: Double?
     let cheese: Cheese
+
     var body: some View {
         NavigationLink(destination: CheeseDetailView(cheese: cheese)){
             ZStack{
@@ -39,6 +42,17 @@ struct CheeseItem: View {
                 RoundedRectangle(cornerRadius: 12)
                     .stroke(CustomColors.textColor, lineWidth: 1)
             )
+            .opacity(opacity)
+            .onAppear {
+                // Delay the animation by 2 seconds
+                DispatchQueue.main.asyncAfter(deadline: .now() + delay!) {
+                    
+                    withAnimation(.easeInOut(duration: 1.0)) {
+                        opacity = 1.0
+                    }
+                }
+                
+            }
 
         }
         }

@@ -12,11 +12,12 @@ struct EntryView: View {
 
     var body: some View {
         Group {
-            if showLoginScreen {
+            ZStack {
                 LoginView()
-            } else {
-                WelcomeView(showLoginScreen: $showLoginScreen)
+                WelcomeView()
+
             }
+       
         }
     }
 }

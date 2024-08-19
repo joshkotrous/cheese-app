@@ -12,12 +12,13 @@ import Supabase
 
 class Database {
     let supabase: SupabaseClient
-    
     init(){
+        let envDict = Bundle.main.infoDictionary?["LSEnvironment"] as! Dictionary<String, String>
+
         guard
-            let supabaseURLString = ProcessInfo.processInfo.environment["SUPABASE_URL"],
+            let supabaseURLString = envDict["SUPABASE_URL"],
             let supabaseURL = URL(string: supabaseURLString),
-            let supabaseKey = ProcessInfo.processInfo.environment["SUPABASE_ANON_KEY"]
+            let supabaseKey = envDict["SUPABASE_ANON_KEY"]
         else {
             fatalError("Supabase environment variables are not set correctly.")
         }

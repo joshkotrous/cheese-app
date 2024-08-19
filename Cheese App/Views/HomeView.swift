@@ -9,7 +9,7 @@ import SwiftUI
 
 class HomeViewModel: ObservableObject {
     @Published var cheeses: [Cheese] = []
-     
+ 
      func getAllCheeses() async {
          do {
              let fetchedCheeses = try await Database().getAllCheeses()
@@ -34,32 +34,18 @@ struct HomeView: View {
                 ZStack{
                     ScrollView {
                         VStack{
-//                            VStack {
-//                                Text("Trending This Week")
-//                                    .font(.custom("IowanOldStyle-Roman", size: 24))
-//                                    .fontWeight(.bold)
-//                                    .frame(maxWidth: .infinity, alignment: .leading)
-//                                VStack{
-//                        
-//                                    ForEach(viewModel.cheeses.suffix(from: 0).suffix(5)) { cheese in
-//                                        CheeseItem(cheese: cheese)
-//                                    }
-//                                    
-//                                }
-//                            }
                             VStack{
                                 Text("New This Week")
                                     .font(.custom("IowanOldStyle-Roman", size: 24))
                                     .fontWeight(.bold)
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                 VStack{
-                                    ForEach(viewModel.cheeses.suffix(from: 0).suffix(5)) { cheese in
-                                        CheeseItem(cheese: cheese)
+                                    ForEach(Array(viewModel.cheeses.suffix(from: 0).suffix(5).enumerated()), id: \.element.id) { index, cheese in
+                                        let delay = Double(index) * 0.1
+                                        CheeseItem(delay: delay, cheese: cheese)
                                     }
-                                    
                                 }
                             }
-        
                         }
                         .padding()
                     }
@@ -69,11 +55,11 @@ struct HomeView: View {
                 .foregroundColor(CustomColors.textColor)
             }
             .task {
-                    await viewModel.getAllCheeses()
-                }
+                await viewModel.getAllCheeses()
+            }
         }
         .accentColor(CustomColors.textColor)
-        }
+    }
 }
 
 #Preview {

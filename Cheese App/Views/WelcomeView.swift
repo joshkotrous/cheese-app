@@ -1,14 +1,6 @@
-//
-//  WelcomeView.swift
-//  Cheese App
-//
-//  Created by Josh Kotrous on 8/4/24.
-//
-
 import SwiftUI
 
 struct WelcomeView: View {
-    @Binding var showLoginScreen: Bool
     @State private var opacity: Double = 1.0
 
     var body: some View {
@@ -33,18 +25,18 @@ struct WelcomeView: View {
         }
         .opacity(opacity)
         .onAppear {
-            // Set a timer to transition to the main screen after 2 seconds
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                showLoginScreen = true
+            // Delay the animation by 2 seconds
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                withAnimation(.easeInOut(duration: 1.0)) {
+                    opacity = 0.0
+                }
             }
         }
     }
 }
 
 struct WelcomeView_Previews: PreviewProvider {
-    @State static var showLoginScreen = false
-
     static var previews: some View {
-        WelcomeView(showLoginScreen: $showLoginScreen)
+        WelcomeView()
     }
 }

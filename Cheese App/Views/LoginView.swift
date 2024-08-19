@@ -7,8 +7,12 @@
 
 import SwiftUI
 import AuthenticationServices
+import CryptoKit
+import AuthenticationServices
+
 
 struct LoginView: View {
+    let auth = Auth()
     var body: some View {
         NavigationView {
             
@@ -25,10 +29,12 @@ struct LoginView: View {
                         .foregroundColor(CustomColors.textColor)
                         .multilineTextAlignment(.center)
                     SignInWithAppleButton(
-                        onRequest: handleSignInWithApple,
-                        onCompletion: handleSignInWithAppleCompletion
+                        onRequest: auth.startSignInWithAppleFlow,
+                        onCompletion: auth.handleSignInWithAppleCompletion
                     )
                     .frame(width: 200, height: 50)
+                    
+                    
                     Button(action: {}) {
                         HStack {
                             Image(systemName: "globe")
@@ -56,21 +62,8 @@ struct LoginView: View {
         }
     }
 
-    func handleSignInWithApple() {
-            let request = ASAuthorizationAppleIDProvider().createRequest()
-            request.requestedScopes = [.fullName, .email]
 
-            let controller = ASAuthorizationController(authorizationRequests: [request])
-            controller.performRequests()
-        }
 
-        func handleSignInWithAppleCompletion(credential: ASAuthorizationAppleIDCredential) {
-            // You can retrieve the user's Apple ID information here
-            let userIdentifier = credential.user
-            let fullName = credential.fullName
-            let email = credential.email
-
-        }
 }
 
 

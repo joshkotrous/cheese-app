@@ -37,6 +37,8 @@
 		37959DA62C5F5836004E4A02 /* SignInWithAppleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37959DA32C5F5836004E4A02 /* SignInWithAppleButton.swift */; };
 		37959DA82C5F584F004E4A02 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37959DA72C5F584F004E4A02 /* AppView.swift */; };
 		37959DAA2C5F592A004E4A02 /* EntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37959DA92C5F592A004E4A02 /* EntryView.swift */; };
+		37B2F3502C72D7C1006D71B3 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B2F34F2C72D7C1006D71B3 /* Auth.swift */; };
+		37B2F3552C72D99C006D71B3 /* GoTrue in Frameworks */ = {isa = PBXBuildFile; productRef = 37B2F3542C72D99C006D71B3 /* GoTrue */; };
 		37B9B3E82C6726B500CB433E /* CategoryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B9B3E72C6726B500CB433E /* CategoryListView.swift */; };
 		37DFBE1E2C5F33720079A637 /* Cheese-App-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 37DFBE1D2C5F33720079A637 /* Cheese-App-Info.plist */; };
 /* End PBXBuildFile section */
@@ -91,6 +93,8 @@
 		37959DA32C5F5836004E4A02 /* SignInWithAppleButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInWithAppleButton.swift; sourceTree = "<group>"; };
 		37959DA72C5F584F004E4A02 /* AppView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
 		37959DA92C5F592A004E4A02 /* EntryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryView.swift; sourceTree = "<group>"; };
+		37B2F34F2C72D7C1006D71B3 /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
+		37B2F3562C72E3B5006D71B3 /* Cheese App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Cheese App.entitlements"; sourceTree = "<group>"; };
 		37B9B3E72C6726B500CB433E /* CategoryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryListView.swift; sourceTree = "<group>"; };
 		37DFBE1D2C5F33720079A637 /* Cheese-App-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Cheese-App-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -100,6 +104,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				37B2F3552C72D99C006D71B3 /* GoTrue in Frameworks */,
 				374AE4D32C607AB900FB6063 /* Supabase in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -164,6 +169,8 @@
 		3751F0362C5F1289006499C2 /* Cheese App */ = {
 			isa = PBXGroup;
 			children = (
+				37B2F3562C72E3B5006D71B3 /* Cheese App.entitlements */,
+				37B2F34E2C72D7A5006D71B3 /* Auth */,
 				374AE4E62C61E03300FB6063 /* Models */,
 				37959D9C2C5F579B004E4A02 /* Views */,
 				3751F0612C5F13F5006499C2 /* Utilities */,
@@ -241,6 +248,14 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
+		37B2F34E2C72D7A5006D71B3 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				37B2F34F2C72D7C1006D71B3 /* Auth.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -259,6 +274,7 @@
 			name = "Cheese App";
 			packageProductDependencies = (
 				374AE4D22C607AB900FB6063 /* Supabase */,
+				37B2F3542C72D99C006D71B3 /* GoTrue */,
 			);
 			productName = "Cheese App";
 			productReference = 3751F0342C5F1289006499C2 /* Cheese App.app */;
@@ -334,6 +350,7 @@
 			mainGroup = 3751F02B2C5F1289006499C2;
 			packageReferences = (
 				3742A8E32C60794F00705D5E /* XCRemoteSwiftPackageReference "supabase-swift" */,
+				37B2F3532C72D8AA006D71B3 /* XCRemoteSwiftPackageReference "gotrue-swift" */,
 			);
 			productRefGroup = 3751F0352C5F1289006499C2 /* Products */;
 			projectDirPath = "";
@@ -398,6 +415,7 @@
 				37959DA52C5F5836004E4A02 /* Navigation.swift in Sources */,
 				3751F0632C5F1407006499C2 /* CustomColors.swift in Sources */,
 				3751F0382C5F1289006499C2 /* Cheese_AppApp.swift in Sources */,
+				37B2F3502C72D7C1006D71B3 /* Auth.swift in Sources */,
 				374AE4E82C61E04900FB6063 /* Cheese.swift in Sources */,
 				3742A8E02C6054AC00705D5E /* DiscoverView.swift in Sources */,
 				37959DA12C5F5823004E4A02 /* WelcomeView.swift in Sources */,
@@ -559,6 +577,8 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				SUPABASE_ANON_KEY = "";
+				SUPABASE_URL = "https:/$()/kdbdsvrqhkmsgsgildrt.supabase.co";
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -566,16 +586,18 @@
 		};
 		3751F0592C5F128A006499C2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 374AE4D62C6182DB00FB6063 /* debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Cheese App/Cheese App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Cheese App/Preview Content\"";
 				DEVELOPMENT_TEAM = 4QQWV97LL7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "";
+				INFOPLIST_FILE = "Cheese-App-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -599,13 +621,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Cheese App/Cheese App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Cheese App/Preview Content\"";
 				DEVELOPMENT_TEAM = 4QQWV97LL7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "";
+				INFOPLIST_FILE = "Cheese-App-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -751,6 +774,14 @@
 				minimumVersion = 2.5.1;
 			};
 		};
+		37B2F3532C72D8AA006D71B3 /* XCRemoteSwiftPackageReference "gotrue-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/supabase-community/gotrue-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.3.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -758,6 +789,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3742A8E32C60794F00705D5E /* XCRemoteSwiftPackageReference "supabase-swift" */;
 			productName = Supabase;
+		};
+		37B2F3542C72D99C006D71B3 /* GoTrue */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 37B2F3532C72D8AA006D71B3 /* XCRemoteSwiftPackageReference "gotrue-swift" */;
+			productName = GoTrue;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

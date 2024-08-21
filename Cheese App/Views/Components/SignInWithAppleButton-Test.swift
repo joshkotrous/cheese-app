@@ -1,7 +1,7 @@
 import SwiftUI
 import AuthenticationServices
 
-struct SignInWithAppleButton: UIViewRepresentable {
+struct SignInWithAppleButtonTest: UIViewRepresentable {
     var onRequest: () -> Void
     var onCompletion: (ASAuthorizationAppleIDCredential) -> Void
 

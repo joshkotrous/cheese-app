@@ -22,8 +22,6 @@ class Database {
         else {
             fatalError("Supabase environment variables are not set correctly.")
         }
-        print(supabaseURL)
-        print(supabaseKey)
         supabase = SupabaseClient(
             supabaseURL: supabaseURL,
             supabaseKey: supabaseKey

@@ -34,7 +34,7 @@ struct CategoryListView: View {
     }
 
     var body: some View {
-        NavigationView{
+        NavigationStack{
             ZStack{
                 Text("Hello, World!")
                 List(viewModel.cheeses) { cheese in

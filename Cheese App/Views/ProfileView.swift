@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ProfileView: View {
+    @AppStorage("accessToken") var accessToken: String?
+
     var body: some View {
         ZStack{
             CustomColors.background
@@ -16,6 +18,10 @@ struct ProfileView: View {
                 Text("Profile")
                     .font(.custom("IowanOldStyle-Roman", size: 28))
                     .frame(maxWidth: .infinity, alignment: .leading)
+                
+                if (accessToken != "" && accessToken != nil) {
+                }
+                
                 HStack{
                     Image("AiOutlineUser")
                     Spacer()

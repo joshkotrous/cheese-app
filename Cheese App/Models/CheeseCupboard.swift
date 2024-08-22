@@ -11,9 +11,5 @@ struct CheeseCupboard: Codable, Identifiable {
     var id: String?
     var cheese_id: String?
     var cupboard_id: String?
-//    var cheese: Cheese?
-//
-//    enum CodingKeys: String, CodingKey {
-//      case cheese
-//    }
+
 }

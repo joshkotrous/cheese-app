@@ -33,7 +33,7 @@ struct CupboardListView: View {
         NavigationStack {
             ZStack {
                 CustomColors.background.edgesIgnoringSafeArea(.all)
-
+//                CheeseList(cheeses: viewModel.cheeses)
                 List(viewModel.cheeses) { cupboardCheese in
                     if let cheese = cupboardCheese.cheese {
                         NavigationLink(destination: CheeseDetailView(cheese: cheese)) {

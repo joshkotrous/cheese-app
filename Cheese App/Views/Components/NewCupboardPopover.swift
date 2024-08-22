@@ -25,7 +25,7 @@ struct NewCupboardPopover: View {
                     .font(.custom("IowanOldStyle-Roman", size: 18))
                 Button(action: {
                     Task {
-                        if (profileId != nil && (newCupboardInput != nil || newCupboardInput != "")) {
+                        if (profileId != nil && newCupboardInput != "") {
                              await Database().createNewCupboard(profileId: profileId!, cupboardName: newCupboardInput)
                             showCupboardPopover = false
                         }

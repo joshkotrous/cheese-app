@@ -11,26 +11,19 @@ class SearchViewModel: ObservableObject {
     @Published var categories: [Category] = []
     @Published var gateways: [Gateway] = []
     func getAllCategories() async {
-        do {
-            let fetchedCategories = try await Database().getAllCategories()
+            let fetchedCategories =  await Database().getAllCategories()
             DispatchQueue.main.async {
                 self.categories = fetchedCategories
             }
-        } catch {
-            print("Error fetching categories: \(error)")
-        }
+     
     }
     
     func getAllGateways() async {
-        do {
-            let fetchedGateways = try await Database().getAllGateways()
+            let fetchedGateways =  await Database().getAllGateways()
             DispatchQueue.main.async{
                 self.gateways = fetchedGateways
             }
-        }
-        catch {
-            print("Error getting gateways: \(error)")
-        }
+
     }
 }
 
@@ -48,7 +41,7 @@ struct SearchView: View {
                     CustomColors.background
                         .edgesIgnoringSafeArea(.all)
                     
-                    var columns: [GridItem] = [
+                    let columns: [GridItem] = [
                         GridItem(.fixed(110)),
                         GridItem(.fixed(110)),
                         GridItem(.fixed(110))

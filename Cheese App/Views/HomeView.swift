@@ -11,14 +11,11 @@ class HomeViewModel: ObservableObject {
     @Published var cheeses: [Cheese] = []
  
      func getAllCheeses() async {
-         do {
-             let fetchedCheeses = try await Database().getAllCheeses()
+             let fetchedCheeses = await Database().getAllCheeses()
              DispatchQueue.main.async {
                  self.cheeses = fetchedCheeses
              }
-         } catch {
-             print("Error fetching cheeses: \(error)")
-         }
+     
      }
 }
 

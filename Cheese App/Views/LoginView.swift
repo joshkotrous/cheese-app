@@ -128,8 +128,8 @@ struct LoginView: View {
                 }
                 let email = appleIDCredential.email
                 let fullName = appleIDCredential.fullName
-                print(email)
-                print(fullName?.givenName, fullName?.familyName)
+                print(email ?? "email missing")
+                print(fullName!.givenName ??  "given name missing", fullName!.familyName ?? "family name missing")
                 signInWithSupabase(idToken: idTokenString, nonce: nonce)
             }
         case .failure(let error):

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Cheese: Decodable, Identifiable {
+struct Cheese: Codable, Identifiable {
     let id: String?
     let name: String?
     let category: String?
@@ -17,6 +17,7 @@ struct Cheese: Decodable, Identifiable {
     let allergens: String?
     let ingredients: String?
     let additionalFacts: String?
+
 }
 
 

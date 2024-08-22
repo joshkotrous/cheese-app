@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Cupboard: Codable, Identifiable {
+struct Cupboard: Codable, Identifiable, Hashable {
     var id: String?
     var name: String?
     var profile_id: String?

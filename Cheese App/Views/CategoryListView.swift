@@ -15,15 +15,12 @@ class CategoryListViewModel: ObservableObject {
         self.category = category
     }
     func getCheesesForCategory(category: String) async {
-        do {
-            let fetchedCheeses = try await Database().getCheesesByCategory(category: category)
+            let fetchedCheeses =  await Database().getCheesesByCategory(category: category)
             DispatchQueue.main.async {
                 self.cheeses = fetchedCheeses
             }
             print(fetchedCheeses)
-        } catch {
-            print("Error fetching cheeses for \(category): \(error)")
-        }
+
     }
 }
 

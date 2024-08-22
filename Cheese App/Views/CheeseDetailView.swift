@@ -20,11 +20,11 @@ struct CheeseDetailView: View {
                 .ignoresSafeArea(.all)
             ScrollView{
                 VStack(alignment: .leading) {
-                    Text(cheese.name!)
+                    Text(cheese.name ?? "")
                         .font(.custom("IowanOldStyle-Roman", size: 32))
                         .fontWeight(.bold)
                         .padding(.bottom, 8)
-                    Text(cheese.category!)
+                    Text(cheese.category ?? "")
                         .font(.custom("IowanOldStyle-Roman", size: 24))
                         .fontWeight(.semibold)
                         .padding(.bottom, 8)
@@ -64,7 +64,7 @@ struct CheeseDetailView: View {
                             .cornerRadius(16.0)
                     }).menuStyle(.button)
                     
-                    Text(cheese.description!)
+                    Text(cheese.description ?? "")
                         .font(.custom("IowanOldStyle-Roman", size: 20))
                     Spacer()
                 }

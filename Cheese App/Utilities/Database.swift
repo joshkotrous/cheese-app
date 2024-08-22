@@ -122,11 +122,37 @@ class Database {
         var cheeseCupboard = CheeseCupboard()
         cheeseCupboard.cheese_id = cheeseId
         cheeseCupboard.cupboard_id = cupboardId
+        print(cheeseCupboard)
         do {
             try await supabase.from("cupboard_cheese").insert(cheeseCupboard).execute().value
         } catch {
             print(error)
         }
+    }
+    
+    func deleteCupboard(cupboardId: String) async -> Void {
+        do {
+            try await supabase.from("cupboard").delete().eq("id", value: cupboardId).execute().value
+        } catch {
+            print(error)
+        }
+    }
+    
+    func getCheesesForCupboard(cupboardId: String) async -> [CupboardCheeseList] {
+        let query = 
+        """
+            id,
+            cheese ( * )
+        """
+        var result: [CupboardCheeseList] = []
+        do {
+            result = try await supabase.from("cupboard_cheese").select(query).eq("cupboard_id", value: cupboardId).execute().value
+            print(result.count)
+            print(result)
+        } catch {
+            print(error)
+        }
+        return result
     }
 
 }

@@ -9,7 +9,10 @@ import SwiftUI
 
 struct ProfileView: View {
     @AppStorage("accessToken") var accessToken: String?
-
+    @AppStorage("userId") var userId: String?
+    @AppStorage("profileId") var profileId: String?
+    @State var profile: Profile?
+    
     var body: some View {
         ZStack{
             CustomColors.background
@@ -44,6 +47,7 @@ struct ProfileView: View {
                         Text("Following")
                     }
                 }
+                Text(profile?.bio ?? "").frame(maxWidth: .infinity, alignment: .leading)
                 Button(action: {}){
                     Text("Edit Profile")
                         .padding()
@@ -56,7 +60,13 @@ struct ProfileView: View {
             }
             .padding()
         }
-        .foregroundColor(CustomColors.textColor)  }
+        .foregroundColor(CustomColors.textColor)
+        .task {
+            if (userId != nil){
+                profile = await Database().getUserProfile(userId: userId!)
+            }
+        }
+    }
 }
 
 #Preview {

@@ -31,6 +31,10 @@
 		3751F0552C5F128A006499C2 /* Cheese_AppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751F0542C5F128A006499C2 /* Cheese_AppUITestsLaunchTests.swift */; };
 		3751F0632C5F1407006499C2 /* CustomColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751F0622C5F1407006499C2 /* CustomColors.swift */; };
 		3751F06A2C5F28FB006499C2 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 3751F0692C5F28FB006499C2 /* .gitignore */; };
+		376F52CC2C76DB0700BC1F27 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 376F52CB2C76DB0700BC1F27 /* Profile.swift */; };
+		376F52CE2C76E90800BC1F27 /* Cupboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 376F52CD2C76E90800BC1F27 /* Cupboard.swift */; };
+		376F52D12C76F52100BC1F27 /* AppStoragePropertyWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 376F52D02C76F52100BC1F27 /* AppStoragePropertyWrapper.swift */; };
+		376F52D32C76FD4C00BC1F27 /* CheeseCupboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 376F52D22C76FD4C00BC1F27 /* CheeseCupboard.swift */; };
 		37959DA02C5F5823004E4A02 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37959D9E2C5F5823004E4A02 /* LoginView.swift */; };
 		37959DA12C5F5823004E4A02 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37959D9F2C5F5823004E4A02 /* WelcomeView.swift */; };
 		37959DA52C5F5836004E4A02 /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37959DA22C5F5836004E4A02 /* Navigation.swift */; };
@@ -87,6 +91,10 @@
 		3751F0542C5F128A006499C2 /* Cheese_AppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cheese_AppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		3751F0622C5F1407006499C2 /* CustomColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomColors.swift; sourceTree = "<group>"; };
 		3751F0692C5F28FB006499C2 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		376F52CB2C76DB0700BC1F27 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		376F52CD2C76E90800BC1F27 /* Cupboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cupboard.swift; sourceTree = "<group>"; };
+		376F52D02C76F52100BC1F27 /* AppStoragePropertyWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoragePropertyWrapper.swift; sourceTree = "<group>"; };
+		376F52D22C76FD4C00BC1F27 /* CheeseCupboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheeseCupboard.swift; sourceTree = "<group>"; };
 		37959D9E2C5F5823004E4A02 /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		37959D9F2C5F5823004E4A02 /* WelcomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		37959DA22C5F5836004E4A02 /* Navigation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
@@ -137,6 +145,9 @@
 			isa = PBXGroup;
 			children = (
 				374AE4E72C61E04900FB6063 /* Cheese.swift */,
+				376F52CB2C76DB0700BC1F27 /* Profile.swift */,
+				376F52CD2C76E90800BC1F27 /* Cupboard.swift */,
+				376F52D22C76FD4C00BC1F27 /* CheeseCupboard.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -169,6 +180,7 @@
 		3751F0362C5F1289006499C2 /* Cheese App */ = {
 			isa = PBXGroup;
 			children = (
+				376F52CF2C76F51200BC1F27 /* Wrappers */,
 				37B2F3562C72E3B5006D71B3 /* Cheese App.entitlements */,
 				37B2F34E2C72D7A5006D71B3 /* Auth */,
 				374AE4E62C61E03300FB6063 /* Models */,
@@ -214,6 +226,14 @@
 				3742A8E42C60797300705D5E /* Database.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		376F52CF2C76F51200BC1F27 /* Wrappers */ = {
+			isa = PBXGroup;
+			children = (
+				376F52D02C76F52100BC1F27 /* AppStoragePropertyWrapper.swift */,
+			);
+			path = Wrappers;
 			sourceTree = "<group>";
 		};
 		37959D9C2C5F579B004E4A02 /* Views */ = {
@@ -401,6 +421,7 @@
 				3742A8DE2C60547F00705D5E /* ProfileView.swift in Sources */,
 				374AE4E12C61A6FE00FB6063 /* NewCheesePopover.swift in Sources */,
 				3742A8D62C6053ED00705D5E /* HomeView.swift in Sources */,
+				376F52CC2C76DB0700BC1F27 /* Profile.swift in Sources */,
 				3742A8D82C60546700705D5E /* MyCheesesView.swift in Sources */,
 				3742A8E52C60797300705D5E /* Database.swift in Sources */,
 				374AE4E32C61C76600FB6063 /* CheeseItem.swift in Sources */,
@@ -409,11 +430,14 @@
 				37959DA02C5F5823004E4A02 /* LoginView.swift in Sources */,
 				37959DA82C5F584F004E4A02 /* AppView.swift in Sources */,
 				374AE4DD2C61A67A00FB6063 /* NewCupboardPopover.swift in Sources */,
+				376F52D32C76FD4C00BC1F27 /* CheeseCupboard.swift in Sources */,
 				37960E862C75B53F00A53973 /* TestView.swift in Sources */,
 				37B9B3E82C6726B500CB433E /* CategoryListView.swift in Sources */,
+				376F52D12C76F52100BC1F27 /* AppStoragePropertyWrapper.swift in Sources */,
 				3742A8E22C605EDD00705D5E /* SearchBar.swift in Sources */,
 				37959DA52C5F5836004E4A02 /* Navigation.swift in Sources */,
 				3751F0632C5F1407006499C2 /* CustomColors.swift in Sources */,
+				376F52CE2C76E90800BC1F27 /* Cupboard.swift in Sources */,
 				3751F0382C5F1289006499C2 /* Cheese_AppApp.swift in Sources */,
 				37B2F3502C72D7C1006D71B3 /* Auth.swift in Sources */,
 				374AE4E82C61E04900FB6063 /* Cheese.swift in Sources */,

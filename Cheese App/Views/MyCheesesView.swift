@@ -11,8 +11,11 @@ struct MyCheesesView: View {
     @State public var showCupboardPopover = false
     @State public var showCheesePopover = false
     @State private var newCupboardInput: String = ""
-
-
+    @AppStorage("accessToken") var accessToken: String?
+    @AppStorage("userId") var userId: String?
+    @AppStorage("profileId") var profileId: String?
+    @State private var cupboards: [Cupboard]?
+    
     var body: some View {
         VStack(spacing: 0){
             ZStack{
@@ -24,51 +27,38 @@ struct MyCheesesView: View {
                         
                     }
                     .font(.custom("IowanOldStyle-Roman", size: 24))
+                    .task {
+                        if(profileId != nil){
+                            cupboards = await Database().getUserCupboards(profileId: profileId!)
+                            
+                        }
+                    }
                     ScrollView{
-                        VStack{
-                            VStack{
-                                Text("Cupboard 1")
-                                    .font(.custom("IowanOldStyle-Roman", size: 24))
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-
-                                Text("0 Cheeses")
-                                    .font(.custom("IowanOldStyle-Roman", size: 16))
-
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-
+                        if (cupboards != nil)
+                        {
+                            ForEach(cupboards!) { cupboard in
+                                VStack {
+                                    VStack {
+                                        Text(cupboard.name!)
+                                            .font(.custom("IowanOldStyle-Roman", size: 24))
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                        
+                                        
+                                    }
+                                }
+                                .padding()
+                                .overlay(
+                                    VStack {
+                                        Spacer()
+                                        Rectangle()
+                                            .frame(height: 1)
+                                            .foregroundColor(CustomColors.textColor)
+                                    }
+                                )
                             }
                         }
-                        .padding()
-                        .overlay(
-                                VStack {
-                                    Spacer()
-                                    Rectangle()
-                                        .frame(height: 1)
-                                        .foregroundColor(CustomColors.textColor)
-                                }
-                            )
-                        VStack{
-                            VStack{
-                                Text("Cupboard 2")
-                                    .font(.custom("IowanOldStyle-Roman", size: 24))
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-
-                                Text("0 Cheeses")
-                                    .font(.custom("IowanOldStyle-Roman", size: 16))
-
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-
-                            }
-                        }
-                        .padding()
-                        .overlay(
-                                VStack {
-                                    Spacer()
-                                    Rectangle()
-                                        .frame(height: 1)
-                                        .foregroundColor(CustomColors.textColor)
-                                }
-                            )
+                        
+                        
                     }
                     
                     HStack{
@@ -83,7 +73,7 @@ struct MyCheesesView: View {
                                 .foregroundColor(CustomColors.textColor)
                                 .cornerRadius(100)
                         }
-                   
+                        
                         Button(action: {
                             showCheesePopover = true
                             print("Button tapped!")
@@ -99,22 +89,23 @@ struct MyCheesesView: View {
                     .frame(maxWidth: .infinity, alignment: .center)
                     .padding(.leading)
                     .padding(.bottom)
-                 
+                    
                     Spacer()
                 }
                 .frame(maxWidth: .infinity)
-
+                
             }
             .foregroundColor(CustomColors.textColor)
         }
         .popover(isPresented: $showCupboardPopover) {
-           NewCupboardPopover()
-     
+            NewCupboardPopover(showCupboardPopover: $showCupboardPopover)
+            
         }
         .popover(isPresented: $showCheesePopover) {
             NewCheesePopover()
         }
     }
+    
 }
 
 #Preview {

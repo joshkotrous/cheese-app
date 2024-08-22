@@ -55,6 +55,7 @@ struct CategoryListView: View {
                 .scrollContentBackground(.hidden)
             }
         }
+        .tint(Color(CustomColors.tan2))
         .task {
             await viewModel.getCheesesForCategory(category: viewModel.category)
         }

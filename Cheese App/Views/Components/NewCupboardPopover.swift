@@ -8,7 +8,10 @@
 import SwiftUI
 
 struct NewCupboardPopover: View {
+    @Binding var showCupboardPopover: Bool
     @State private var newCupboardInput: String = ""
+    @AppStorage("profileId") var profileId: String?
+
     var body: some View {
         ZStack{
             CustomColors.background
@@ -20,7 +23,16 @@ struct NewCupboardPopover: View {
                 TextField("", text: $newCupboardInput, prompt: Text("Cupboard name").foregroundColor(CustomColors.textColor).font(.custom("IowanOldStyle-Roman", size: 18)))
                     .foregroundColor(CustomColors.textColor)
                     .font(.custom("IowanOldStyle-Roman", size: 18))
-                Button(action: {}) {
+                Button(action: {
+                    Task {
+                        if (profileId != nil && (newCupboardInput != nil || newCupboardInput != "")) {
+                             await Database().createNewCupboard(profileId: profileId!, cupboardName: newCupboardInput)
+                            showCupboardPopover = false
+                        }
+                    }
+             
+            
+                }) {
                     Text("Add")
                         .frame(maxWidth: .infinity)
                         .font(.custom("IowanOldStyle-Roman", size: 18))
@@ -41,5 +53,5 @@ struct NewCupboardPopover: View {
 }
 
 #Preview {
-    NewCupboardPopover()
+    MyCheesesView()
 }

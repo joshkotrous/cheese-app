@@ -64,12 +64,12 @@ struct SearchView: View {
                                 LazyVGrid(columns: columns, spacing: 20) {
                                     ForEach(viewModel.categories) { category in
                                         NavigationLink(destination: CategoryListView(category: category.category)){
-                                                Text(category.category).font(.custom("", size: 16))
-                                                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                                                    .padding()
-                                                
+                                            Text(category.category).font(.custom("", size: 16))
+                                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                                .padding()
                                             
-
+                                            
+                                            
                                         }
                                         .background(CustomColors.tan1)
                                         .frame(width: 110, height: 110)
@@ -78,7 +78,7 @@ struct SearchView: View {
                                                 .stroke(CustomColors.textColor, lineWidth: 2)
                                         )
                                         .cornerRadius(12)
-                              
+                                        
                                         
                                     }
                                 }
@@ -96,12 +96,12 @@ struct SearchView: View {
                                 LazyVGrid(columns: columns, spacing: 20) {
                                     ForEach(viewModel.gateways) { gateway in
                                         NavigationLink(destination: CategoryListView(category: gateway.gateway)){
-                                                Text(gateway.gateway).font(.custom("", size: 16))
-                                                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                                                    .padding()
-                                                
+                                            Text(gateway.gateway).font(.custom("", size: 16))
+                                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                                .padding()
                                             
-
+                                            
+                                            
                                         }
                                         .background(CustomColors.tan1)
                                         .frame(width: 110, height: 110)
@@ -130,8 +130,10 @@ struct SearchView: View {
                 await viewModel.getAllGateways()
             }
         }
-        }
-      
+        .tint(Color(CustomColors.tan2))
+    }
+
+    
 }
 
 #Preview {

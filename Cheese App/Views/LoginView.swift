@@ -8,12 +8,15 @@
 import SwiftUI
 import AuthenticationServices
 import CryptoKit
+import Supabase
 
 
 struct LoginView: View {
     @State private var currentNonce: String?
     @AppStorage("accessToken") var accessToken: String?
-
+    @AppStorage("userId") var userId: String?
+    @AppStorage("profileId") var profileId: String?
+    
     @State var isSignedIn = false
     init(){
         if let token = accessToken, !token.isEmpty {
@@ -34,19 +37,6 @@ struct LoginView: View {
                         .fontWeight(.bold)
                         .foregroundColor(CustomColors.textColor)
                         .multilineTextAlignment(.center)
-                    Button(action: {}) {
-                        HStack {
-                            Image(systemName: "globe")
-                                .imageScale(.large)
-                                .foregroundColor(.black)
-                            Text("Sign in with Google")
-                                .foregroundColor(.black)
-                        }
-                        .frame(width: 200, height: 50)
-                        .background(Color.white)
-                        .cornerRadius(8)
-                        .padding()
-                    }
                     
                     SignInWithAppleButton(
                         onRequest: { request in
@@ -57,10 +47,11 @@ struct LoginView: View {
                         }
                     )
                     .frame(width: 280, height: 45)
+                    .padding()
                     
                     NavigationLink(destination: AppView(), isActive: $isSignedIn) {
-                                 EmptyView()
-                             }
+                        EmptyView()
+                    }
                     
                     NavigationLink(destination: AppView()) {
                         Text("Skip Login")
@@ -74,16 +65,36 @@ struct LoginView: View {
                 .padding()
             }
         }
+        .tint(Color(CustomColors.tan2))
+
     }
     
     func signInWithSupabase(idToken: String, nonce: String) {
-
+        
         Task {
             do {
-                let result = try await Database().supabase.auth.signInWithIdToken(
+                let session = try await Database().supabase.auth.signInWithIdToken(
                     credentials: .init(provider: .apple, idToken: idToken, nonce: nonce))
-                accessToken = result.accessToken
-                print(result.accessToken)
+                accessToken = session.accessToken
+                //                if (session.user.email != email) {
+                //                    var userAttributes = UserAttributes()
+                //                    userAttributes.email = email
+                //                    do {
+                //                        try await Database().supabase.auth.update(user: userAttributes)
+                //
+                //                    } catch {
+                //                        print(error)
+                //                    }
+                //
+                //                }
+                userId = session.user.id.uuidString
+                if(userId != nil){
+                    var profile = await Database().getUserProfile(userId: userId!)
+                    if(profile == nil){
+                        profile = await Database().createUserProfile(userId: userId!)
+                    }
+                    profileId = profile?.id
+                }
                 isSignedIn = true
             } catch {
                 print(error)
@@ -115,7 +126,10 @@ struct LoginView: View {
                     print("Unable to serialize token string from data: \(appleIDToken.debugDescription)")
                     return
                 }
-                
+                let email = appleIDCredential.email
+                let fullName = appleIDCredential.fullName
+                print(email)
+                print(fullName?.givenName, fullName?.familyName)
                 signInWithSupabase(idToken: idTokenString, nonce: nonce)
             }
         case .failure(let error):

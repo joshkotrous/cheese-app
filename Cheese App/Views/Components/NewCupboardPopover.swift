@@ -11,7 +11,7 @@ struct NewCupboardPopover: View {
     @Binding var showCupboardPopover: Bool
     @State private var newCupboardInput: String = ""
     @AppStorage("profileId") var profileId: String?
-
+    @Binding var cupboards: [Cupboard]?
     var body: some View {
         ZStack{
             CustomColors.background
@@ -26,9 +26,10 @@ struct NewCupboardPopover: View {
                 Button(action: {
                     Task {
                         if (profileId != nil && newCupboardInput != "") {
-                             await Database().createNewCupboard(profileId: profileId!, cupboardName: newCupboardInput)
+                             await Database().createNewCupboard(profileId: profileId ?? "", cupboardName: newCupboardInput)
                             showCupboardPopover = false
                         }
+                        cupboards = await Database().getUserCupboards(profileId: profileId ?? "")
                     }
              
             

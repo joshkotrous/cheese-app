@@ -7,8 +7,10 @@
 
 import Foundation
 
-struct Profile: Codable {
+struct Profile: Codable, Identifiable {
     var user_id: String
     var id: String?
     var bio: String?
+    var username: String?
+
 }

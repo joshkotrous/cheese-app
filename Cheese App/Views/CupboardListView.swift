@@ -31,8 +31,7 @@ struct CupboardListView: View {
 
     var body: some View {
         NavigationStack {
-            ZStack {
-                CustomColors.background.edgesIgnoringSafeArea(.all)
+
 //                CheeseList(cheeses: viewModel.cheeses)
                 List(viewModel.cheeses) { cupboardCheese in
                     if let cheese = cupboardCheese.cheese {
@@ -47,13 +46,14 @@ struct CupboardListView: View {
                             }
                             .padding(.vertical, 5)
                         }
-                        .listRowBackground(CustomColors.tan1)
+                        .listRowBackground(CustomColors.background)
                     }
                 }
                 .background(CustomColors.background)
                 .scrollContentBackground(.hidden)
+                .listStyle(PlainListStyle())
             }
-        }
+        
 
         .tint(Color(CustomColors.tan2))
         .task {

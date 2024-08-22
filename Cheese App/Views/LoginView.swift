@@ -66,41 +66,9 @@ struct LoginView: View {
             }
         }
         .tint(Color(CustomColors.tan2))
-
+        
     }
     
-    func signInWithSupabase(idToken: String, nonce: String) {
-        
-        Task {
-            do {
-                let session = try await Database().supabase.auth.signInWithIdToken(
-                    credentials: .init(provider: .apple, idToken: idToken, nonce: nonce))
-                accessToken = session.accessToken
-                //                if (session.user.email != email) {
-                //                    var userAttributes = UserAttributes()
-                //                    userAttributes.email = email
-                //                    do {
-                //                        try await Database().supabase.auth.update(user: userAttributes)
-                //
-                //                    } catch {
-                //                        print(error)
-                //                    }
-                //
-                //                }
-                userId = session.user.id.uuidString
-                if(userId != nil){
-                    var profile = await Database().getUserProfile(userId: userId!)
-                    if(profile == nil){
-                        profile = await Database().createUserProfile(userId: userId!)
-                    }
-                    profileId = profile?.id
-                }
-                isSignedIn = true
-            } catch {
-                print(error)
-            }
-        }
-    }
     
     func handleOnRequest(request: ASAuthorizationAppleIDRequest) -> String {
         print("handling request")
@@ -130,7 +98,9 @@ struct LoginView: View {
                 let fullName = appleIDCredential.fullName
                 print(email ?? "email missing")
                 print(fullName!.givenName ??  "given name missing", fullName!.familyName ?? "family name missing")
-                signInWithSupabase(idToken: idTokenString, nonce: nonce)
+                Task {
+                    await Database().signInWithSupabase(idToken: idTokenString, nonce: nonce)
+                }
             }
         case .failure(let error):
             print("Authorization failed: \(error.localizedDescription)")

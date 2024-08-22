@@ -32,25 +32,42 @@ struct MyCheesesView: View {
                         }
                         .font(.custom("IowanOldStyle-Roman", size: 24))
                         
-                        if (cupboards != nil)
-                        {
+                       
                             
                             List{
                                 Section{
-                                    ForEach(cupboards!) { cupboard in
-                                        NavigationLink(destination: CupboardListView(cupboardId: cupboard.id!)){
-                                            Text(cupboard.name ?? "")
-                                                .font(.custom("IowanOldStyle-Roman", size: 24))
-                                                .frame(maxWidth: .infinity, alignment: .leading)
-                                                .fontWeight(.bold)
-                                            
-                                            
-                                            
-                                            
-                                            
-                                        }
+                                    ForEach(cupboards ?? []) { cupboard in
+                                        if(cupboard.name != "Created By Me") {
+                                            NavigationLink(destination: CupboardListView(cupboardId: cupboard.id!)){
+                                                Text(cupboard.name ?? "")
+                                                    .font(.custom("IowanOldStyle-Roman", size: 24))
+                                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                                    .fontWeight(.bold)
+                                                
+                                                
                                         
-                                        .padding()
+                                                
+                                                
+                                            }
+                                            
+                                            .padding()
+                                        } else {
+                                            NavigationLink(destination: CupboardListView(cupboardId: cupboard.id!)){
+                                                Text(cupboard.name ?? "")
+                                                    .font(.custom("IowanOldStyle-Roman", size: 24))
+                                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                                    .fontWeight(.bold)
+                                                
+                                                
+                                        
+                                                
+                                                
+                                            }
+                                            
+                                            .padding()
+                                            .deleteDisabled(true)
+                                        }
+                              
                                     }
                                     
                                     .onDelete(perform: { indexSet in
@@ -74,7 +91,7 @@ struct MyCheesesView: View {
                             }
                             .scrollContentBackground(.hidden)
                             .listStyle(PlainListStyle())
-                        }
+                        
                         Spacer()
                         HStack{
                             Button(action: {
@@ -112,7 +129,7 @@ struct MyCheesesView: View {
                 .foregroundColor(CustomColors.textColor)
             }
             .popover(isPresented: $showCupboardPopover) {
-                NewCupboardPopover(showCupboardPopover: $showCupboardPopover)
+                NewCupboardPopover(showCupboardPopover: $showCupboardPopover, cupboards: $cupboards)
                 
             }
             .popover(isPresented: $showCheesePopover) {

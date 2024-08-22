@@ -154,6 +154,76 @@ class Database {
         }
         return result
     }
+    
+    func updateProfile(profileId: String, bio: String, username: String) async -> Void {
+        do {
+            try await supabase.from("profile").update(["bio": bio,"username": username]).eq("id", value: profileId).execute().value
+        } catch {
+            print(error)
+        }
+    }
+    
+    func signOut() async -> Void{
+        do {
+            try await supabase.auth.signOut()
+            clearAppStorage()
+        } catch {
+            print(error)
+        }
+    }
+    
+    func deleteUser() async -> Void {
+        do {
+            let userId = UserDefaults.standard.string(forKey: "userId")
+            if (userId != nil){
+                try await supabase.auth.admin.deleteUser(id: userId!)
+            }
+            await signOut()
+        } catch {
+            print(error)
+        }
+    }
+    
+    func clearAppStorage() -> Void {
+        UserDefaults.standard.removeObject(forKey: "userId")
+        UserDefaults.standard.removeObject(forKey: "accessToken")
+        UserDefaults.standard.removeObject(forKey: "profileId")
+    }
+    
+    func signInWithSupabase(idToken: String, nonce: String) async -> Void {
+            do {
+                let session = try await Database().supabase.auth.signInWithIdToken(
+                    credentials: .init(provider: .apple, idToken: idToken, nonce: nonce))
+                let userId = session.user.id.uuidString
+                UserDefaults.standard.set(session.accessToken, forKey: "accessToken")
+                UserDefaults.standard.set(userId, forKey: "userId")
+                if(userId != ""){
+                    var profile = await getUserProfile(userId: userId)
+                    if(profile == nil){
+                        profile = await handleFirstTimeSignUp(userId: userId)
+                    }
+                }
+                UserDefaults.standard.set(true, forKey: "isSignedIn")
+            } catch {
+                print(error)
+            }
+        }
+    
+    func handleFirstTimeSignUp(userId: String) async -> Profile? {
+            let profile = await createUserProfile(userId: userId)
+            if (profile?.id != nil){
+                await createCreatedByMeCupboard(profileId: profile?.id ?? "")
+                UserDefaults.standard.set(profile?.id, forKey: "profileId")
+            }
+        
+        return profile
+    }
+    
+    func createCreatedByMeCupboard(profileId: String) async -> Void {
+        await createNewCupboard(profileId: profileId, cupboardName: "Created By Me")
+
+    }
+    
 
 }
 

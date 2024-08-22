@@ -32,8 +32,6 @@ struct CategoryListView: View {
 
     var body: some View {
         NavigationStack{
-            ZStack{
-                Text("Hello, World!")
                 List(viewModel.cheeses) { cheese in
                     NavigationLink(destination: CheeseDetailView(cheese: cheese)){
                         VStack(alignment: .leading) {
@@ -46,11 +44,12 @@ struct CategoryListView: View {
                         }
                         .padding(.vertical, 5)
                     }
-                    .listRowBackground(CustomColors.tan1)
+                    .listRowBackground(CustomColors.background)
                 }
                 .background(CustomColors.background)
                 .scrollContentBackground(.hidden)
-            }
+                .listStyle(PlainListStyle())
+            
         }
         .tint(Color(CustomColors.tan2))
         .task {

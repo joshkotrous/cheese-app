@@ -60,9 +60,6 @@ struct SearchView: View {
                                             Text(category.category).font(.custom("", size: 16))
                                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                                                 .padding()
-                                            
-                                            
-                                            
                                         }
                                         .background(CustomColors.tan1)
                                         .frame(width: 110, height: 110)

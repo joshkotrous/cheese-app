@@ -56,7 +56,7 @@ struct AppView: View {
                 .tag(Tab.home)
             
             
-            MyCheesesView()
+            MyCheesesView(selectedTab: $selectedTab)
                 .tabItem {
                     if(selectedTab == Tab.mycheeses){
                         Image("PiCheeseLightDark")

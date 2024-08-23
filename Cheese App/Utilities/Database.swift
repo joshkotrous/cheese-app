@@ -239,6 +239,14 @@ class Database {
    
     }
     
+    func deleteCupboardCheese(cupboardCheeseId: String) async -> Void {
+        do {
+            try await supabase.from("cupboard_cheese").delete().eq("id", value: cupboardCheeseId).execute().value
+        } catch {
+            print(error)
+        }
+    }
+    
 
 }
 

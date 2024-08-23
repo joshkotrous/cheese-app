@@ -14,7 +14,8 @@ struct MyCheesesView: View {
     @AppStorage("accessToken") var accessToken: String?
     @AppStorage("userId") var userId: String?
     @AppStorage("profileId") var profileId: String?
-    @State private var cupboards: [Cupboard]? 
+    @State private var cupboards: [Cupboard]?
+    @Binding var selectedTab: Tab
     
     var body: some View {
         NavigationStack {
@@ -31,65 +32,51 @@ struct MyCheesesView: View {
                         }
                         .font(.custom("IowanOldStyle-Roman", size: 24))
                         
-                       
-                            
-                            List{
-                                Section{
-                                    ForEach(cupboards ?? []) { cupboard in
-                                        if(cupboard.name != "Created By Me") {
-                                            NavigationLink(destination: CupboardListView(cupboardId: cupboard.id!)){
-                                                Text(cupboard.name ?? "")
-                                                    .font(.custom("IowanOldStyle-Roman", size: 24))
-                                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                                    .fontWeight(.bold)
-                                                
-                                                
-                                        
-                                                
-                                                
-                                            }
-                                            
-                                            .padding()
-                                        } else {
-                                            NavigationLink(destination: CupboardListView(cupboardId: cupboard.id!)){
-                                                Text(cupboard.name ?? "")
-                                                    .font(.custom("IowanOldStyle-Roman", size: 24))
-                                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                                    .fontWeight(.bold)
-                                                
-                                                
-                                        
-                                                
-                                                
-                                            }
-                                            
-                                            .padding()
-                                            .deleteDisabled(true)
+                        
+                        
+                        List{
+                            Section{
+                                ForEach(cupboards ?? []) { cupboard in
+                                    if cupboard.name != "Created By Me" {
+                                        NavigationLink(destination: CupboardListView(cupboardId: cupboard.id!, selectedTab: $selectedTab, showAddCheeseButton: true)) {
+                                            Text(cupboard.name ?? "")
+                                                .font(.custom("IowanOldStyle-Roman", size: 24))
+                                                .frame(maxWidth: .infinity, alignment: .leading)
+                                                .fontWeight(.bold)
                                         }
-                              
+                                        .padding()
+                                    } else {
+                                        NavigationLink(destination: CupboardListView(cupboardId: cupboard.id!, selectedTab: $selectedTab, showAddCheeseButton: false)) {
+                                            Text(cupboard.name ?? "")
+                                                .font(.custom("IowanOldStyle-Roman", size: 24))
+                                                .frame(maxWidth: .infinity, alignment: .leading)
+                                                .fontWeight(.bold)
+                                        }
+                                        .padding()
                                     }
-                                    
-                                    .onDelete(perform: { indexSet in
-                                        let idsToDelete = indexSet.map { cupboards![$0].id }
-                                        if (idsToDelete.count == 0){
-                                            return
-                                        }
-                                        Task{
-                                            await Database().deleteCupboard(cupboardId: idsToDelete[0]!)
-                                            
-                                            
-                                        }
-                                        print("deleted")
-                                    })
-                                    
-                                    .listRowBackground(CustomColors.background)
-                                    
-                                    
                                 }
                                 
+                                .onDelete(perform: { indexSet in
+                                    let idsToDelete = indexSet.map { cupboards![$0].id }
+                                    if (idsToDelete.count == 0){
+                                        return
+                                    }
+                                    Task{
+                                        await Database().deleteCupboard(cupboardId: idsToDelete[0]!)
+                                        
+                                        
+                                    }
+                                    print("deleted")
+                                })
+                                
+                                .listRowBackground(CustomColors.background)
+                                
+                                
                             }
-                            .scrollContentBackground(.hidden)
-                            .listStyle(PlainListStyle())
+                            
+                        }
+                        .scrollContentBackground(.hidden)
+                        .listStyle(PlainListStyle())
                         
                         Spacer()
                         HStack{
@@ -147,6 +134,6 @@ struct MyCheesesView: View {
     
 }
 
-#Preview {
-    MyCheesesView()
-}
+//#Preview {
+//    MyCheesesView()
+//}

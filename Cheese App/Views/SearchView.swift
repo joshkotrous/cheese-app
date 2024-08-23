@@ -62,7 +62,7 @@ struct SearchView: View {
                                         ForEach(viewModel.categories) { category in
                                             NavigationLink(destination: CategoryListView(category: category.category)) {
                                                 Text(category.category)
-                                                    .font(.custom("", size: 16))
+                                                    .font(.custom("IowanOldStyle-Roman", size: 14))
                                                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                                                     .padding()
                                             }
@@ -93,7 +93,7 @@ struct SearchView: View {
                                             ForEach(viewModel.gateways) { gateway in
                                                 NavigationLink(destination: CategoryListView(category: gateway.gateway)) {
                                                     Text(gateway.gateway)
-                                                        .font(.custom("", size: 16))
+                                                        .font(.custom("IowanOldStyle-Roman", size: 14))
                                                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                                                         .padding()
                                                 }

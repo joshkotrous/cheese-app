@@ -31,9 +31,20 @@ struct NewCheesePopover: View {
                 Text("Add Cheese")
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .font(.custom("IowanOldStyle-Roman", size: 24))
-                TextField("", text: $viewModel.cheeseName, prompt: Text("Cheese name").foregroundColor(CustomColors.textColor).font(.custom("IowanOldStyle-Roman", size: 18)))
-                    .foregroundColor(CustomColors.textColor)
+                    .fontWeight(.bold)
+                Text("Cheese name")
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     .font(.custom("IowanOldStyle-Roman", size: 18))
+                TextField("", text: $viewModel.cheeseName, prompt: Text("").foregroundColor(CustomColors.textColor).font(.custom("IowanOldStyle-Roman", size: 18)))
+                    .foregroundColor(CustomColors.textColor)
+                    .padding(4)
+                    .font(.custom("IowanOldStyle-Roman", size: 18))
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(CustomColors.textColor, lineWidth: 1)
+                        
+                    }
+               
                 
                 Menu(content: {
                     
@@ -59,24 +70,17 @@ struct NewCheesePopover: View {
                 TextField("", text: $viewModel.notes, prompt: Text("Notes").foregroundColor(CustomColors.textColor).font(.custom("IowanOldStyle-Roman", size: 18)))
                     .foregroundColor(CustomColors.textColor)
                     .font(.custom("IowanOldStyle-Roman", size: 18))
-                
+                Text("Description")
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .font(.custom("IowanOldStyle-Roman", size: 18))
                 TextEditor(text: $viewModel.description)
                         .foregroundColor(CustomColors.textColor) // Set the text color
                         .font(.custom("IowanOldStyle-Roman", size: 18)) // Set the custom font and size
                         .frame(height: 100, alignment: .top)
                         .scrollContentBackground(.hidden) // <- Hide it
                         .background(CustomColors.background)
+                        .padding(4)
                         .overlay {
-                            if (viewModel.description == ""){
-                                VStack{
-                                    Text("Description")
-                                        .padding(.top, 8)
-                                        .padding(.leading, 8)
-                                        .frame(maxWidth: .infinity, alignment: .leading)
-                                        .font(.custom("IowanOldStyle-Roman", size: 18))
-                                    Spacer()
-                                }
-                            }
                             RoundedRectangle(cornerRadius: 8)
                                 .stroke(CustomColors.textColor, lineWidth: 1)
                             

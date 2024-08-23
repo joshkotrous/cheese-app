@@ -7,6 +7,7 @@
 
 import Foundation
 
+import UIKit
 
 import SwiftUI
 
@@ -46,7 +47,6 @@ extension Color {
     }
 }
 
-import UIKit
 
 extension UIColor {
     convenience init(hex: String) {

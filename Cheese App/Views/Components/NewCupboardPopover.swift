@@ -20,6 +20,7 @@ struct NewCupboardPopover: View {
                 Text("Add Cupboard")
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .font(.custom("IowanOldStyle-Roman", size: 24))
+                    .fontWeight(.bold)
                 TextField("", text: $newCupboardInput, prompt: Text("Cupboard name").foregroundColor(CustomColors.textColor).font(.custom("IowanOldStyle-Roman", size: 18)))
                     .foregroundColor(CustomColors.textColor)
                     .font(.custom("IowanOldStyle-Roman", size: 18))

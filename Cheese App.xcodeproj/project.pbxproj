@@ -46,6 +46,7 @@
 		37959DAA2C5F592A004E4A02 /* EntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37959DA92C5F592A004E4A02 /* EntryView.swift */; };
 		37B2F3502C72D7C1006D71B3 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B2F34F2C72D7C1006D71B3 /* Auth.swift */; };
 		37B2F3552C72D99C006D71B3 /* GoTrue in Frameworks */ = {isa = PBXBuildFile; productRef = 37B2F3542C72D99C006D71B3 /* GoTrue */; };
+		37B4F6632C785A33008A1CFE /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B4F6622C785A33008A1CFE /* AppConfig.swift */; };
 		37B9B3E82C6726B500CB433E /* CategoryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B9B3E72C6726B500CB433E /* CategoryListView.swift */; };
 		37DFBE1E2C5F33720079A637 /* Cheese-App-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 37DFBE1D2C5F33720079A637 /* Cheese-App-Info.plist */; };
 /* End PBXBuildFile section */
@@ -109,6 +110,7 @@
 		37959DA92C5F592A004E4A02 /* EntryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryView.swift; sourceTree = "<group>"; };
 		37B2F34F2C72D7C1006D71B3 /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		37B2F3562C72E3B5006D71B3 /* Cheese App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Cheese App.entitlements"; sourceTree = "<group>"; };
+		37B4F6622C785A33008A1CFE /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
 		37B9B3E72C6726B500CB433E /* CategoryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryListView.swift; sourceTree = "<group>"; };
 		37DFBE1D2C5F33720079A637 /* Cheese-App-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Cheese-App-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -232,6 +234,7 @@
 				3751F0622C5F1407006499C2 /* CustomColors.swift */,
 				3742A8E42C60797300705D5E /* Database.swift */,
 				376F52DE2C7836DC00BC1F27 /* CheeseWords.swift */,
+				37B4F6622C785A33008A1CFE /* AppConfig.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -448,6 +451,7 @@
 				376F52D12C76F52100BC1F27 /* AppStoragePropertyWrapper.swift in Sources */,
 				3742A8E22C605EDD00705D5E /* SearchBar.swift in Sources */,
 				3751F0632C5F1407006499C2 /* CustomColors.swift in Sources */,
+				37B4F6632C785A33008A1CFE /* AppConfig.swift in Sources */,
 				376F52CE2C76E90800BC1F27 /* Cupboard.swift in Sources */,
 				3751F0382C5F1289006499C2 /* Cheese_AppApp.swift in Sources */,
 				37B2F3502C72D7C1006D71B3 /* Auth.swift in Sources */,

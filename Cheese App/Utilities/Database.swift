@@ -85,9 +85,9 @@ class Database {
         return nil
     }
     
-    func createUserProfile(userId: String) async -> Profile? {
+    func createUserProfile(userId: String, username: String) async -> Profile? {
         var results: Profile?
-        let profile = Profile(user_id: userId)
+        let profile = Profile(user_id: userId, username: username)
         do {
             try await supabase.from("profile").insert(profile).execute().value
             results = await getUserProfile(userId: userId)
@@ -213,7 +213,11 @@ class Database {
         }
     
     func handleFirstTimeSignUp(userId: String) async -> Profile? {
-            let profile = await createUserProfile(userId: userId)
+            let rand1 = Int.random(in: 0...CheeseWords.count - 1)
+            let rand2 = Int.random(in: 0...CheeseWords.count - 1)
+            let currentTimestamp = Int(Date().timeIntervalSince1970)
+        let username = "\(CheeseWords[rand1])\(CheeseWords[rand2])\(currentTimestamp)".lowercased()
+            let profile = await createUserProfile(userId: userId, username: username)
             if (profile?.id != nil){
                 await createCreatedByMeCupboard(profileId: profile?.id ?? "")
                 UserDefaults.standard.set(profile?.id, forKey: "profileId")
@@ -237,6 +241,14 @@ class Database {
             print(error)
         }
    
+    }
+    
+    func deleteCupboardCheese(cupboardCheeseId: String) async -> Void {
+        do {
+            try await supabase.from("cupboard_cheese").delete().eq("id", value: cupboardCheeseId).execute().value
+        } catch {
+            print(error)
+        }
     }
     
 

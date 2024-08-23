@@ -9,7 +9,7 @@ import SwiftUI
 
 class HomeViewModel: ObservableObject {
     @Published var cheeses: [Cheese] = []
-    
+    @Published var isLoading: Bool = true
     func getAllCheeses() async {
         let fetchedCheeses = await Database().getAllCheeses()
         DispatchQueue.main.async {
@@ -22,54 +22,61 @@ class HomeViewModel: ObservableObject {
 
 struct HomeView: View {
     @StateObject private var viewModel = HomeViewModel()
-    @State private var isLoading: Bool = false
-    @State private var testInput: String = ""
-
+ 
+    
     var body: some View {
-        NavigationView{
+        NavigationView {
             VStack(spacing: 0){
                 SearchBar()
-
                 ZStack{
-                    ScrollView {
+                    if viewModel.isLoading {
                         VStack{
+                            ProgressView() // Spinner shown when loading
+                                .progressViewStyle(CircularProgressViewStyle())
+                                .scaleEffect(1.5) // Make the spinner larger if needed
+                        }.frame(maxWidth: .infinity, maxHeight: .infinity).background(CustomColors.background)
+               
+                    } else {
+                        ScrollView {
                             VStack{
-                                Text("New This Week")
-                                    .font(.custom("IowanOldStyle-Roman", size: 24))
-                                    .fontWeight(.bold)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
                                 VStack{
-                                    if viewModel.cheeses.count > 0 {
-                                        let cheeses = viewModel.cheeses.suffix(5)
-                                        ForEach(Array(cheeses.enumerated()), id: \.element.id) { index, cheese in
-                                            let delay = Double(index) * 0.1
-                                            CheeseItem(delay: delay, cheese: cheese)
+                                    Text("New This Week")
+                                        .font(.custom("IowanOldStyle-Roman", size: 24))
+                                        .fontWeight(.bold)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                    VStack{
+                                        if viewModel.cheeses.count > 0 {
+                                            let cheeses = viewModel.cheeses.suffix(5)
+                                            ForEach(Array(cheeses.enumerated()), id: \.element.id) { index, cheese in
+                                                let delay = Double(index) * 0.1
+                                                CheeseItem(delay: delay, cheese: cheese)
+                                            }
                                         }
                                     }
                                 }
                             }
+                            .padding()
                         }
-                        .padding()
+                        .background(CustomColors.background)
+                        .frame(maxHeight: .infinity)
                     }
-
+                    
                 }
-                .background(CustomColors.background)
-                .frame(maxHeight: .infinity)
-
                 
             }
+            .ignoresSafeArea(.keyboard)
             .frame(maxHeight: .infinity)
             .foregroundColor(CustomColors.textColor)
-
+            
         }
-        .frame(maxHeight: .infinity)
         .task {
             await viewModel.getAllCheeses()
+            viewModel.isLoading = false
         }        .accentColor(CustomColors.textColor)
-
+        
     }
-
-
+    
+    
 }
 
 

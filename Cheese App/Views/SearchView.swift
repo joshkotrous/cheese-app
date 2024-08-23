@@ -10,6 +10,7 @@ import SwiftUI
 class SearchViewModel: ObservableObject {
     @Published var categories: [Category] = []
     @Published var gateways: [Gateway] = []
+    @Published var isLoading: Bool = true
     func getAllCategories() async {
             let fetchedCategories =  await Database().getAllCategories()
             DispatchQueue.main.async {
@@ -27,105 +28,108 @@ class SearchViewModel: ObservableObject {
     }
 }
 
-
 struct SearchView: View {
+    @State private var opacity: Double = 0.0
     @StateObject private var viewModel = SearchViewModel()
-    init() {
-        
-    }
+    
     var body: some View {
-        NavigationStack{
-            VStack(spacing: 0){
+        NavigationStack {
+            VStack(spacing: 0) {
                 SearchBar()
                 ZStack {
                     CustomColors.background
                         .ignoresSafeArea(.all)
-                
-                    let columns: [GridItem] = [
-                        GridItem(.fixed(110)),
-                        GridItem(.fixed(110)),
-                        GridItem(.fixed(110))
-                    ]
-                    ScrollView(.vertical) {
-                        VStack(spacing: 30){
-                            VStack{
-                                Text("Categories")
-                                    .font(.custom("IowanOldStyle-Roman", size: 24))
-                                    .fontWeight(.bold)
-                                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
-                                    .padding()
-                                LazyVGrid(columns: columns, spacing: 20) {
-                                    ForEach(viewModel.categories) { category in
-                                        NavigationLink(destination: CategoryListView(category: category.category)){
-                                            Text(category.category).font(.custom("", size: 16))
-                                                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                                                .padding()
-                                            
-                                            
-                                            
-                                        }
-                                        .background(CustomColors.tan1)
-                                        .frame(width: 110, height: 110)
-                                        .overlay( /// apply a rounded border
-                                            RoundedRectangle(cornerRadius: 12)
-                                                .stroke(CustomColors.textColor, lineWidth: 2)
-                                        )
-                                        .cornerRadius(12)
-                                        
-                                        
-                                        
-                                    }
-                                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                                    
-                                    
-                                }
-                                VStack{
-                                    
-                                    Text("Gateways")
+                    if viewModel.isLoading {
+                        ProgressView() // Spinner shown when loading
+                            .progressViewStyle(CircularProgressViewStyle())
+                            .scaleEffect(1.5) // Make the spinner larger if needed
+                    } else {
+                        let columns: [GridItem] = [
+                            GridItem(.fixed(110)),
+                            GridItem(.fixed(110)),
+                            GridItem(.fixed(110))
+                        ]
+                        ScrollView(.vertical) {
+                            VStack(spacing: 30) {
+                                VStack {
+                                    Text("Categories")
                                         .font(.custom("IowanOldStyle-Roman", size: 24))
                                         .fontWeight(.bold)
-                                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
                                         .padding()
+                                    
                                     LazyVGrid(columns: columns, spacing: 20) {
-                                        ForEach(viewModel.gateways) { gateway in
-                                            NavigationLink(destination: CategoryListView(category: gateway.gateway)){
-                                                Text(gateway.gateway).font(.custom("", size: 16))
+                                        ForEach(viewModel.categories) { category in
+                                            NavigationLink(destination: CategoryListView(category: category.category)) {
+                                                Text(category.category)
+                                                    .font(.custom("", size: 16))
                                                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                                                     .padding()
-                                                
-                                                
-                                                
                                             }
                                             .background(CustomColors.tan1)
                                             .frame(width: 110, height: 110)
-                                            .overlay( /// apply a rounded border
+                                            .opacity(opacity) // Apply the opacity here
+                                            .overlay(
                                                 RoundedRectangle(cornerRadius: 12)
                                                     .stroke(CustomColors.textColor, lineWidth: 2)
+                                                    .opacity(opacity)
                                             )
+                                            .onAppear {
+                                                withAnimation(.easeInOut(duration: 0.5)) {
+                                                    opacity = 1.0
+                                                }
+                                            }
                                             .cornerRadius(12)
-                                            
                                         }
                                     }
-                                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                                    
+                                    VStack {
+                                        Text("Gateways")
+                                            .font(.custom("IowanOldStyle-Roman", size: 24))
+                                            .fontWeight(.bold)
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                            .padding()
+                                        
+                                        LazyVGrid(columns: columns, spacing: 20) {
+                                            ForEach(viewModel.gateways) { gateway in
+                                                NavigationLink(destination: CategoryListView(category: gateway.gateway)) {
+                                                    Text(gateway.gateway)
+                                                        .font(.custom("", size: 16))
+                                                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                                        .padding()
+                                                }
+                                                .background(CustomColors.tan1)
+                                                .frame(width: 110, height: 110)
+                                                .overlay(
+                                                    RoundedRectangle(cornerRadius: 12)
+                                                        .stroke(CustomColors.textColor, lineWidth: 2)
+                                                        .opacity(opacity)
+                                                )
+                                                .onAppear {
+                                                    withAnimation(.easeInOut(duration: 0.5)) {
+                                                        opacity = 1.0
+                                                    }
+                                                }
+                                                .cornerRadius(12)
+                                            }
+                                        }
+                                    }
                                 }
+                                .padding(.bottom)
                             }
-                            .padding(.bottom)
+                            .foregroundColor(CustomColors.textColor)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                         }
-                        .foregroundColor(CustomColors.textColor)
-                        .frame(maxWidth: .infinity, alignment: .leading)
                     }
                 }
+                .task {
+                    await viewModel.getAllCategories()
+                    await viewModel.getAllGateways()
+                    viewModel.isLoading = false
+                }
             }
-            .task {
-                await viewModel.getAllCategories()
-                await viewModel.getAllGateways()
-            }
+            .tint(Color(CustomColors.tan2))
         }
-        .tint(Color(CustomColors.tan2))
-        
     }
-    
 }
 
 #Preview {

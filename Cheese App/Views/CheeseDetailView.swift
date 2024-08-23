@@ -14,6 +14,7 @@ struct CheeseDetailView: View {
     @AppStorage("profileId") var profileId: String?
     @State private var selectedView: String?
     
+    
     var body: some View {
         ZStack{
             CustomColors.background

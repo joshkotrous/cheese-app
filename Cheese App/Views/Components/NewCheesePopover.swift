@@ -40,10 +40,11 @@ struct NewCheesePopover: View {
                         .frame(maxWidth: .infinity)
                         .font(.custom("IowanOldStyle-Roman", size: 18))
                         .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(CustomColors.tan1)
+
                 }
-                .background(CustomColors.tan1)
                 .foregroundColor(CustomColors.textColor)
-                .frame(maxWidth: .infinity)
                 .cornerRadius(16)
                 Spacer()
             }

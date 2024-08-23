@@ -11,23 +11,17 @@ struct EntryView: View {
     @AppStorage("accessToken") var accessToken: String?
     var body: some View {
         Group {
-                
-                
-                ZStack {
-                    if (accessToken == nil){
-                        LoginView()
-                        
-                    } else {
-                        AppView()
-                    }
-                    WelcomeView()
-                    
-                }
-                
-            
+            if (accessToken == nil){
+                LoginView()
+            } else {
+                AppView()
+            }
         }
-        .ignoresSafeArea(.all)
-
+        .ignoresSafeArea(.keyboard)
+        .frame(maxHeight: .infinity)
+        .overlay{
+            WelcomeView()
+        }
     }
 }
 

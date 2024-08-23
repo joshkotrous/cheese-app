@@ -7,6 +7,11 @@
 
 import SwiftUI
 
+class MyCheesesViewModel: ObservableObject {
+    @Published var isLoading: Bool = true
+    
+}
+
 struct MyCheesesView: View {
     @State public var showCupboardPopover = false
     @State public var showCheesePopover = false
@@ -14,7 +19,9 @@ struct MyCheesesView: View {
     @AppStorage("accessToken") var accessToken: String?
     @AppStorage("userId") var userId: String?
     @AppStorage("profileId") var profileId: String?
-    @State private var cupboards: [Cupboard]? 
+    @State private var cupboards: [Cupboard]?
+    @Binding var selectedTab: Tab
+    @StateObject var viewModel = MyCheesesViewModel()
     
     var body: some View {
         NavigationStack {
@@ -31,44 +38,35 @@ struct MyCheesesView: View {
                         }
                         .font(.custom("IowanOldStyle-Roman", size: 24))
                         
-                       
-                            
+                        if(viewModel.isLoading){
+                            VStack{
+                                ProgressView() // Spinner shown when loading
+                                    .progressViewStyle(CircularProgressViewStyle())
+                                    .scaleEffect(1.5) // Make the spinner larger if needed
+                            }.frame(maxWidth: .infinity, maxHeight: .infinity).background(CustomColors.background)
+                        } else {
                             List{
                                 Section{
                                     ForEach(cupboards ?? []) { cupboard in
-                                        if(cupboard.name != "Created By Me") {
-                                            NavigationLink(destination: CupboardListView(cupboardId: cupboard.id!)){
+                                        if cupboard.name != "Created By Me" {
+                                            NavigationLink(destination: CupboardListView(cupboardId: cupboard.id!, selectedTab: $selectedTab, showAddCheeseButton: true)) {
                                                 Text(cupboard.name ?? "")
                                                     .font(.custom("IowanOldStyle-Roman", size: 24))
                                                     .frame(maxWidth: .infinity, alignment: .leading)
                                                     .fontWeight(.bold)
-                                                
-                                                
-                                        
-                                                
-                                                
                                             }
-                                            
                                             .padding()
                                         } else {
-                                            NavigationLink(destination: CupboardListView(cupboardId: cupboard.id!)){
+                                            NavigationLink(destination: CupboardListView(cupboardId: cupboard.id!, selectedTab: $selectedTab, showAddCheeseButton: false)) {
                                                 Text(cupboard.name ?? "")
                                                     .font(.custom("IowanOldStyle-Roman", size: 24))
                                                     .frame(maxWidth: .infinity, alignment: .leading)
                                                     .fontWeight(.bold)
-                                                
-                                                
-                                        
-                                                
-                                                
                                             }
-                                            
-                                            .padding()
                                             .deleteDisabled(true)
+                                            .padding()
                                         }
-                              
                                     }
-                                    
                                     .onDelete(perform: { indexSet in
                                         let idsToDelete = indexSet.map { cupboards![$0].id }
                                         if (idsToDelete.count == 0){
@@ -90,7 +88,7 @@ struct MyCheesesView: View {
                             }
                             .scrollContentBackground(.hidden)
                             .listStyle(PlainListStyle())
-                        
+                        }
                         Spacer()
                         HStack{
                             Button(action: {
@@ -139,6 +137,7 @@ struct MyCheesesView: View {
                     cupboards = await Database().getUserCupboards(profileId: profileId!)
                     
                 }
+                viewModel.isLoading = false
             }
             
         }
@@ -147,6 +146,13 @@ struct MyCheesesView: View {
     
 }
 
+struct MyCheesesViewPreview: View {
+    @State var selectedTab = Tab.home
+    var body: some View {
+        MyCheesesView(selectedTab: $selectedTab)
+    }
+}
+
 #Preview {
-    MyCheesesView()
+    MyCheesesViewPreview()
 }

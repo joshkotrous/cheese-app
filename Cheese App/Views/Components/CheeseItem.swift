@@ -36,7 +36,7 @@ struct CheeseItem: View {
                 
             }
             .frame(height: 200)
-            .frame(width: .infinity)
+            .frame(maxWidth: .infinity)
             .cornerRadius(12.0)
             .overlay( /// apply a rounded border
                 RoundedRectangle(cornerRadius: 12)

@@ -41,10 +41,16 @@ struct AppView: View {
         
     }
     var body: some View {
-        TabView(){
+        TabView(selection: $selectedTab){
             HomeView()
                 .tabItem {
-                    Image("AiOutlineHome")
+                    if (selectedTab == Tab.home){
+                        Image("AiOutlineHomeDark")
+
+                    } else {
+                        Image("AiOutlineHome")
+
+                    }
                     Text("Home")
                 }
                 .tag(Tab.home)
@@ -52,28 +58,52 @@ struct AppView: View {
             
             MyCheesesView()
                 .tabItem {
-                    Image("PiCheeseLight")
+                    if(selectedTab == Tab.mycheeses){
+                        Image("PiCheeseLightDark")
+
+                    } else {
+                        Image("PiCheeseLight")
+
+                    }
                     Text("My Cheeses")
                 }
                 .tag(Tab.mycheeses)
                         
             DiscoverView()
                 .tabItem {
-                    Image("AiOutlineCompass")
+                    if (selectedTab == Tab.discover){
+                        Image("AiOutlineCompassDark")
+
+                    } else {
+                        Image("AiOutlineCompass")
+
+                    }
                     Text("Discover")
                 }
                 .tag(Tab.discover)
             
             SearchView()
                 .tabItem {
-                    Image("BiSearchAlt2")
+                    if (selectedTab == Tab.search) {
+                        Image("BiSearchAlt2Dark")
+
+                    } else {
+                        Image("BiSearchAlt2")
+
+                    }
                     Text("Search")
                 }
                 .tag(Tab.search)
             
             ProfileView()
                 .tabItem {
-                    Image("AiOutlineUser")
+                    if (selectedTab == Tab.profile){
+                        Image("AiOutlineUserDark")
+
+                    } else {
+                        Image("AiOutlineUser")
+
+                    }
                     Text("Profile")
                 }
                 .tag(Tab.profile)            

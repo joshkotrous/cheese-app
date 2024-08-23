@@ -24,14 +24,11 @@ struct HomeView: View {
     @StateObject private var viewModel = HomeViewModel()
     @State private var isLoading: Bool = false
     @State private var testInput: String = ""
-
+    
     var body: some View {
         NavigationView {
             VStack(spacing: 0){
                 SearchBar()
-                
-
-            
                 ZStack{
                     ScrollView {
                         VStack{
@@ -53,25 +50,25 @@ struct HomeView: View {
                         }
                         .padding()
                     }
-
+                    
                 }
                 .background(CustomColors.background)
                 .frame(maxHeight: .infinity)
-
+                
                 
             }
             .ignoresSafeArea(.keyboard)
             .frame(maxHeight: .infinity)
             .foregroundColor(CustomColors.textColor)
-
+            
         }
         .task {
             await viewModel.getAllCheeses()
         }        .accentColor(CustomColors.textColor)
-
+        
     }
-
-
+    
+    
 }
 
 

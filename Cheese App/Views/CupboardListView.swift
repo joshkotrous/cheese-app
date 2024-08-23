@@ -10,9 +10,13 @@ class CupboardListViewModel: ObservableObject {
     @Published var cupboardId: String
     @Published var showAddCheeseButton: Bool
     @Published var cheeses: [CupboardCheeseList] = []
-    init(cupboardId: String, showAddCheeseButton: Bool) {
+    @Binding var selectedTab: Tab
+
+    init(cupboardId: String, showAddCheeseButton: Bool, selectedTab: Binding<Tab>) {
         self.cupboardId = cupboardId
         self.showAddCheeseButton = showAddCheeseButton
+        self._selectedTab = selectedTab
+
     }
     
     func getCheesesForCupboard(cupboardId: String) async {
@@ -25,11 +29,9 @@ class CupboardListViewModel: ObservableObject {
 
 struct CupboardListView: View {
     @StateObject private var viewModel: CupboardListViewModel
-    @Binding var selectedTab: Tab
     
     init(cupboardId: String, selectedTab: Binding<Tab>, showAddCheeseButton: Bool) {
-        _viewModel = StateObject(wrappedValue: CupboardListViewModel(cupboardId: cupboardId, showAddCheeseButton: showAddCheeseButton))
-        self._selectedTab = selectedTab
+        _viewModel = StateObject(wrappedValue: CupboardListViewModel(cupboardId: cupboardId, showAddCheeseButton: showAddCheeseButton, selectedTab: selectedTab))
     }
     
     var body: some View {
@@ -42,7 +44,7 @@ struct CupboardListView: View {
                     
                     if (viewModel.showAddCheeseButton) {
                         Button(action: {
-                            selectedTab = Tab.search
+                            viewModel.selectedTab = Tab.search
                         }){
                             Text("Add Cheese")
                                 .padding()
@@ -51,45 +53,46 @@ struct CupboardListView: View {
                         }
                         .cornerRadius(16)
                     }
-      
-
-
+                    
+                    
+                    
                 } else {
                     
                     List {
-                                           ForEach(viewModel.cheeses) { cupboardCheese in
-                                               if let cheese = cupboardCheese.cheese {
-                                                   NavigationLink(destination: CheeseDetailView(cheese: cheese)) {
-                                                       VStack(alignment: .leading) {
-                                                           Text(cheese.name ?? "")
-                                                               .font(.headline)
-                                                               .foregroundColor(CustomColors.textColor)
-                                                           Text(cheese.category ?? "")
-                                                               .font(.subheadline)
-                                                               .foregroundColor(.gray)
-                                                       }
-                                                       
-                                                       .padding(.vertical, 5)
-                                                   }
-                                                   .listRowBackground(CustomColors.background)
-
-                                               }
-                                               
-                                           }
-                                           .onDelete(perform: { indexSet in
-                                               let idsToDelete = indexSet.map { viewModel.cheeses[$0].id }
-                                               if (idsToDelete.count == 0){
-                                                   return
-                                               }
-                                               Task{
-                                                   print(idsToDelete[0])
-                                                   await Database().deleteCupboardCheese(cupboardCheeseId: idsToDelete[0])
-                                                   
-                                                   
-                                               }
-                                               print("deleted")
-                                           }) // Attach onDelete here
-                                       }
+                        ForEach(viewModel.cheeses) { cupboardCheese in
+                            if let cheese = cupboardCheese.cheese {
+                                NavigationLink(destination: CheeseDetailView(cheese: cheese)) {
+                                    VStack(alignment: .leading) {
+                                        Text(cheese.name ?? "")
+                                            .font(.headline)
+                                            .foregroundColor(CustomColors.textColor)
+                                        Text(cheese.category ?? "")
+                                            .font(.subheadline)
+                                            .foregroundColor(.gray)
+                                    }
+                                    
+                                    .padding(.vertical, 5)
+                                }
+                                .listRowBackground(CustomColors.background)
+                                
+                            }
+                            
+                        }
+                        .onDelete(perform: { indexSet in
+                            let idsToDelete = indexSet.map { viewModel.cheeses[$0].id }
+                            if (idsToDelete.count == 0){
+                                return
+                            }
+                            viewModel.cheeses.remove(atOffsets: indexSet)
+                            Task{
+                                print(idsToDelete[0])
+                                await Database().deleteCupboardCheese(cupboardCheeseId: idsToDelete[0])
+                                
+                                
+                            }
+                            print("deleted")
+                        }) // Attach onDelete here
+                    }
                     
                     .background(CustomColors.background)
                     .scrollContentBackground(.hidden)
@@ -100,12 +103,7 @@ struct CupboardListView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(CustomColors.background)
             
-            
-            
-            
         }
-        
-        
         .tint(Color(CustomColors.tan2))
         .task {
             await viewModel.getCheesesForCupboard(cupboardId: viewModel.cupboardId)

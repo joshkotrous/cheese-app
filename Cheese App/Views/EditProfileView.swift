@@ -7,16 +7,51 @@
 
 import SwiftUI
 
+class EditProfileViewModel: ObservableObject {
+    @Published var isLoading: Bool = false
+    @Published var updatedSuccessfully: Bool = false
+    @Published var opacity: Double = 1.0
+}
+
 struct EditProfileView: View {
     @Binding var username: String
     @Binding var bio: String
     @Binding var profileId: String
     @State var showAlert: Bool = false
+    @StateObject var viewModel = EditProfileViewModel()
+    
+    
     var body: some View {
 
         ZStack{
             CustomColors.background
                 .ignoresSafeArea(.all)
+                if(viewModel.isLoading){
+                    VStack{
+                        ProgressView() // Spinner shown when loading
+                            .progressViewStyle(CircularProgressViewStyle())
+                            .scaleEffect(1.5) // Make the spinner larger if needed
+                    }.frame(maxWidth: .infinity, maxHeight: .infinity).background(CustomColors.background)
+                }
+            
+            if (viewModel.updatedSuccessfully) {
+                HStack{
+                    Text("Profile Updated Successfully")
+                    Image(systemName: "checkmark.circle.fill").foregroundColor(.green)
+                }
+                .opacity(viewModel.opacity)
+                .onAppear {
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                        
+                        withAnimation(.easeInOut(duration: 1)) {
+                            viewModel.opacity = 0.0
+                        }
+                    }
+                }
+            }
+               
+            
                 VStack(spacing: 16){
                     Text("Edit Profile")
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -56,7 +91,14 @@ struct EditProfileView: View {
                     
                     Button(action: {
                         Task {
+                            viewModel.isLoading = true
                             await Database().updateProfile(profileId: profileId, bio: bio, username: username)
+                            viewModel.isLoading = false
+                            viewModel.updatedSuccessfully = true
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                                viewModel.updatedSuccessfully = false
+                            }
+                            
                         }
                     }) {
                         Text("Save Changes")

@@ -55,13 +55,15 @@ struct EditProfileView: View {
                         Task {
                             await Database().updateProfile(profileId: profileId, bio: bio, username: username)
                         }
-                    }){
+                    }) {
                         Text("Save Changes")
                             .padding()
                             .font(.custom("IowanOldStyle-Roman", size: 16))
+                            .frame(maxWidth: .infinity)
+                            .background(CustomColors.tan1)
+
+
                     }
-                    .frame(maxWidth: .infinity)
-                    .background(CustomColors.tan1)
                     .cornerRadius(16)
                     
                     Spacer()
@@ -73,10 +75,13 @@ struct EditProfileView: View {
                         Text("Sign Out")
                             .padding()
                             .font(.custom("IowanOldStyle-Roman", size: 16))
+                            .frame(maxWidth: .infinity)
+                            .background(CustomColors.tan1)
+
+
                     }
-                    .frame(maxWidth: .infinity)
-                    .background(CustomColors.tan1)
                     .cornerRadius(16)
+                    
                     
                     Button(role: .destructive, action: {
                         showAlert = true

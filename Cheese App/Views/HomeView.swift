@@ -27,42 +27,48 @@ struct HomeView: View {
 
     var body: some View {
         NavigationView{
-            VStack(spacing: 0){
-                SearchBar()
-
-                ZStack{
-                    ScrollView {
-                        VStack{
-                            VStack{
-                                Text("New This Week")
-                                    .font(.custom("IowanOldStyle-Roman", size: 24))
-                                    .fontWeight(.bold)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                VStack{
-                                    if viewModel.cheeses.count > 0 {
-                                        let cheeses = viewModel.cheeses.suffix(5)
-                                        ForEach(Array(cheeses.enumerated()), id: \.element.id) { index, cheese in
-                                            let delay = Double(index) * 0.1
-                                            CheeseItem(delay: delay, cheese: cheese)
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        .padding()
-                    }
-
-                }
-                .background(CustomColors.background)
-                .frame(maxHeight: .infinity)
+            VStack{
+                SearchBar()     .ignoresSafeArea(.keyboard)
+                    .frame(maxHeight: .infinity)
+                TextField("test",text: $testInput)
+                    .ignoresSafeArea(.keyboard)
+                    .frame(maxHeight: .infinity)
+            
+//                ZStack{
+//                    ScrollView {
+//                        VStack{
+//                            VStack{
+//                                Text("New This Week")
+//                                    .font(.custom("IowanOldStyle-Roman", size: 24))
+//                                    .fontWeight(.bold)
+//                                    .frame(maxWidth: .infinity, alignment: .leading)
+//                                VStack{
+//                                    if viewModel.cheeses.count > 0 {
+//                                        let cheeses = viewModel.cheeses.suffix(5)
+//                                        ForEach(Array(cheeses.enumerated()), id: \.element.id) { index, cheese in
+//                                            let delay = Double(index) * 0.1
+//                                            CheeseItem(delay: delay, cheese: cheese)
+//                                        }
+//                                    }
+//                                }
+//                            }
+//                        }
+//                        .padding()
+//                    }
+//
+//                }
+//                .background(CustomColors.background)
+//                .frame(maxHeight: .infinity)
 
                 
             }
             .frame(maxHeight: .infinity)
+            .ignoresSafeArea(.keyboard)
             .foregroundColor(CustomColors.textColor)
 
         }
         .frame(maxHeight: .infinity)
+        .ignoresSafeArea(.keyboard)
         .task {
             await viewModel.getAllCheeses()
         }        .accentColor(CustomColors.textColor)

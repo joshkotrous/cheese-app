@@ -26,29 +26,31 @@ struct NewCupboardPopover: View {
                 Button(action: {
                     Task {
                         if (profileId != nil && newCupboardInput != "") {
-                             await Database().createNewCupboard(profileId: profileId ?? "", cupboardName: newCupboardInput)
+                            await Database().createNewCupboard(profileId: profileId ?? "", cupboardName: newCupboardInput)
                             showCupboardPopover = false
                         }
                         cupboards = await Database().getUserCupboards(profileId: profileId ?? "")
                     }
-             
-            
+                    
+                    
                 }) {
                     Text("Add")
                         .frame(maxWidth: .infinity)
                         .font(.custom("IowanOldStyle-Roman", size: 18))
                         .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(CustomColors.tan1)
+
+                    
                 }
-                .background(CustomColors.tan1)
                 .foregroundColor(CustomColors.textColor)
-                .frame(maxWidth: .infinity)
                 .cornerRadius(16)
                 Spacer()
-
+                
             }
             .foregroundColor(CustomColors.textColor)
             .padding()
-
+            
         }
     }
 }

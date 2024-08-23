@@ -57,9 +57,9 @@ struct ProfileView: View {
                         Text("Edit Profile")
                             .padding()
                             .font(.custom("IowanOldStyle-Roman", size: 16))
+                            .frame(maxWidth: .infinity)
+                            .background(CustomColors.tan1)
                     }
-                    .frame(maxWidth: .infinity)
-                    .background(CustomColors.tan1)
                     .cornerRadius(16)
                     Spacer()
                 }

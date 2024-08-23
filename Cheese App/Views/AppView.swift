@@ -43,13 +43,18 @@ struct AppView: View {
     var body: some View {
         TabView(){
             HomeView()
+                .ignoresSafeArea(.keyboard)
+                .frame(maxHeight: .infinity)
                 .tabItem {
                     Image("AiOutlineHome")
                     Text("Home")
                 }
                 .tag(Tab.home)
             
+            
             MyCheesesView()
+                .ignoresSafeArea(.keyboard)
+                .frame(maxHeight: .infinity)
                 .tabItem {
                     Image("PiCheeseLight")
                     Text("My Cheeses")
@@ -64,6 +69,8 @@ struct AppView: View {
                 .tag(Tab.discover)
             
             SearchView()
+                .ignoresSafeArea(.keyboard)
+                .frame(maxHeight: .infinity)
                 .tabItem {
                     Image("BiSearchAlt2")
                     Text("Search")
@@ -77,6 +84,9 @@ struct AppView: View {
                 }
                 .tag(Tab.profile)            
         }
+        .ignoresSafeArea(.keyboard)
+        .frame(maxHeight: .infinity)
+        .ignoresSafeArea(.keyboard)
         .tint(Color(CustomColors.tan2))
         .navigationBarBackButtonHidden(true)
     }

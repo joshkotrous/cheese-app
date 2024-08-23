@@ -16,17 +16,21 @@ struct EntryView: View {
                 ZStack {
                     if (accessToken == nil){
                         LoginView()
+
                         
                     } else {
-                        AppView()
+                            
+                            
+                            AppView().frame(maxHeight: .infinity).ignoresSafeArea(.all)
+                            
+                        
+
                     }
                     WelcomeView()
                     
-                }
-                
+                } 
             
         }
-        .ignoresSafeArea(.all)
 
     }
 }

@@ -19,14 +19,14 @@ struct SearchBar: View {
                         .resizable()
                         .frame(width: 25)
                         .frame(height: 25)
-                        .ignoresSafeArea(.keyboard)
+
                     TextField("", text: $textInput, prompt: Text("Cheese name, type, or monger").foregroundColor(CustomColors.textColor).font(.custom("IowanOldStyle-Roman", size: 18)))
-                        .foregroundColor(CustomColors.textColor)
-                        .font(.custom("IowanOldStyle-Roman", size: 18))
-                        .ignoresSafeArea(.keyboard)
+                            .foregroundColor(CustomColors.textColor)
+                            .font(.custom("IowanOldStyle-Roman", size: 18))
+            
+
 
                 }
-                .ignoresSafeArea(.keyboard)
                 .padding()
                 .background(.white)
                 .frame(width: 325)
@@ -35,10 +35,7 @@ struct SearchBar: View {
             }
             .offset(x: 0, y: 0)
             .frame(height: 75)
-            .ignoresSafeArea(.keyboard)
         }
-        .ignoresSafeArea(.keyboard)
-        .frame(maxHeight: .infinity)
         
     }
 

@@ -13,7 +13,5 @@ struct Cheese_AppApp: App {
         WindowGroup {
             EntryView()
         }
-        
     }
-    
 }

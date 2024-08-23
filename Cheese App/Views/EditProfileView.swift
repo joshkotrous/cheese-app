@@ -17,13 +17,15 @@ struct EditProfileView: View {
         ZStack{
             CustomColors.background
                 .ignoresSafeArea(.all)
-                VStack(spacing: 24){
+                VStack(spacing: 16){
                     Text("Edit Profile")
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .font(.custom("IowanOldStyle-Roman", size: 24))
                     VStack{
                         Text("Username")
                             .frame(maxWidth: .infinity, alignment: .leading)
+                            .font(.custom("IowanOldStyle-Roman", size: 16))
+
                         TextField("", text: $username, prompt: Text("Username").foregroundColor(CustomColors.textColor).font(.custom("IowanOldStyle-Roman", size: 18)))
                             .padding(8)
                             .foregroundColor(CustomColors.textColor)
@@ -39,6 +41,7 @@ struct EditProfileView: View {
                     VStack{
                         Text("Bio")
                             .frame(maxWidth: .infinity, alignment: .leading)
+                            .font(.custom("IowanOldStyle-Roman", size: 16))
                         TextField("", text: $bio, prompt: Text("Bio").foregroundColor(CustomColors.textColor).font(.custom("IowanOldStyle-Roman", size: 18)))
                             .padding(8)
                             .foregroundColor(CustomColors.textColor)

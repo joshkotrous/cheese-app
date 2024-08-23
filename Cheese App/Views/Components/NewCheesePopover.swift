@@ -7,14 +7,23 @@
 
 import SwiftUI
 
-struct NewCheesePopover: View {
-    @State private var cheeseName = ""
-    @State private var cheeseType = ""
-    @State private var notes = ""
-    @State private var description = ""
+class NewCheesePopoverModel: ObservableObject {
+    @Published var categories: [Category] = []
+    @Published var selectedCategory: String = "Cheese Category"
+    @Published var cheeseName: String = ""
+    @Published var description: String = ""
+    @Published var notes: String = ""
+    
+}
 
+struct NewCheesePopover: View {
+
+    @StateObject var viewModel = NewCheesePopoverModel()
+    
+   
     
     var body: some View {
+   
         ZStack{
             CustomColors.background
                 .ignoresSafeArea(.all)
@@ -22,19 +31,57 @@ struct NewCheesePopover: View {
                 Text("Add Cheese")
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .font(.custom("IowanOldStyle-Roman", size: 24))
-                TextField("", text: $cheeseName, prompt: Text("Cheese name").foregroundColor(CustomColors.textColor).font(.custom("IowanOldStyle-Roman", size: 18)))
+                TextField("", text: $viewModel.cheeseName, prompt: Text("Cheese name").foregroundColor(CustomColors.textColor).font(.custom("IowanOldStyle-Roman", size: 18)))
                     .foregroundColor(CustomColors.textColor)
                     .font(.custom("IowanOldStyle-Roman", size: 18))
-                TextField("", text: $cheeseType, prompt: Text("Cheese type").foregroundColor(CustomColors.textColor).font(.custom("IowanOldStyle-Roman", size: 18)))
+                
+                Menu(content: {
+                    
+                    ForEach(viewModel.categories) { category in
+                        Button(action:{
+                            viewModel.selectedCategory = category.category
+                        }){
+                            Text(category.category)
+                        }
+                        
+                    }
+                    
+                    Button(action:{}){
+                        Text("Test")
+                    }
+                    
+                }, label: {
+                    Text(viewModel.selectedCategory)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .font(.custom("IowanOldStyle-Roman", size: 18))
+                })
+                
+                TextField("", text: $viewModel.notes, prompt: Text("Notes").foregroundColor(CustomColors.textColor).font(.custom("IowanOldStyle-Roman", size: 18)))
                     .foregroundColor(CustomColors.textColor)
                     .font(.custom("IowanOldStyle-Roman", size: 18))
-                TextField("", text: $notes, prompt: Text("Notes").foregroundColor(CustomColors.textColor).font(.custom("IowanOldStyle-Roman", size: 18)))
-                    .foregroundColor(CustomColors.textColor)
-                    .font(.custom("IowanOldStyle-Roman", size: 18))
-                TextField("", text: $description, prompt: Text("Description").foregroundColor(CustomColors.textColor).font(.custom("IowanOldStyle-Roman", size: 18)))
-                    .foregroundColor(CustomColors.textColor)
-                    .font(.custom("IowanOldStyle-Roman", size: 18))
-                    .frame(height: 100, alignment: .top)
+                
+                TextEditor(text: $viewModel.description)
+                        .foregroundColor(CustomColors.textColor) // Set the text color
+                        .font(.custom("IowanOldStyle-Roman", size: 18)) // Set the custom font and size
+                        .frame(height: 100, alignment: .top)
+                        .scrollContentBackground(.hidden) // <- Hide it
+                        .background(CustomColors.background)
+                        .overlay {
+                            if (viewModel.description == ""){
+                                VStack{
+                                    Text("Description")
+                                        .padding(.top, 8)
+                                        .padding(.leading, 8)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        .font(.custom("IowanOldStyle-Roman", size: 18))
+                                    Spacer()
+                                }
+                            }
+                            RoundedRectangle(cornerRadius: 8)
+                                .stroke(CustomColors.textColor, lineWidth: 1)
+                            
+                        }
+                    
                 Button(action: {}) {
                     Text("Add")
                         .frame(maxWidth: .infinity)
@@ -50,6 +97,8 @@ struct NewCheesePopover: View {
             }
             .foregroundColor(CustomColors.textColor)
             .padding()
+        }.task {
+            viewModel.categories = await Database().getAllCategories()
         }
     }
 }

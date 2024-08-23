@@ -56,6 +56,7 @@ struct EditProfileView: View {
                     Text("Edit Profile")
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .font(.custom("IowanOldStyle-Roman", size: 24))
+                        .fontWeight(.bold)
                     VStack{
                         Text("Username")
                             .frame(maxWidth: .infinity, alignment: .leading)

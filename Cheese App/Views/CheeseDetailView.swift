@@ -20,53 +20,62 @@ struct CheeseDetailView: View {
             CustomColors.background
                 .ignoresSafeArea(.all)
             ScrollView{
-                VStack(alignment: .leading) {
-                    Text(cheese.name ?? "")
-                        .font(.custom("IowanOldStyle-Roman", size: 32))
-                        .fontWeight(.bold)
-                        .padding(.bottom, 8)
-                    Text(cheese.category ?? "")
-                        .font(.custom("IowanOldStyle-Roman", size: 24))
-                        .fontWeight(.semibold)
-                        .padding(.bottom, 8)
-                    
-                    Menu(content: {
+                VStack(alignment: .leading, spacing: 20) {
+                    VStack(alignment: .leading) {
                         
-                        Section {
-                            ForEach(cupboards ?? []) { cupboard in
-                                Button(action: {
-                                    selectedOption = cupboard  
-                                    Task {
-                                        if (cupboard.id != nil && cheese.id != nil) {
-                                            await Database().addCheeseToCupboard(cupboardId: cupboard.id!, cheeseId: cheese.id!)
+                        
+                        Text(cheese.name ?? "")
+                            .font(.custom("IowanOldStyle-Roman", size: 32))
+                            .fontWeight(.bold)
+                            .padding(.bottom, 8)
+                        Text(cheese.category ?? "")
+                            .font(.custom("IowanOldStyle-Roman", size: 24))
+                            .fontWeight(.semibold)
+                            .padding(.bottom, 8)
+                        
+                        Menu(content: {
+                            
+                            Section {
+                                ForEach(cupboards ?? []) { cupboard in
+                                    if(cupboard.name != "Created By Me") {
+                                        Button(action: {
+                                            selectedOption = cupboard
+                                            Task {
+                                                if (cupboard.id != nil && cheese.id != nil) {
+                                                    await Database().addCheeseToCupboard(cupboardId: cupboard.id!, cheeseId: cheese.id!)
+                                                }
+                                                
+                                            }
+                                        }) {
+                                            Text(cupboard.name!)
                                         }
-                               
                                     }
-                                }) {
-                                        Text(cupboard.name!)
-                                    }
+                                }
+                                
                             }
                             
-                        }
-                        
-                        Picker(selection: $selectedView,
-                               label: Text("Picker")
-                        ) {
+                            Picker(selection: $selectedView,
+                                   label: Text("Picker")
+                            ) {
+                                
+                            }
                             
-                        }
+                            
+                        }, label: {
+                            HStack{
+                                Text("Add to Cupboard")
+                                Image(systemName: "chevron.down")
+                            }.padding()
+                                .background(CustomColors.tan1)
+                                .cornerRadius(16.0)
+                        }).menuStyle(.button)
                         
-                        
-                    }, label: {
-                        HStack{
-                            Text("Add to Cupboard")
-                            Image(systemName: "chevron.down")
-                        }.padding()
-                            .background(CustomColors.tan1)
-                            .cornerRadius(16.0)
-                    }).menuStyle(.button)
-                    
-                    Text(cheese.description ?? "")
-                        .font(.custom("IowanOldStyle-Roman", size: 20))
+                        Text(cheese.description ?? "")
+                            .font(.custom("IowanOldStyle-Roman", size: 20))
+                    }
+                    Text("Reviews")
+                        .font(.custom("IowanOldStyle-Roman", size: 24))
+                        .fontWeight(.bold)
                     Spacer()
                 }
                 .foregroundColor(CustomColors.textColor)

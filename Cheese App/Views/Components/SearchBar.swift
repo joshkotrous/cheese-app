@@ -20,9 +20,9 @@ struct SearchBar: View {
                         .frame(width: 25)
                         .frame(height: 25)
 
-                    TextField("", text: $textInput, prompt: Text("Cheese name, type, or monger").foregroundColor(CustomColors.textColor).font(.custom("IowanOldStyle-Roman", size: 18)))
+                    TextField("", text: $textInput, prompt: Text("Cheese name, type, or monger").foregroundColor(CustomColors.textColor).font(.custom(AppConfig.fontName, size: 18)))
                             .foregroundColor(CustomColors.textColor)
-                            .font(.custom("IowanOldStyle-Roman", size: 18))
+                            .font(.custom(AppConfig.fontName, size: 18))
             
 
 

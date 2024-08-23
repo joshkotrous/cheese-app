@@ -37,7 +37,7 @@ struct ProfileView: View {
                             }.frame(maxWidth: .infinity, maxHeight: .infinity).background(CustomColors.background)
                         } else {
                         Text(username)
-                            .font(.custom("IowanOldStyle-Roman", size: 28))
+                            .font(.custom(AppConfig.fontName, size: 28))
                             .frame(maxWidth: .infinity, alignment: .leading)
                         
                         if (accessToken != "" && accessToken != nil) {
@@ -69,7 +69,7 @@ struct ProfileView: View {
                         NavigationLink(destination: EditProfileView(username: $username, bio: $bio, profileId: $profileId)){
                             Text("Edit Profile")
                                 .padding()
-                                .font(.custom("IowanOldStyle-Roman", size: 16))
+                                .font(.custom(AppConfig.fontName, size: 16))
                                 .frame(maxWidth: .infinity)
                                 .background(CustomColors.tan1)
                         }

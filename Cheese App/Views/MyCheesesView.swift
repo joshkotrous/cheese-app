@@ -36,7 +36,7 @@ struct MyCheesesView: View {
                             Text("My Cheeses")
                             
                         }
-                        .font(.custom("IowanOldStyle-Roman", size: 24))
+                        .font(.custom(AppConfig.fontName, size: 24))
                         
                         if(viewModel.isLoading){
                             VStack{
@@ -51,7 +51,7 @@ struct MyCheesesView: View {
                                         if cupboard.name != "Created By Me" {
                                             NavigationLink(destination: CupboardListView(cupboardId: cupboard.id!, selectedTab: $selectedTab, showAddCheeseButton: true)) {
                                                 Text(cupboard.name ?? "")
-                                                    .font(.custom("IowanOldStyle-Roman", size: 24))
+                                                    .font(.custom(AppConfig.fontName, size: 24))
                                                     .frame(maxWidth: .infinity, alignment: .leading)
                                                     .fontWeight(.bold)
                                             }
@@ -59,7 +59,7 @@ struct MyCheesesView: View {
                                         } else {
                                             NavigationLink(destination: CupboardListView(cupboardId: cupboard.id!, selectedTab: $selectedTab, showAddCheeseButton: false)) {
                                                 Text(cupboard.name ?? "")
-                                                    .font(.custom("IowanOldStyle-Roman", size: 24))
+                                                    .font(.custom(AppConfig.fontName, size: 24))
                                                     .frame(maxWidth: .infinity, alignment: .leading)
                                                     .fontWeight(.bold)
                                             }
@@ -96,7 +96,7 @@ struct MyCheesesView: View {
                                 print("Button tapped!")
                             }) {
                                 Text("+ New Cupboard")
-                                    .font(.custom("IowanOldStyle-Roman", size: 16))
+                                    .font(.custom(AppConfig.fontName, size: 16))
                                     .padding(6)
                                     .background(CustomColors.tan1)
                                     .foregroundColor(CustomColors.textColor)
@@ -108,7 +108,7 @@ struct MyCheesesView: View {
                                 print("Button tapped!")
                             }) {
                                 Text("+ Add Cheese")
-                                    .font(.custom("IowanOldStyle-Roman", size: 16))
+                                    .font(.custom(AppConfig.fontName, size: 16))
                                     .padding(6)
                                     .background(CustomColors.tan1)
                                     .foregroundColor(CustomColors.textColor)

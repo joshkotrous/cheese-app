@@ -40,7 +40,7 @@ struct CupboardListView: View {
                 //                CheeseList(cheeses: viewModel.cheeses)
                 if (viewModel.cheeses.count == 0){
                     Text("No cheeses added yet")
-                        .font(.custom("IowanOldStyle-Roman", size: 20))
+                        .font(.custom(AppConfig.fontName, size: 20))
                     
                     if (viewModel.showAddCheeseButton) {
                         Button(action: {
@@ -48,7 +48,7 @@ struct CupboardListView: View {
                         }){
                             Text("Add Cheese")
                                 .padding()
-                                .font(.custom("IowanOldStyle-Roman", size: 20))
+                                .font(.custom(AppConfig.fontName, size: 20))
                                 .background(CustomColors.tan1)
                         }
                         .cornerRadius(16)

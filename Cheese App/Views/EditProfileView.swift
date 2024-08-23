@@ -55,17 +55,17 @@ struct EditProfileView: View {
                 VStack(spacing: 16){
                     Text("Edit Profile")
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        .font(.custom("IowanOldStyle-Roman", size: 24))
+                        .font(.custom(AppConfig.fontName, size: 24))
                         .fontWeight(.bold)
                     VStack{
                         Text("Username")
                             .frame(maxWidth: .infinity, alignment: .leading)
-                            .font(.custom("IowanOldStyle-Roman", size: 16))
+                            .font(.custom(AppConfig.fontName, size: 16))
 
-                        TextField("", text: $username, prompt: Text("Username").foregroundColor(CustomColors.textColor).font(.custom("IowanOldStyle-Roman", size: 18)))
+                        TextField("", text: $username, prompt: Text("Username").foregroundColor(CustomColors.textColor).font(.custom(AppConfig.fontName, size: 18)))
                             .padding(8)
                             .foregroundColor(CustomColors.textColor)
-                            .font(.custom("IowanOldStyle-Roman", size: 18))
+                            .font(.custom(AppConfig.fontName, size: 18))
                             .overlay(
                                 RoundedRectangle(cornerRadius: 12)
                                     .stroke(CustomColors.textColor, lineWidth: 1)
@@ -77,11 +77,11 @@ struct EditProfileView: View {
                     VStack{
                         Text("Bio")
                             .frame(maxWidth: .infinity, alignment: .leading)
-                            .font(.custom("IowanOldStyle-Roman", size: 16))
-                        TextField("", text: $bio, prompt: Text("Bio").foregroundColor(CustomColors.textColor).font(.custom("IowanOldStyle-Roman", size: 18)))
+                            .font(.custom(AppConfig.fontName, size: 16))
+                        TextField("", text: $bio, prompt: Text("Bio").foregroundColor(CustomColors.textColor).font(.custom(AppConfig.fontName, size: 18)))
                             .padding(8)
                             .foregroundColor(CustomColors.textColor)
-                            .font(.custom("IowanOldStyle-Roman", size: 18))
+                            .font(.custom(AppConfig.fontName, size: 18))
                             .overlay(
                                 RoundedRectangle(cornerRadius: 12)
                                     .stroke(CustomColors.textColor, lineWidth: 1)
@@ -104,7 +104,7 @@ struct EditProfileView: View {
                     }) {
                         Text("Save Changes")
                             .padding()
-                            .font(.custom("IowanOldStyle-Roman", size: 16))
+                            .font(.custom(AppConfig.fontName, size: 16))
                             .frame(maxWidth: .infinity)
                             .background(CustomColors.tan1)
 
@@ -120,7 +120,7 @@ struct EditProfileView: View {
                     }){
                         Text("Sign Out")
                             .padding()
-                            .font(.custom("IowanOldStyle-Roman", size: 16))
+                            .font(.custom(AppConfig.fontName, size: 16))
                             .frame(maxWidth: .infinity)
                             .background(CustomColors.tan1)
 
@@ -139,7 +139,7 @@ struct EditProfileView: View {
                             .background(Color.red.opacity(0.5))
                             .foregroundColor(Color.red)
                             .cornerRadius(16)
-                            .font(.custom("IowanOldStyle-Roman", size: 16))
+                            .font(.custom(AppConfig.fontName, size: 16))
                         
                     }
                     .alert(isPresented: $showAlert) {

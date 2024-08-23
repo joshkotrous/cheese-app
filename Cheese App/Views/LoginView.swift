@@ -33,7 +33,7 @@ struct LoginView: View {
                     .edgesIgnoringSafeArea(.all)
                 VStack {
                     Text("Sign In")
-                        .font(.custom("IowanOldStyle-Roman", size: 48))
+                        .font(.custom(AppConfig.fontName, size: 48))
                         .fontWeight(.bold)
                         .foregroundColor(CustomColors.textColor)
                         .multilineTextAlignment(.center)
@@ -55,7 +55,7 @@ struct LoginView: View {
                     
                     NavigationLink(destination: AppView()) {
                         Text("Skip Login")
-                            .font(.custom("IowanOldStyle-Roman", size: 16))
+                            .font(.custom(AppConfig.fontName, size: 16))
                             .fontWeight(.bold)
                             .foregroundColor(CustomColors.textColor)
                             .multilineTextAlignment(.center)

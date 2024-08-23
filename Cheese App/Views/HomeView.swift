@@ -41,7 +41,7 @@ struct HomeView: View {
                             VStack{
                                 VStack{
                                     Text("New This Week")
-                                        .font(.custom("IowanOldStyle-Roman", size: 24))
+                                        .font(.custom(AppConfig.fontName, size: 24))
                                         .fontWeight(.bold)
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                     VStack{

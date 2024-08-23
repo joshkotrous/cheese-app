@@ -19,11 +19,11 @@ struct NewCupboardPopover: View {
             VStack {
                 Text("Add Cupboard")
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .font(.custom("IowanOldStyle-Roman", size: 24))
+                    .font(.custom(AppConfig.fontName, size: 24))
                     .fontWeight(.bold)
-                TextField("", text: $newCupboardInput, prompt: Text("Cupboard name").foregroundColor(CustomColors.textColor).font(.custom("IowanOldStyle-Roman", size: 18)))
+                TextField("", text: $newCupboardInput, prompt: Text("Cupboard name").foregroundColor(CustomColors.textColor).font(.custom(AppConfig.fontName, size: 18)))
                     .foregroundColor(CustomColors.textColor)
-                    .font(.custom("IowanOldStyle-Roman", size: 18))
+                    .font(.custom(AppConfig.fontName, size: 18))
                 Button(action: {
                     Task {
                         if (profileId != nil && newCupboardInput != "") {
@@ -37,7 +37,7 @@ struct NewCupboardPopover: View {
                 }) {
                     Text("Add")
                         .frame(maxWidth: .infinity)
-                        .font(.custom("IowanOldStyle-Roman", size: 18))
+                        .font(.custom(AppConfig.fontName, size: 18))
                         .padding()
                         .frame(maxWidth: .infinity)
                         .background(CustomColors.tan1)

@@ -25,11 +25,11 @@ struct CheeseDetailView: View {
                         
                         
                         Text(cheese.name ?? "")
-                            .font(.custom("IowanOldStyle-Roman", size: 32))
+                            .font(.custom(AppConfig.fontName, size: 32))
                             .fontWeight(.bold)
                             .padding(.bottom, 8)
                         Text(cheese.category ?? "")
-                            .font(.custom("IowanOldStyle-Roman", size: 24))
+                            .font(.custom(AppConfig.fontName, size: 24))
                             .fontWeight(.semibold)
                             .padding(.bottom, 8)
                         
@@ -71,10 +71,10 @@ struct CheeseDetailView: View {
                         }).menuStyle(.button)
                         
                         Text(cheese.description ?? "")
-                            .font(.custom("IowanOldStyle-Roman", size: 20))
+                            .font(.custom(AppConfig.fontName, size: 20))
                     }
                     Text("Reviews")
-                        .font(.custom("IowanOldStyle-Roman", size: 24))
+                        .font(.custom(AppConfig.fontName, size: 24))
                         .fontWeight(.bold)
                     Spacer()
                 }

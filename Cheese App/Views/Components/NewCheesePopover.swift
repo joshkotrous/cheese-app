@@ -30,15 +30,15 @@ struct NewCheesePopover: View {
             VStack {
                 Text("Add Cheese")
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .font(.custom("IowanOldStyle-Roman", size: 24))
+                    .font(.custom(AppConfig.fontName, size: 24))
                     .fontWeight(.bold)
                 Text("Cheese name")
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .font(.custom("IowanOldStyle-Roman", size: 18))
-                TextField("", text: $viewModel.cheeseName, prompt: Text("").foregroundColor(CustomColors.textColor).font(.custom("IowanOldStyle-Roman", size: 18)))
+                    .font(.custom(AppConfig.fontName, size: 18))
+                TextField("", text: $viewModel.cheeseName, prompt: Text("").foregroundColor(CustomColors.textColor).font(.custom(AppConfig.fontName, size: 18)))
                     .foregroundColor(CustomColors.textColor)
                     .padding(4)
-                    .font(.custom("IowanOldStyle-Roman", size: 18))
+                    .font(.custom(AppConfig.fontName, size: 18))
                     .overlay {
                         RoundedRectangle(cornerRadius: 8)
                             .stroke(CustomColors.textColor, lineWidth: 1)
@@ -64,18 +64,18 @@ struct NewCheesePopover: View {
                 }, label: {
                     Text(viewModel.selectedCategory)
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        .font(.custom("IowanOldStyle-Roman", size: 18))
+                        .font(.custom(AppConfig.fontName, size: 18))
                 })
                 
-                TextField("", text: $viewModel.notes, prompt: Text("Notes").foregroundColor(CustomColors.textColor).font(.custom("IowanOldStyle-Roman", size: 18)))
+                TextField("", text: $viewModel.notes, prompt: Text("Notes").foregroundColor(CustomColors.textColor).font(.custom(AppConfig.fontName, size: 18)))
                     .foregroundColor(CustomColors.textColor)
-                    .font(.custom("IowanOldStyle-Roman", size: 18))
+                    .font(.custom(AppConfig.fontName, size: 18))
                 Text("Description")
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .font(.custom("IowanOldStyle-Roman", size: 18))
+                    .font(.custom(AppConfig.fontName, size: 18))
                 TextEditor(text: $viewModel.description)
                         .foregroundColor(CustomColors.textColor) // Set the text color
-                        .font(.custom("IowanOldStyle-Roman", size: 18)) // Set the custom font and size
+                        .font(.custom(AppConfig.fontName, size: 18)) // Set the custom font and size
                         .frame(height: 100, alignment: .top)
                         .scrollContentBackground(.hidden) // <- Hide it
                         .background(CustomColors.background)
@@ -89,7 +89,7 @@ struct NewCheesePopover: View {
                 Button(action: {}) {
                     Text("Add")
                         .frame(maxWidth: .infinity)
-                        .font(.custom("IowanOldStyle-Roman", size: 18))
+                        .font(.custom(AppConfig.fontName, size: 18))
                         .padding()
                         .frame(maxWidth: .infinity)
                         .background(CustomColors.tan1)

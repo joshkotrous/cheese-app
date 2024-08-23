@@ -53,7 +53,7 @@ struct SearchView: View {
                             VStack(spacing: 30) {
                                 VStack {
                                     Text("Categories")
-                                        .font(.custom("IowanOldStyle-Roman", size: 24))
+                                        .font(.custom(AppConfig.fontName, size: 24))
                                         .fontWeight(.bold)
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                         .padding()
@@ -62,7 +62,7 @@ struct SearchView: View {
                                         ForEach(viewModel.categories) { category in
                                             NavigationLink(destination: CategoryListView(category: category.category)) {
                                                 Text(category.category)
-                                                    .font(.custom("IowanOldStyle-Roman", size: 14))
+                                                    .font(.custom(AppConfig.fontName, size: 14))
                                                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                                                     .padding()
                                             }
@@ -84,7 +84,7 @@ struct SearchView: View {
                                     }
                                     VStack {
                                         Text("Gateways")
-                                            .font(.custom("IowanOldStyle-Roman", size: 24))
+                                            .font(.custom(AppConfig.fontName, size: 24))
                                             .fontWeight(.bold)
                                             .frame(maxWidth: .infinity, alignment: .leading)
                                             .padding()
@@ -93,7 +93,7 @@ struct SearchView: View {
                                             ForEach(viewModel.gateways) { gateway in
                                                 NavigationLink(destination: CategoryListView(category: gateway.gateway)) {
                                                     Text(gateway.gateway)
-                                                        .font(.custom("IowanOldStyle-Roman", size: 14))
+                                                        .font(.custom(AppConfig.fontName, size: 14))
                                                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                                                         .padding()
                                                 }

@@ -16,7 +16,7 @@ struct WelcomeView: View {
             // Foreground content
             VStack {
                 Text("Cheese \n App")
-                    .font(.custom("IowanOldStyle-Roman", size: 48))
+                    .font(.custom(AppConfig.fontName, size: 48))
                     .fontWeight(.bold)
                     .foregroundColor(CustomColors.textColor)
                     .multilineTextAlignment(.center)

@@ -48,6 +48,7 @@ struct CategoryListView: View {
                 }
                 .background(CustomColors.background)
                 .scrollContentBackground(.hidden)
+                .scrollContentBackground(.hidden)
                 .listStyle(PlainListStyle())
             
         }

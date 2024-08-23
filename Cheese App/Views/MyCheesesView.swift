@@ -18,7 +18,6 @@ struct MyCheesesView: View {
     
     var body: some View {
         NavigationStack {
-            
             VStack(spacing: 0){
                 ZStack{
                     
@@ -143,7 +142,7 @@ struct MyCheesesView: View {
             }
             
         }
-        
+        .ignoresSafeArea(.keyboard)
     }
     
 }

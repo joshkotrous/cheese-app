@@ -201,6 +201,9 @@ class Database {
                     var profile = await getUserProfile(userId: userId)
                     if(profile == nil){
                         profile = await handleFirstTimeSignUp(userId: userId)
+                    } else {
+                        UserDefaults.standard.set(profile?.id, forKey: "profileId")
+
                     }
                 }
                 UserDefaults.standard.set(true, forKey: "isSignedIn")
@@ -222,6 +225,18 @@ class Database {
     func createCreatedByMeCupboard(profileId: String) async -> Void {
         await createNewCupboard(profileId: profileId, cupboardName: "Created By Me")
 
+    }
+    
+    
+    func createDefaultCupboards(profileId: String) async -> Void {
+        let defaultCupboards: [Cupboard] = [Cupboard(name: "Eaten", profile_id: profileId), Cupboard(name: "Want to Eat", profile_id: profileId), Cupboard(name: "In the Fridge", profile_id: profileId), ]
+        do {
+            try await supabase.from("cupboard").insert(defaultCupboards).execute().value
+            
+        } catch {
+            print(error)
+        }
+   
     }
     
 

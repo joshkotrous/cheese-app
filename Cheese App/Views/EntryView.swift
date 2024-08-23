@@ -8,22 +8,26 @@
 import SwiftUI
 
 struct EntryView: View {
-    @State private var showLoginScreen = false
     @AppStorage("accessToken") var accessToken: String?
     var body: some View {
         Group {
-            ZStack {
-                if (accessToken == nil){
-                    LoginView()
-
-                } else {
-                    AppView()
+                
+                
+                ZStack {
+                    if (accessToken == nil){
+                        LoginView()
+                        
+                    } else {
+                        AppView()
+                    }
+                    WelcomeView()
+                    
                 }
-                WelcomeView()
-
-            }
-       
+                
+            
         }
+        .ignoresSafeArea(.all)
+
     }
 }
 

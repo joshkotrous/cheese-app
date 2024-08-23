@@ -74,7 +74,9 @@ struct ProfileView: View {
                     bio = profile?.bio ?? ""
                 }
             }
-        }                .tint(Color(CustomColors.tan2))
+        }
+        .tint(Color(CustomColors.tan2))
+        .ignoresSafeArea(.keyboard)
 
     }
 }

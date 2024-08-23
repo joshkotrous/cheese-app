@@ -7,8 +7,18 @@
 
 import SwiftUI
 
-struct AppView: View {
+enum Tab {
+    case home
+    case profile
+    case mycheeses
+    case discover
+    case search
+    
+}
 
+struct AppView: View {
+    @State private var selectedTab: Tab = .home
+    
     init() {
         let navigationBarAppearance = UINavigationBarAppearance()
         navigationBarAppearance.configureWithOpaqueBackground()
@@ -25,41 +35,50 @@ struct AppView: View {
         tabBarAppearance.backgroundColor = UIColor(CustomColors.background)
         tabBarAppearance.stackedLayoutAppearance.normal.iconColor = UIColor(CustomColors.textColor)
         tabBarAppearance.stackedLayoutAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor(CustomColors.textColor)]
-    tabBarAppearance.stackedItemSpacing = 20.0
+        tabBarAppearance.stackedItemSpacing = 20.0
         UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
         UITabBar.appearance().standardAppearance = tabBarAppearance
-
+        
     }
     var body: some View {
-                TabView{
-                    HomeView()
-                        .tabItem {
-                            Image("AiOutlineHome")
-                                Text("Home")
-                        }
-                    MyCheesesView()
-                        .tabItem {
-                            Image("PiCheeseLight")
-                            Text("My Cheeses")
-                        }
-                    DiscoverView()
-                        .tabItem {
-                            Image("AiOutlineCompass")
-                            Text("Discover")
-                        }
-                    SearchView()
-                        .tabItem {
-                            Image("BiSearchAlt2")
-                            Text("Search")
-                        }
-                    ProfileView()
-                        .tabItem {
-                            Image("AiOutlineUser")
-                            Text("Profile")
-                        }
+        TabView(){
+            HomeView()
+                .tabItem {
+                    Image("AiOutlineHome")
+                    Text("Home")
                 }
-                .tint(Color(CustomColors.tan2))
-                .navigationBarBackButtonHidden(true)
+                .tag(Tab.home)
+            
+            MyCheesesView()
+                .tabItem {
+                    Image("PiCheeseLight")
+                    Text("My Cheeses")
+                }
+                .tag(Tab.mycheeses)
+                        
+            DiscoverView()
+                .tabItem {
+                    Image("AiOutlineCompass")
+                    Text("Discover")
+                }
+                .tag(Tab.discover)
+            
+            SearchView()
+                .tabItem {
+                    Image("BiSearchAlt2")
+                    Text("Search")
+                }
+                .tag(Tab.search)
+            
+            ProfileView()
+                .tabItem {
+                    Image("AiOutlineUser")
+                    Text("Profile")
+                }
+                .tag(Tab.profile)            
+        }
+        .tint(Color(CustomColors.tan2))
+        .navigationBarBackButtonHidden(true)
     }
 }
 

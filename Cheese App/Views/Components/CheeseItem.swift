@@ -47,7 +47,7 @@ struct CheeseItem: View {
                 // Delay the animation by 2 seconds
                 DispatchQueue.main.asyncAfter(deadline: .now() + delay!) {
                     
-                    withAnimation(.easeInOut(duration: 1.0)) {
+                    withAnimation(.easeInOut(duration: 0.5)) {
                         opacity = 1.0
                     }
                 }

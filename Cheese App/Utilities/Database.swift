@@ -267,7 +267,7 @@ class Database {
             let cupboard: Cupboard = try await supabase.from("cupboard").select().eq("name", value: "Created By Me").eq("user_id", value: userId).single().execute().value
             print(cupboard)
             var cupboardCheese = CheeseCupboard()
-            cupboardCheese.cheese_id = cheese.id
+            cupboardCheese.cheese_id = cheese.id!
             cupboardCheese.cupboard_id = cupboard.id!
             print(cupboardCheese)
             try await supabase.from("cupboard_cheese").insert(cupboardCheese).execute().value

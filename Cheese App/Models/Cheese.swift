@@ -8,7 +8,7 @@
 import Foundation
 
 struct Cheese: Codable, Identifiable {
-    var id: String
+    var id: String?
     var name: String
     var category: String
     var url: String?
@@ -20,7 +20,7 @@ struct Cheese: Codable, Identifiable {
     var community_added: Bool?
     var user_id: String?
 
-    init(id: String = "", name: String = "", category: String = "", url: String? = nil, description: String = "", notes: String? = nil, allergens: String? = nil, ingredients: String? = nil, additionalFacts: String? = nil, community_added: Bool? = nil, user_id: String? = nil) {
+    init(id: String? = nil, name: String = "", category: String = "", url: String? = nil, description: String = "", notes: String? = nil, allergens: String? = nil, ingredients: String? = nil, additionalFacts: String? = nil, community_added: Bool? = nil, user_id: String? = nil) {
         self.id = id
         self.name = name
         self.category = category

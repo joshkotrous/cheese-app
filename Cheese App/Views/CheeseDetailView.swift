@@ -24,11 +24,11 @@ struct CheeseDetailView: View {
                     VStack(alignment: .leading) {
                         
                         
-                        Text(cheese.name ?? "")
+                        Text(cheese.name)
                             .font(.custom(AppConfig.fontName, size: 32))
                             .fontWeight(.bold)
                             .padding(.bottom, 8)
-                        Text(cheese.category ?? "")
+                        Text(cheese.category)
                             .font(.custom(AppConfig.fontName, size: 24))
                             .fontWeight(.semibold)
                             .padding(.bottom, 8)
@@ -42,7 +42,7 @@ struct CheeseDetailView: View {
                                             selectedOption = cupboard
                                             Task {
                                                 if (cupboard.id != nil && cheese.id != nil) {
-                                                    await Database().addCheeseToCupboard(cupboardId: cupboard.id!, cheeseId: cheese.id)
+                                                    await Database().addCheeseToCupboard(cupboardId: cupboard.id!, cheeseId: cheese.id!)
                                                 }
                                                 
                                             }
@@ -70,7 +70,7 @@ struct CheeseDetailView: View {
                                 .cornerRadius(16.0)
                         }).menuStyle(.button)
                         
-                        Text(cheese.description ?? "")
+                        Text(cheese.description)
                             .font(.custom(AppConfig.fontName, size: 20))
                     }
                     Text("Reviews")
@@ -91,7 +91,7 @@ struct CheeseDetailView: View {
                 
             }
         }    .toolbar {
-            ToolbarItem(placement: .principal, content: {       Text(cheese.name ?? "")
+            ToolbarItem(placement: .principal, content: {       Text(cheese.name)
                       .font(.custom(AppConfig.fontName, size: 24))
                       .foregroundColor(CustomColors.textColor)})
          

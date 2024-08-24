@@ -8,12 +8,12 @@
 import Foundation
 
 struct Profile: Codable, Identifiable {
-    var user_id: String
-    var id: String
+    var user_id: String?
+    var id: String?
     var bio: String?
     var username: String
     
-    init(id: String = "", user_id: String = "", username: String = ""){
+    init(id: String? = nil, user_id: String? = nil, username: String = ""){
         self.id = id
         self.user_id = user_id
         self.username = username

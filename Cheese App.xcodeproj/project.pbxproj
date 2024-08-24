@@ -49,6 +49,7 @@
 		37B4F6632C785A33008A1CFE /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B4F6622C785A33008A1CFE /* AppConfig.swift */; };
 		37B9B3E82C6726B500CB433E /* CategoryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B9B3E72C6726B500CB433E /* CategoryListView.swift */; };
 		37DFBE1E2C5F33720079A637 /* Cheese-App-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 37DFBE1D2C5F33720079A637 /* Cheese-App-Info.plist */; };
+		37F5BE682C796DAB004F569D /* UserCheese.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F5BE672C796DAB004F569D /* UserCheese.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,6 +114,7 @@
 		37B4F6622C785A33008A1CFE /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
 		37B9B3E72C6726B500CB433E /* CategoryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryListView.swift; sourceTree = "<group>"; };
 		37DFBE1D2C5F33720079A637 /* Cheese-App-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Cheese-App-Info.plist"; sourceTree = "<group>"; };
+		37F5BE672C796DAB004F569D /* UserCheese.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCheese.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,6 +159,7 @@
 				376F52CD2C76E90800BC1F27 /* Cupboard.swift */,
 				376F52D22C76FD4C00BC1F27 /* CheeseCupboard.swift */,
 				376F52D82C77226D00BC1F27 /* CupboardCheeseList.swift */,
+				37F5BE672C796DAB004F569D /* UserCheese.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -457,6 +460,7 @@
 				37B2F3502C72D7C1006D71B3 /* Auth.swift in Sources */,
 				374AE4E82C61E04900FB6063 /* Cheese.swift in Sources */,
 				3742A8E02C6054AC00705D5E /* DiscoverView.swift in Sources */,
+				37F5BE682C796DAB004F569D /* UserCheese.swift in Sources */,
 				376F52D52C77142400BC1F27 /* CupboardListView.swift in Sources */,
 				37959DA12C5F5823004E4A02 /* WelcomeView.swift in Sources */,
 				37959DAA2C5F592A004E4A02 /* EntryView.swift in Sources */,

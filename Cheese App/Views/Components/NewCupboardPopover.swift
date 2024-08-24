@@ -22,8 +22,14 @@ struct NewCupboardPopover: View {
                     .font(.custom(AppConfig.fontName, size: 24))
                     .fontWeight(.bold)
                 TextField("", text: $newCupboardInput, prompt: Text("Cupboard name").foregroundColor(CustomColors.textColor).font(.custom(AppConfig.fontName, size: 18)))
+                    .padding(4)
                     .foregroundColor(CustomColors.textColor)
                     .font(.custom(AppConfig.fontName, size: 18))
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(CustomColors.textColor, lineWidth: 1)
+                        
+                    }
                 Button(action: {
                     Task {
                         if (profileId != nil && newCupboardInput != "") {
@@ -56,6 +62,13 @@ struct NewCupboardPopover: View {
     }
 }
 
-//#Preview {
-//    MyCheesesView()
-//}
+struct NewCupboardPopoverPreview: View {
+    @State var selectedTab: Tab = Tab.mycheeses
+    var body: some View{
+        MyCheesesView(selectedTab: $selectedTab)
+    }
+}
+
+#Preview {
+        NewCupboardPopoverPreview()
+}

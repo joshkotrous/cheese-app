@@ -89,8 +89,7 @@ class Database {
         var results: Profile?
         let profile = Profile(user_id: userId, username: username)
         do {
-            try await supabase.from("profile").insert(profile).execute().value
-            results = await getUserProfile(userId: userId)
+            results = try await supabase.from("profile").insert(profile).select().single().execute().value
         } catch {
             print(error)
         }
@@ -219,7 +218,8 @@ class Database {
         let username = "\(CheeseWords[rand1])\(CheeseWords[rand2])\(currentTimestamp)".lowercased()
             let profile = await createUserProfile(userId: userId, username: username)
             if (profile?.id != nil){
-                await createCreatedByMeCupboard(profileId: profile?.id ?? "")
+//                await createCreatedByMeCupboard(profileId: profile?.id ?? "")
+                await createDefaultCupboards(profileId: profile?.id ?? "")
                 UserDefaults.standard.set(profile?.id, forKey: "profileId")
             }
         
@@ -233,7 +233,7 @@ class Database {
     
     
     func createDefaultCupboards(profileId: String) async -> Void {
-        let defaultCupboards: [Cupboard] = [Cupboard(name: "Eaten", profile_id: profileId), Cupboard(name: "Want to Eat", profile_id: profileId), Cupboard(name: "In the Fridge", profile_id: profileId), ]
+        let defaultCupboards: [Cupboard] = [Cupboard(name: "Eaten", profile_id: profileId), Cupboard(name: "Want to Eat", profile_id: profileId), Cupboard(name: "In the Fridge", profile_id: profileId), Cupboard(name: "Created By Me", profile_id: profileId)]
         do {
             try await supabase.from("cupboard").insert(defaultCupboards).execute().value
             
@@ -251,6 +251,29 @@ class Database {
         }
     }
     
-
+    
+    func addUserCheese(name: String, description: String, category: String, userId: String) async -> Void {
+        print(name, description, category, userId)
+        var cheese = UserCheese()
+        cheese.name = name
+        cheese.description = description
+        cheese.category = category
+        cheese.user_id = userId
+        print(cheese)
+        do {
+            let userCheese: Cheese = try await supabase.from("user_cheese").insert(cheese).select().single().execute().value
+            print(userCheese)
+            let cupboard: Cupboard = try await supabase.from("cupboard").select().eq("name", value: "Created By Me").eq("user_id", value: userId).limit(1).single().execute().value
+            print(cupboard)
+            var cupboardCheese = CheeseCupboard()
+            cupboardCheese.cheese_id = userCheese.id
+            cupboardCheese.cupboard_id = cupboard.id
+            print(cupboardCheese)
+            try await supabase.from("cupboard_user_cheese").insert(cupboardCheese).execute().value
+        } catch {
+            print(error)
+        }
+    }
+    
 }
 

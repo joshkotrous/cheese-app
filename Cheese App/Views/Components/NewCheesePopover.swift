@@ -32,19 +32,22 @@ struct NewCheesePopover: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .font(.custom(AppConfig.fontName, size: 24))
                     .fontWeight(.bold)
-                Text("Cheese name")
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .font(.custom(AppConfig.fontName, size: 18))
-                TextField("", text: $viewModel.cheeseName, prompt: Text("").foregroundColor(CustomColors.textColor).font(.custom(AppConfig.fontName, size: 18)))
-                    .foregroundColor(CustomColors.textColor)
-                    .padding(4)
-                    .font(.custom(AppConfig.fontName, size: 18))
-                    .overlay {
-                        RoundedRectangle(cornerRadius: 8)
-                            .stroke(CustomColors.textColor, lineWidth: 1)
-                        
-                    }
-               
+                VStack(spacing: 0){
+                    Text("Cheese name")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .font(.custom(AppConfig.fontName, size: 18))
+                    TextField("", text: $viewModel.cheeseName, prompt: Text("").foregroundColor(CustomColors.textColor).font(.custom(AppConfig.fontName, size: 18)))
+                        .foregroundColor(CustomColors.textColor)
+                        .padding(4)
+                        .font(.custom(AppConfig.fontName, size: 18))
+                        .overlay {
+                            RoundedRectangle(cornerRadius: 8)
+                                .stroke(CustomColors.textColor, lineWidth: 1)
+                            
+                        }
+                   
+                }
+  
                 
                 Menu(content: {
                     
@@ -57,34 +60,38 @@ struct NewCheesePopover: View {
                         
                     }
                     
-                    Button(action:{}){
-                        Text("Test")
-                    }
-                    
                 }, label: {
-                    Text(viewModel.selectedCategory)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .font(.custom(AppConfig.fontName, size: 18))
+                    HStack{
+                        Text(viewModel.selectedCategory)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .font(.custom(AppConfig.fontName, size: 18))
+                        Image(systemName: "chevron.down")
+                    }
+                 
                 })
                 
                 TextField("", text: $viewModel.notes, prompt: Text("Notes").foregroundColor(CustomColors.textColor).font(.custom(AppConfig.fontName, size: 18)))
                     .foregroundColor(CustomColors.textColor)
                     .font(.custom(AppConfig.fontName, size: 18))
-                Text("Description")
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .font(.custom(AppConfig.fontName, size: 18))
-                TextEditor(text: $viewModel.description)
-                        .foregroundColor(CustomColors.textColor) // Set the text color
-                        .font(.custom(AppConfig.fontName, size: 18)) // Set the custom font and size
-                        .frame(height: 100, alignment: .top)
-                        .scrollContentBackground(.hidden) // <- Hide it
-                        .background(CustomColors.background)
-                        .padding(4)
-                        .overlay {
-                            RoundedRectangle(cornerRadius: 8)
-                                .stroke(CustomColors.textColor, lineWidth: 1)
-                            
-                        }
+                
+                VStack(spacing: 0){
+                    Text("Description")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .font(.custom(AppConfig.fontName, size: 18))
+                    TextEditor(text: $viewModel.description)
+                            .foregroundColor(CustomColors.textColor) // Set the text color
+                            .font(.custom(AppConfig.fontName, size: 18)) // Set the custom font and size
+                            .frame(height: 100, alignment: .top)
+                            .scrollContentBackground(.hidden) // <- Hide it
+                            .background(CustomColors.background)
+                            .padding(4)
+                            .overlay {
+                                RoundedRectangle(cornerRadius: 8)
+                                    .stroke(CustomColors.textColor, lineWidth: 1)
+                                
+                            }
+                }
+        
                     
                 Button(action: {}) {
                     Text("Add")

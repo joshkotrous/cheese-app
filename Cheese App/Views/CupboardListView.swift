@@ -11,11 +11,12 @@ class CupboardListViewModel: ObservableObject {
     @Published var showAddCheeseButton: Bool
     @Published var cheeses: [CupboardCheeseList] = []
     @Binding var selectedTab: Tab
-
-    init(cupboardId: String, showAddCheeseButton: Bool, selectedTab: Binding<Tab>) {
+    @Published var cupboardName: String
+    init(cupboardId: String, showAddCheeseButton: Bool, selectedTab: Binding<Tab>, cupboardName: String) {
         self.cupboardId = cupboardId
         self.showAddCheeseButton = showAddCheeseButton
         self._selectedTab = selectedTab
+        self.cupboardName = cupboardName
 
     }
     
@@ -30,8 +31,8 @@ class CupboardListViewModel: ObservableObject {
 struct CupboardListView: View {
     @StateObject private var viewModel: CupboardListViewModel
     
-    init(cupboardId: String, selectedTab: Binding<Tab>, showAddCheeseButton: Bool) {
-        _viewModel = StateObject(wrappedValue: CupboardListViewModel(cupboardId: cupboardId, showAddCheeseButton: showAddCheeseButton, selectedTab: selectedTab))
+    init(cupboardId: String, selectedTab: Binding<Tab>, showAddCheeseButton: Bool, cupboardName: String) {
+        _viewModel = StateObject(wrappedValue: CupboardListViewModel(cupboardId: cupboardId, showAddCheeseButton: showAddCheeseButton, selectedTab: selectedTab, cupboardName: cupboardName))
     }
     
     var body: some View {
@@ -105,6 +106,18 @@ struct CupboardListView: View {
             
         }
         .tint(Color(CustomColors.tan2))
+    .toolbar {
+        ToolbarItem(placement: .principal, content: {       Text(viewModel.cupboardName)
+                  .font(.custom(AppConfig.fontName, size: 24))
+                  .foregroundColor(CustomColors.textColor)})
+     
+
+    
+
+     
+    }
+
+
         .task {
             await viewModel.getCheesesForCupboard(cupboardId: viewModel.cupboardId)
         }
@@ -115,8 +128,9 @@ struct CupboardListView: View {
 
 struct CupboardListViewPreview: View {
     @State private var selectedTab: Tab = .home
+    @State private var cupboardName: String = "Test Cupboard"
     var body: some View {
-        CupboardListView(cupboardId: "0cb474ab-b85c-49cd-8b31-b3089ab196da", selectedTab: $selectedTab, showAddCheeseButton: true)
+        CupboardListView(cupboardId: "0cb474ab-b85c-49cd-8b31-b3089ab196da", selectedTab: $selectedTab, showAddCheeseButton: true, cupboardName: cupboardName)
     }
 }
 

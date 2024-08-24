@@ -30,14 +30,8 @@ struct MyCheesesView: View {
                     
                     CustomColors.background
                         .edgesIgnoringSafeArea(.all)
-                    
+ 
                     VStack{
-                        HStack{
-                            Text("My Cheeses")
-                            
-                        }
-                        .font(.custom(AppConfig.fontName, size: 24))
-                        
                         if(viewModel.isLoading){
                             VStack{
                                 ProgressView() // Spinner shown when loading
@@ -49,7 +43,7 @@ struct MyCheesesView: View {
                                 Section{
                                     ForEach(cupboards ?? []) { cupboard in
                                         if cupboard.name != "Created By Me" {
-                                            NavigationLink(destination: CupboardListView(cupboardId: cupboard.id!, selectedTab: $selectedTab, showAddCheeseButton: true)) {
+                                            NavigationLink(destination: CupboardListView(cupboardId: cupboard.id!, selectedTab: $selectedTab, showAddCheeseButton: true, cupboardName: cupboard.name!)) {
                                                 Text(cupboard.name ?? "")
                                                     .font(.custom(AppConfig.fontName, size: 24))
                                                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -57,7 +51,7 @@ struct MyCheesesView: View {
                                             }
                                             .padding()
                                         } else {
-                                            NavigationLink(destination: CupboardListView(cupboardId: cupboard.id!, selectedTab: $selectedTab, showAddCheeseButton: false)) {
+                                            NavigationLink(destination: CupboardListView(cupboardId: cupboard.id!, selectedTab: $selectedTab, showAddCheeseButton: false, cupboardName: cupboard.name!)) {
                                                 Text(cupboard.name ?? "")
                                                     .font(.custom(AppConfig.fontName, size: 24))
                                                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -130,7 +124,7 @@ struct MyCheesesView: View {
                 
             }
             .popover(isPresented: $showCheesePopover) {
-                NewCheesePopover()
+                NewCheesePopover(showNewCheesePopover: $showCheesePopover)
             }
             .task {
                 if(profileId != nil){
@@ -139,11 +133,23 @@ struct MyCheesesView: View {
                 }
                 viewModel.isLoading = false
             }
+ 
+            .toolbar {
+                ToolbarItem(placement: .principal, content: {       Text("My Cheeses")
+                          .font(.custom(AppConfig.fontName, size: 24))
+                          .foregroundColor(CustomColors.textColor)})
+             
+
             
+
+             
+            }
+
+        
+
+         
         }
-        .ignoresSafeArea(.keyboard)
     }
-    
 }
 
 struct MyCheesesViewPreview: View {

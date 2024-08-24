@@ -87,6 +87,15 @@ struct CheeseDetailView: View {
                 cupboards = await Database().getUserCupboards(profileId: profileId!)
                 
             }
+        }    .toolbar {
+            ToolbarItem(placement: .principal, content: {       Text(cheese.name ?? "")
+                      .font(.custom(AppConfig.fontName, size: 24))
+                      .foregroundColor(CustomColors.textColor)})
+         
+
+        
+
+         
         }
         
     }

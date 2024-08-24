@@ -20,8 +20,9 @@ struct NewCheesePopover: View {
 
     @StateObject var viewModel = NewCheesePopoverModel()
     
-   
-    
+    @AppStorage("userId") var userId: String?
+    @Binding var showNewCheesePopover: Bool
+
     var body: some View {
    
         ZStack{
@@ -93,7 +94,13 @@ struct NewCheesePopover: View {
                 }
         
                     
-                Button(action: {}) {
+                Button(action: {
+                    Task{
+                        await Database().createUserCheese(name: viewModel.cheeseName, description: viewModel.description, category: viewModel.selectedCategory, userId: userId ?? "")
+                        showNewCheesePopover = false
+                    }
+                    
+                }) {
                     Text("Add")
                         .frame(maxWidth: .infinity)
                         .font(.custom(AppConfig.fontName, size: 18))
@@ -114,6 +121,13 @@ struct NewCheesePopover: View {
     }
 }
 
+struct NewCheesePopoverViewPreview: View {
+    @State var showCheesePopover: Bool = true
+    var body: some View{
+        NewCheesePopover(showNewCheesePopover: $showCheesePopover)
+    }
+}
+
 #Preview {
-    NewCheesePopover()
+        NewCheesePopoverViewPreview()
 }

@@ -252,24 +252,25 @@ class Database {
     }
     
     
-    func addUserCheese(name: String, description: String, category: String, userId: String) async -> Void {
+    func createUserCheese(name: String, description: String, category: String, userId: String) async -> Void {
         print(name, description, category, userId)
-        var cheese = UserCheese()
+        var cheese: Cheese = Cheese()
         cheese.name = name
         cheese.description = description
         cheese.category = category
         cheese.user_id = userId
+        cheese.community_added = true
         print(cheese)
         do {
-            let userCheese: Cheese = try await supabase.from("user_cheese").insert(cheese).select().single().execute().value
-            print(userCheese)
-            let cupboard: Cupboard = try await supabase.from("cupboard").select().eq("name", value: "Created By Me").eq("user_id", value: userId).limit(1).single().execute().value
+            let cheese: Cheese = try await supabase.from("cheese").insert(cheese).select().single().execute().value
+            print(cheese)
+            let cupboard: Cupboard = try await supabase.from("cupboard").select().eq("name", value: "Created By Me").eq("user_id", value: userId).single().execute().value
             print(cupboard)
             var cupboardCheese = CheeseCupboard()
-            cupboardCheese.cheese_id = userCheese.id
+            cupboardCheese.cheese_id = cheese.id
             cupboardCheese.cupboard_id = cupboard.id
             print(cupboardCheese)
-            try await supabase.from("cupboard_user_cheese").insert(cupboardCheese).execute().value
+            try await supabase.from("cupboard_cheese").insert(cupboardCheese).execute().value
         } catch {
             print(error)
         }

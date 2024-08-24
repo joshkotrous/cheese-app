@@ -35,10 +35,10 @@ struct CategoryListView: View {
                 List(viewModel.cheeses) { cheese in
                     NavigationLink(destination: CheeseDetailView(cheese: cheese)){
                         VStack(alignment: .leading) {
-                            Text(cheese.name!)
+                            Text(cheese.name)
                                 .font(.headline)
                                 .foregroundColor(CustomColors.textColor)
-                            Text(cheese.category!)
+                            Text(cheese.category)
                                 .font(.subheadline)
                                 .foregroundColor(.gray)
                         }

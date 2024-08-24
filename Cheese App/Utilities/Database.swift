@@ -268,7 +268,7 @@ class Database {
             print(cupboard)
             var cupboardCheese = CheeseCupboard()
             cupboardCheese.cheese_id = cheese.id
-            cupboardCheese.cupboard_id = cupboard.id
+            cupboardCheese.cupboard_id = cupboard.id!
             print(cupboardCheese)
             try await supabase.from("cupboard_cheese").insert(cupboardCheese).execute().value
         } catch {

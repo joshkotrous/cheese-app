@@ -17,15 +17,15 @@ struct CheeseItem: View {
             ZStack{
                 CustomColors.tan1
                 VStack {
-                    Text(cheese.name!)
+                    Text(cheese.name)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .fontWeight(.bold)
                         .font(.custom(AppConfig.fontName, size: 24))
-                    Text(cheese.category!)
+                    Text(cheese.category)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .fontWeight(.semibold)
                         .font(.custom(AppConfig.fontName, size: 18))
-                    Text(cheese.description!)
+                    Text(cheese.description)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .font(.custom(AppConfig.fontName, size: 16))
                     Spacer()

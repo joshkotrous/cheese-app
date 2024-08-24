@@ -42,7 +42,7 @@ struct CheeseDetailView: View {
                                             selectedOption = cupboard
                                             Task {
                                                 if (cupboard.id != nil && cheese.id != nil) {
-                                                    await Database().addCheeseToCupboard(cupboardId: cupboard.id!, cheeseId: cheese.id!)
+                                                    await Database().addCheeseToCupboard(cupboardId: cupboard.id!, cheeseId: cheese.id)
                                                 }
                                                 
                                             }

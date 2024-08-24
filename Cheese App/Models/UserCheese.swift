@@ -8,9 +8,9 @@
 import Foundation
 
 struct UserCheese: Codable, Identifiable {
-    var id: String?
-    var name: String?
-    var description: String?
-    var category: String?
-    var user_id: String?
+    var id: String
+    var name: String
+    var description: String
+    var category: String
+    var user_id: String
 }

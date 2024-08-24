@@ -48,7 +48,6 @@ struct CategoryListView: View {
                 }
                 .background(CustomColors.background)
                 .scrollContentBackground(.hidden)
-                .scrollContentBackground(.hidden)
                 .listStyle(PlainListStyle())
             
         }
@@ -56,6 +55,16 @@ struct CategoryListView: View {
         .task {
             await viewModel.getCheesesForCategory(category: viewModel.category)
         }
+        .toolbar {
+            ToolbarItem(placement: .principal, content: {       Text(viewModel.category)
+                     .font(.custom(AppConfig.fontName, size: 24))
+                     .foregroundColor(CustomColors.textColor)})
+        
+
+       
+
+        
+       }
     }
 }
 

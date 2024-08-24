@@ -31,7 +31,7 @@ class Database {
         var results: [Cheese] = []
         
         do {
-            results  = try await supabase.from("cheese").select().order("created_on").execute().value
+            results  = try await supabase.from("cheese").select().neq("community_added", value: "TRUE").order("created_on").execute().value
         }
         catch {
             print(error)
@@ -271,6 +271,14 @@ class Database {
             cupboardCheese.cupboard_id = cupboard.id
             print(cupboardCheese)
             try await supabase.from("cupboard_cheese").insert(cupboardCheese).execute().value
+        } catch {
+            print(error)
+        }
+    }
+    
+    func deleteUserCheese(cheeseId: String, userId: String) async -> Void {
+        do {
+            try await supabase.from("cheese").delete().eq("id", value: cheeseId).execute().value
         } catch {
             print(error)
         }

@@ -32,6 +32,9 @@ struct MyCheesesView: View {
                         .edgesIgnoringSafeArea(.all)
  
                     VStack{
+                        Text("My Cheeses")
+                                                  .font(.custom(AppConfig.fontName, size: 24))
+                                                  .foregroundColor(CustomColors.textColor)
                         if(viewModel.isLoading){
                             VStack{
                                 ProgressView() // Spinner shown when loading
@@ -134,18 +137,18 @@ struct MyCheesesView: View {
                 viewModel.isLoading = false
             }
  
-            .toolbar {
-                ToolbarItem(placement: .principal, content: {       Text("My Cheeses")
-                          .font(.custom(AppConfig.fontName, size: 24))
-                          .foregroundColor(CustomColors.textColor)})
-             
-
-            
-
-             
-            }
-
-        
+//            .toolbar {
+//                ToolbarItem(placement: .principal, content: {       Text("My Cheeses")
+//                          .font(.custom(AppConfig.fontName, size: 24))
+//                          .foregroundColor(CustomColors.textColor)})
+//             
+//
+//            
+//
+//             
+//            }
+//
+//        
 
          
         }

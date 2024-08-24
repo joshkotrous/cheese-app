@@ -17,7 +17,7 @@ class CupboardListViewModel: ObservableObject {
         self.showAddCheeseButton = showAddCheeseButton
         self._selectedTab = selectedTab
         self.cupboardName = cupboardName
-
+        
     }
     
     func getCheesesForCupboard(cupboardId: String) async {
@@ -30,7 +30,10 @@ class CupboardListViewModel: ObservableObject {
 
 struct CupboardListView: View {
     @StateObject private var viewModel: CupboardListViewModel
-    
+    @State var showAlert: Bool = false
+    @State var showCheesePopover: Bool = false
+    @State var idToDelete: String = ""
+    @AppStorage("userId") var userId: String?
     init(cupboardId: String, selectedTab: Binding<Tab>, showAddCheeseButton: Bool, cupboardName: String) {
         _viewModel = StateObject(wrappedValue: CupboardListViewModel(cupboardId: cupboardId, showAddCheeseButton: showAddCheeseButton, selectedTab: selectedTab, cupboardName: cupboardName))
     }
@@ -38,21 +41,44 @@ struct CupboardListView: View {
     var body: some View {
         NavigationStack {
             VStack{
-                //                CheeseList(cheeses: viewModel.cheeses)
-                if (viewModel.cheeses.count == 0){
+               if (viewModel.cheeses.count == 0){
                     Text("No cheeses added yet")
                         .font(.custom(AppConfig.fontName, size: 20))
                     
+  
+                   
                     if (viewModel.showAddCheeseButton) {
+                        HStack{
+                            Button(action: {
+                                viewModel.selectedTab = Tab.search
+                            }){
+                                Text("Add From Database")
+                                    .padding()
+                                    .font(.custom(AppConfig.fontName, size: 16))
+                                    .background(CustomColors.tan1)
+                            }
+                            .cornerRadius(16)
+                            Button(action: {
+                                showCheesePopover = true
+                            }){
+                                Text("Add New Cheese")
+                                    .padding()
+                                    .font(.custom(AppConfig.fontName, size: 16))
+                                    .background(CustomColors.tan1)
+                            }
+                            .cornerRadius(16)
+                        }
+                    } else {
                         Button(action: {
-                            viewModel.selectedTab = Tab.search
+                            showCheesePopover = true
                         }){
-                            Text("Add Cheese")
+                            Text("Add New Cheese")
                                 .padding()
-                                .font(.custom(AppConfig.fontName, size: 20))
+                                .font(.custom(AppConfig.fontName, size: 16))
                                 .background(CustomColors.tan1)
                         }
                         .cornerRadius(16)
+
                     }
                     
                     
@@ -80,19 +106,41 @@ struct CupboardListView: View {
                             
                         }
                         .onDelete(perform: { indexSet in
-                            let idsToDelete = indexSet.map { viewModel.cheeses[$0].id }
-                            if (idsToDelete.count == 0){
-                                return
+                            for index in indexSet {
+                                let cupboardCheese = viewModel.cheeses[index]
+                                if let cheeseIdToDelete = cupboardCheese.cheese?.id {
+                                    let cupboardIdToDelete = cupboardCheese.id
+                                    if viewModel.cupboardName == "Created By Me" {
+                                        showAlert = true
+                                        Task {
+                                            await Database().deleteUserCheese(cheeseId: cheeseIdToDelete, userId: userId ?? "")
+                                            await viewModel.getCheesesForCupboard(cupboardId: viewModel.cupboardId)
+                                        }
+                                    } else {
+                                        Task {
+                                            await Database().deleteCupboardCheese(cupboardCheeseId: cupboardIdToDelete)
+                                            await viewModel.getCheesesForCupboard(cupboardId: viewModel.cupboardId)
+                                        }
+                                    }
+                                }
                             }
                             viewModel.cheeses.remove(atOffsets: indexSet)
-                            Task{
-                                print(idsToDelete[0])
-                                await Database().deleteCupboardCheese(cupboardCheeseId: idsToDelete[0])
-                                
-                                
-                            }
+                            
                             print("deleted")
-                        }) // Attach onDelete here
+                        })
+                        .alert(isPresented: $showAlert) {
+                            Alert(
+                                title: Text("Delete Account"),
+                                message: Text("Are you sure you want to delete your account?"),
+                                primaryButton: .destructive(Text("Delete")) {
+                                    Task{
+                                        await Database().deleteUserCheese(cheeseId: idToDelete, userId: userId ?? "")
+                                    }
+                                    print("Account deleted")
+                                },
+                                secondaryButton: .cancel()
+                            )
+                        }
                     }
                     
                     .background(CustomColors.background)
@@ -106,18 +154,23 @@ struct CupboardListView: View {
             
         }
         .tint(Color(CustomColors.tan2))
-    .toolbar {
-        ToolbarItem(placement: .principal, content: {       Text(viewModel.cupboardName)
-                  .font(.custom(AppConfig.fontName, size: 24))
-                  .foregroundColor(CustomColors.textColor)})
-     
-
-    
-
-     
-    }
-
-
+        .toolbar {
+            ToolbarItem(placement: .principal, content: {       Text(viewModel.cupboardName)
+                    .font(.custom(AppConfig.fontName, size: 24))
+                .foregroundColor(CustomColors.textColor)})
+            
+            
+            
+            
+            
+        }
+        .popover(isPresented: $showCheesePopover) {
+            NewCheesePopover(showNewCheesePopover: $showCheesePopover).onDisappear(perform: {
+                Task{
+                    await viewModel.getCheesesForCupboard(cupboardId: viewModel.cupboardId)
+                }
+            })
+        }
         .task {
             await viewModel.getCheesesForCupboard(cupboardId: viewModel.cupboardId)
         }

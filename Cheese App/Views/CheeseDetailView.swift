@@ -81,7 +81,10 @@ struct CheeseDetailView: View {
                 .foregroundColor(CustomColors.textColor)
                 .padding()
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
+
         .task {
             if(profileId != nil && profileId != "") {
                 cupboards = await Database().getUserCupboards(profileId: profileId!)

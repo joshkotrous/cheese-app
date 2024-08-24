@@ -37,6 +37,7 @@ struct EditProfileView: View {
             if (viewModel.updatedSuccessfully) {
                 HStack{
                     Text("Profile Updated Successfully")
+                        .foregroundColor(.black)
                     Image(systemName: "checkmark.circle.fill").foregroundColor(.green)
                 }
                 .opacity(viewModel.opacity)

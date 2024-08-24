@@ -9,7 +9,7 @@ import SwiftUI
 
 class NewCheesePopoverModel: ObservableObject {
     @Published var categories: [Category] = []
-    @Published var selectedCategory: String = "Cheese Category"
+    @Published var selectedCategory: String = ""
     @Published var cheeseName: String = ""
     @Published var description: String = ""
     @Published var notes: String = ""
@@ -33,23 +33,21 @@ struct NewCheesePopover: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .font(.custom(AppConfig.fontName, size: 24))
                     .fontWeight(.bold)
-                VStack(spacing: 0){
+                VStack(spacing: 2){
                     Text("Cheese name")
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .font(.custom(AppConfig.fontName, size: 18))
                     TextField("", text: $viewModel.cheeseName, prompt: Text("").foregroundColor(CustomColors.textColor).font(.custom(AppConfig.fontName, size: 18)))
                         .foregroundColor(CustomColors.textColor)
-                        .padding(4)
+                        .padding(8)
                         .font(.custom(AppConfig.fontName, size: 18))
-                        .overlay {
-                            RoundedRectangle(cornerRadius: 8)
-                                .stroke(CustomColors.textColor, lineWidth: 1)
-                            
-                        }
-                   
+                        .background(RoundedRectangle(cornerRadius: 12).fill(CustomColors.tan1))
                 }
   
-                
+                VStack(spacing: 2){
+                    Text("Cheese Category")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .font(.custom(AppConfig.fontName, size: 18))
                 Menu(content: {
                     
                     ForEach(viewModel.categories) { category in
@@ -62,20 +60,28 @@ struct NewCheesePopover: View {
                     }
                     
                 }, label: {
-                    HStack{
-                        Text(viewModel.selectedCategory)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .font(.custom(AppConfig.fontName, size: 18))
-                        Image(systemName: "chevron.down")
-                    }
+                        
+                        
+               
+                        HStack{
+                            Text(viewModel.selectedCategory)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .font(.custom(AppConfig.fontName, size: 18))
+                                .padding(12)
+                            Image(systemName: "chevron.down")
+                                .padding(12)
+                        }
+                        .background(CustomColors.tan1)
+                        .cornerRadius(12)
                  
                 })
-                
+                }
+
                 TextField("", text: $viewModel.notes, prompt: Text("Notes").foregroundColor(CustomColors.textColor).font(.custom(AppConfig.fontName, size: 18)))
                     .foregroundColor(CustomColors.textColor)
                     .font(.custom(AppConfig.fontName, size: 18))
                 
-                VStack(spacing: 0){
+                VStack(spacing: 2){
                     Text("Description")
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .font(.custom(AppConfig.fontName, size: 18))
@@ -84,20 +90,21 @@ struct NewCheesePopover: View {
                             .font(.custom(AppConfig.fontName, size: 18)) // Set the custom font and size
                             .frame(height: 100, alignment: .top)
                             .scrollContentBackground(.hidden) // <- Hide it
-                            .background(CustomColors.background)
+                            .cornerRadius(12)
+                            .background(RoundedRectangle(cornerRadius: 12).fill(CustomColors.tan1))
+
+
                             .padding(4)
-                            .overlay {
-                                RoundedRectangle(cornerRadius: 8)
-                                    .stroke(CustomColors.textColor, lineWidth: 1)
-                                
-                            }
                 }
         
                     
                 Button(action: {
                     Task{
-                        await Database().createUserCheese(name: viewModel.cheeseName, description: viewModel.description, category: viewModel.selectedCategory, userId: userId ?? "")
-                        showNewCheesePopover = false
+                        if (viewModel.cheeseName != ""){
+                            await Database().createUserCheese(name: viewModel.cheeseName, description: viewModel.description, category: viewModel.selectedCategory, userId: userId ?? "")
+                            showNewCheesePopover = false
+                        }
+                   
                     }
                     
                 }) {

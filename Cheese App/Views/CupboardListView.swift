@@ -32,6 +32,8 @@ struct CupboardListView: View {
     @StateObject private var viewModel: CupboardListViewModel
     @State var showAlert: Bool = false
     @State var showCheesePopover: Bool = false
+    @State var showSearchPopover: Bool = false
+
     @State var idToDelete: String = ""
     @AppStorage("userId") var userId: String?
     init(cupboardId: String, selectedTab: Binding<Tab>, showAddCheeseButton: Bool, cupboardName: String) {
@@ -50,7 +52,8 @@ struct CupboardListView: View {
                     if (viewModel.showAddCheeseButton) {
                         HStack{
                             Button(action: {
-                                viewModel.selectedTab = Tab.search
+//                                viewModel.selectedTab = Tab.search
+                                showSearchPopover = true
                             }){
                                 Text("Add From Database")
                                     .padding()
@@ -90,10 +93,10 @@ struct CupboardListView: View {
                             if let cheese = cupboardCheese.cheese {
                                 NavigationLink(destination: CheeseDetailView(cheese: cheese)) {
                                     VStack(alignment: .leading) {
-                                        Text(cheese.name ?? "")
+                                        Text(cheese.name)
                                             .font(.headline)
                                             .foregroundColor(CustomColors.textColor)
-                                        Text(cheese.category ?? "")
+                                        Text(cheese.category)
                                             .font(.subheadline)
                                             .foregroundColor(.gray)
                                     }
@@ -170,6 +173,14 @@ struct CupboardListView: View {
                     await viewModel.getCheesesForCupboard(cupboardId: viewModel.cupboardId)
                 }
             })
+        }
+        .popover(isPresented: $showSearchPopover) {
+            SearchView().onDisappear {
+                showSearchPopover = false
+                Task{
+                    await viewModel.getCheesesForCupboard(cupboardId: viewModel.cupboardId)
+                }
+            }
         }
         .task {
             await viewModel.getCheesesForCupboard(cupboardId: viewModel.cupboardId)

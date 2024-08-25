@@ -21,15 +21,17 @@ struct NewCupboardPopover: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .font(.custom(AppConfig.fontName, size: 24))
                     .fontWeight(.bold)
-                TextField("", text: $newCupboardInput, prompt: Text("Cupboard name").foregroundColor(CustomColors.textColor).font(.custom(AppConfig.fontName, size: 18)))
-                    .padding(4)
-                    .foregroundColor(CustomColors.textColor)
-                    .font(.custom(AppConfig.fontName, size: 18))
-                    .overlay {
-                        RoundedRectangle(cornerRadius: 8)
-                            .stroke(CustomColors.textColor, lineWidth: 1)
-                        
-                    }
+                VStack(spacing: 0){
+                    Text("Cupboard name")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .font(.custom(AppConfig.fontName, size: 18))
+                    TextField("", text: $newCupboardInput, prompt: Text("").foregroundColor(CustomColors.textColor).font(.custom(AppConfig.fontName, size: 18)))
+                        .padding(4)
+                        .foregroundColor(CustomColors.textColor)
+                        .font(.custom(AppConfig.fontName, size: 18))
+                        .background(RoundedRectangle(cornerRadius: 12).fill(CustomColors.tan1))
+                }
+     
                 Button(action: {
                     Task {
                         if (profileId != nil && newCupboardInput != "") {

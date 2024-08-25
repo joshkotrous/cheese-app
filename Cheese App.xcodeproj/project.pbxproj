@@ -621,8 +621,6 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
-				SUPABASE_ANON_KEY = "";
-				SUPABASE_URL = "https:/$()/kdbdsvrqhkmsgsgildrt.supabase.co";
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
 			};

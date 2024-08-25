@@ -127,7 +127,7 @@ struct MyCheesesView: View {
                 
             }
             .popover(isPresented: $showCheesePopover) {
-                NewCheesePopover(showNewCheesePopover: $showCheesePopover)
+                NewCheesePopover(showNewCheesePopover: $showCheesePopover, cupboardId: "")
             }
             .task {
                 if(profileId != nil){

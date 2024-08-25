@@ -13,7 +13,7 @@ class NewCheesePopoverModel: ObservableObject {
     @Published var cheeseName: String = ""
     @Published var description: String = ""
     @Published var notes: String = ""
-    
+
 }
 
 struct NewCheesePopover: View {
@@ -22,7 +22,9 @@ struct NewCheesePopover: View {
     
     @AppStorage("userId") var userId: String?
     @Binding var showNewCheesePopover: Bool
-
+    let cupboardId: String?
+    
+    
     var body: some View {
    
         ZStack{
@@ -100,9 +102,15 @@ struct NewCheesePopover: View {
                     
                 Button(action: {
                     Task{
+                        var cheese: Cheese?
+
                         if (viewModel.cheeseName != ""){
-                            await Database().createUserCheese(name: viewModel.cheeseName, description: viewModel.description, category: viewModel.selectedCategory, userId: userId ?? "")
+                           cheese = await Database().createUserCheese(name: viewModel.cheeseName, description: viewModel.description, category: viewModel.selectedCategory, userId: userId ?? "")
                             showNewCheesePopover = false
+                        }
+                        
+                        if (cupboardId != "" && (cheese?.id != "" || cheese?.id != nil)){
+                            await Database().addCheeseToCupboard(cupboardId: cupboardId!, cheeseId: cheese?.id ?? "")
                         }
                    
                     }
@@ -131,7 +139,7 @@ struct NewCheesePopover: View {
 struct NewCheesePopoverViewPreview: View {
     @State var showCheesePopover: Bool = true
     var body: some View{
-        NewCheesePopover(showNewCheesePopover: $showCheesePopover)
+        NewCheesePopover(showNewCheesePopover: $showCheesePopover, cupboardId: "")
     }
 }
 

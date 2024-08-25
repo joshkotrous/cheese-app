@@ -168,7 +168,7 @@ struct CupboardListView: View {
             
         }
         .popover(isPresented: $showCheesePopover) {
-            NewCheesePopover(showNewCheesePopover: $showCheesePopover).onDisappear(perform: {
+            NewCheesePopover(showNewCheesePopover: $showCheesePopover, cupboardId: viewModel.cupboardId).onDisappear(perform: {
                 Task{
                     await viewModel.getCheesesForCupboard(cupboardId: viewModel.cupboardId)
                 }

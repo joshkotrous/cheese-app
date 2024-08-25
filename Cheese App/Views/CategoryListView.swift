@@ -10,7 +10,7 @@ import SwiftUI
 class CategoryListViewModel: ObservableObject {
     @Published var category: String
     @Published var cheeses: [Cheese] = []
-
+    
     init(category: String) {
         self.category = category
     }
@@ -26,12 +26,20 @@ class CategoryListViewModel: ObservableObject {
 
 struct CategoryListView: View {
     @StateObject private var viewModel: CategoryListViewModel
+    @State var isLoading: Bool = true
     init(category: String) {
         _viewModel = StateObject(wrappedValue: CategoryListViewModel(category: category))
     }
 
     var body: some View {
         NavigationStack{
+            if isLoading {
+                VStack{
+                    ProgressView() // Spinner shown when loading
+                        .progressViewStyle(CircularProgressViewStyle())
+                        .scaleEffect(1.5) // Make the spinner larger if needed
+                }.frame(maxWidth: .infinity, maxHeight: .infinity).background(CustomColors.background)
+            } else {
                 List(viewModel.cheeses) { cheese in
                     NavigationLink(destination: CheeseDetailView(cheese: cheese)){
                         VStack(alignment: .leading) {
@@ -49,11 +57,14 @@ struct CategoryListView: View {
                 .background(CustomColors.background)
                 .scrollContentBackground(.hidden)
                 .listStyle(PlainListStyle())
+            }
             
         }
         .tint(Color(CustomColors.tan2))
         .task {
+            isLoading = true
             await viewModel.getCheesesForCategory(category: viewModel.category)
+            isLoading = false
         }
         .toolbar {
             ToolbarItem(placement: .principal, content: {       Text(viewModel.category)

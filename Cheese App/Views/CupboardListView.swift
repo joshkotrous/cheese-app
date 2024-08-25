@@ -33,7 +33,7 @@ struct CupboardListView: View {
     @State var showAlert: Bool = false
     @State var showCheesePopover: Bool = false
     @State var showSearchPopover: Bool = false
-
+    @State var isLoading: Bool = true
     @State var idToDelete: String = ""
     @AppStorage("userId") var userId: String?
     init(cupboardId: String, selectedTab: Binding<Tab>, showAddCheeseButton: Bool, cupboardName: String) {
@@ -42,25 +42,42 @@ struct CupboardListView: View {
     
     var body: some View {
         NavigationStack {
-            VStack{
-               if (viewModel.cheeses.count == 0){
-                    Text("No cheeses added yet")
-                        .font(.custom(AppConfig.fontName, size: 20))
-                    
-  
-                   
-                    if (viewModel.showAddCheeseButton) {
-                        HStack{
-                            Button(action: {
-//                                viewModel.selectedTab = Tab.search
-                                showSearchPopover = true
-                            }){
-                                Text("Add From Database")
-                                    .padding()
-                                    .font(.custom(AppConfig.fontName, size: 16))
-                                    .background(CustomColors.tan1)
+            if isLoading {
+                VStack{
+                    ProgressView() // Spinner shown when loading
+                        .progressViewStyle(CircularProgressViewStyle())
+                        .scaleEffect(1.5) // Make the spinner larger if needed
+                }.frame(maxWidth: .infinity, maxHeight: .infinity).background(CustomColors.background)
+            } else {
+                VStack{
+                    if (viewModel.cheeses.count == 0){
+                        Text("No cheeses added yet")
+                            .font(.custom(AppConfig.fontName, size: 20))
+                        
+                        
+                        
+                        if (viewModel.showAddCheeseButton) {
+                            HStack{
+                                Button(action: {
+                                    showSearchPopover = true
+                                }){
+                                    Text("Add From Database")
+                                        .padding()
+                                        .font(.custom(AppConfig.fontName, size: 16))
+                                        .background(CustomColors.tan1)
+                                }
+                                .cornerRadius(16)
+                                Button(action: {
+                                    showCheesePopover = true
+                                }){
+                                    Text("Add New Cheese")
+                                        .padding()
+                                        .font(.custom(AppConfig.fontName, size: 16))
+                                        .background(CustomColors.tan1)
+                                }
+                                .cornerRadius(16)
                             }
-                            .cornerRadius(16)
+                        } else {
                             Button(action: {
                                 showCheesePopover = true
                             }){
@@ -70,91 +87,82 @@ struct CupboardListView: View {
                                     .background(CustomColors.tan1)
                             }
                             .cornerRadius(16)
+                            
                         }
+                        
+                        
+                        
                     } else {
-                        Button(action: {
-                            showCheesePopover = true
-                        }){
-                            Text("Add New Cheese")
-                                .padding()
-                                .font(.custom(AppConfig.fontName, size: 16))
-                                .background(CustomColors.tan1)
-                        }
-                        .cornerRadius(16)
-
-                    }
-                    
-                    
-                    
-                } else {
-                    
-                    List {
-                        ForEach(viewModel.cheeses) { cupboardCheese in
-                            if let cheese = cupboardCheese.cheese {
-                                NavigationLink(destination: CheeseDetailView(cheese: cheese)) {
-                                    VStack(alignment: .leading) {
-                                        Text(cheese.name)
-                                            .font(.headline)
-                                            .foregroundColor(CustomColors.textColor)
-                                        Text(cheese.category)
-                                            .font(.subheadline)
-                                            .foregroundColor(.gray)
+                        
+                        List {
+                            ForEach(viewModel.cheeses) { cupboardCheese in
+                                if let cheese = cupboardCheese.cheese {
+                                    NavigationLink(destination: CheeseDetailView(cheese: cheese)) {
+                                        VStack(alignment: .leading) {
+                                            Text(cheese.name)
+                                                .font(.headline)
+                                                .foregroundColor(CustomColors.textColor)
+                                            Text(cheese.category)
+                                                .font(.subheadline)
+                                                .foregroundColor(.gray)
+                                        }
+                                        
+                                        .padding(.vertical, 5)
                                     }
+                                    .listRowBackground(CustomColors.background)
                                     
-                                    .padding(.vertical, 5)
                                 }
-                                .listRowBackground(CustomColors.background)
                                 
                             }
-                            
-                        }
-                        .onDelete(perform: { indexSet in
-                            for index in indexSet {
-                                let cupboardCheese = viewModel.cheeses[index]
-                                if let cheeseIdToDelete = cupboardCheese.cheese?.id {
-                                    let cupboardIdToDelete = cupboardCheese.id
-                                    if viewModel.cupboardName == "Created By Me" {
-                                        showAlert = true
-                                        Task {
-                                            await Database().deleteUserCheese(cheeseId: cheeseIdToDelete, userId: userId ?? "")
-                                            await viewModel.getCheesesForCupboard(cupboardId: viewModel.cupboardId)
-                                        }
-                                    } else {
-                                        Task {
-                                            await Database().deleteCupboardCheese(cupboardCheeseId: cupboardIdToDelete)
-                                            await viewModel.getCheesesForCupboard(cupboardId: viewModel.cupboardId)
+                            .onDelete(perform: { indexSet in
+                                for index in indexSet {
+                                    let cupboardCheese = viewModel.cheeses[index]
+                                    if let cheeseIdToDelete = cupboardCheese.cheese?.id {
+                                        let cupboardIdToDelete = cupboardCheese.id
+                                        if viewModel.cupboardName == "Created By Me" {
+                                            showAlert = true
+                                            Task {
+                                                await Database().deleteUserCheese(cheeseId: cheeseIdToDelete, userId: userId ?? "")
+                                                await viewModel.getCheesesForCupboard(cupboardId: viewModel.cupboardId)
+                                            }
+                                        } else {
+                                            Task {
+                                                await Database().deleteCupboardCheese(cupboardCheeseId: cupboardIdToDelete)
+                                                await viewModel.getCheesesForCupboard(cupboardId: viewModel.cupboardId)
+                                            }
                                         }
                                     }
                                 }
+                                viewModel.cheeses.remove(atOffsets: indexSet)
+                                
+                                print("deleted")
+                            })
+                            .alert(isPresented: $showAlert) {
+                                Alert(
+                                    title: Text("Delete Account"),
+                                    message: Text("Are you sure you want to delete your account?"),
+                                    primaryButton: .destructive(Text("Delete")) {
+                                        Task{
+                                            await Database().deleteUserCheese(cheeseId: idToDelete, userId: userId ?? "")
+                                        }
+                                        print("Account deleted")
+                                    },
+                                    secondaryButton: .cancel()
+                                )
                             }
-                            viewModel.cheeses.remove(atOffsets: indexSet)
-                            
-                            print("deleted")
-                        })
-                        .alert(isPresented: $showAlert) {
-                            Alert(
-                                title: Text("Delete Account"),
-                                message: Text("Are you sure you want to delete your account?"),
-                                primaryButton: .destructive(Text("Delete")) {
-                                    Task{
-                                        await Database().deleteUserCheese(cheeseId: idToDelete, userId: userId ?? "")
-                                    }
-                                    print("Account deleted")
-                                },
-                                secondaryButton: .cancel()
-                            )
                         }
+                        
+                        .background(CustomColors.background)
+                        .scrollContentBackground(.hidden)
+                        .listStyle(PlainListStyle())
                     }
                     
-                    .background(CustomColors.background)
-                    .scrollContentBackground(.hidden)
-                    .listStyle(PlainListStyle())
+                    
                 }
+                .foregroundColor(CustomColors.textColor)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(CustomColors.background)
             }
-            .foregroundColor(CustomColors.textColor)
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(CustomColors.background)
-            
         }
         .tint(Color(CustomColors.tan2))
         .toolbar {
@@ -183,7 +191,9 @@ struct CupboardListView: View {
             }
         }
         .task {
+            isLoading = true
             await viewModel.getCheesesForCupboard(cupboardId: viewModel.cupboardId)
+            isLoading = false
         }
     }
     

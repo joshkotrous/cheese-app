@@ -30,11 +30,11 @@ struct MyCheesesView: View {
                     
                     CustomColors.background
                         .edgesIgnoringSafeArea(.all)
- 
+                    
                     VStack{
                         Text("My Cheeses")
-                                                  .font(.custom(AppConfig.fontName, size: 24))
-                                                  .foregroundColor(CustomColors.textColor)
+                            .font(.custom(AppConfig.fontName, size: 24))
+                            .foregroundColor(CustomColors.textColor)
                         if(viewModel.isLoading){
                             VStack{
                                 ProgressView() // Spinner shown when loading
@@ -45,8 +45,8 @@ struct MyCheesesView: View {
                             List{
                                 Section{
                                     ForEach(cupboards ?? []) { cupboard in
-                                        if cupboard.name != "Created By Me" {
-                                            NavigationLink(destination: CupboardListView(cupboardId: cupboard.id!, selectedTab: $selectedTab, showAddCheeseButton: true, cupboardName: cupboard.name!)) {
+                                        if  !AppConfig.defaultCupboards.contains(cupboard.name ?? "") {
+                                            NavigationLink(destination: CupboardListView(cupboardId: cupboard.id!, selectedTab: $selectedTab, cupboardName: cupboard.name!)) {
                                                 Text(cupboard.name ?? "")
                                                     .font(.custom(AppConfig.fontName, size: 24))
                                                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -54,7 +54,7 @@ struct MyCheesesView: View {
                                             }
                                             .padding()
                                         } else {
-                                            NavigationLink(destination: CupboardListView(cupboardId: cupboard.id!, selectedTab: $selectedTab, showAddCheeseButton: false, cupboardName: cupboard.name!)) {
+                                            NavigationLink(destination: CupboardListView(cupboardId: cupboard.id!, selectedTab: $selectedTab, cupboardName: cupboard.name!)) {
                                                 Text(cupboard.name ?? "")
                                                     .font(.custom(AppConfig.fontName, size: 24))
                                                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -127,7 +127,7 @@ struct MyCheesesView: View {
                 
             }
             .popover(isPresented: $showCheesePopover) {
-                NewCheesePopover(showNewCheesePopover: $showCheesePopover, cupboardId: "")
+                NewCheesePopover(showNewCheesePopover: $showCheesePopover, cupboardId: "", cupboardName: "")
             }
             .task {
                 if(profileId != nil){
@@ -136,21 +136,21 @@ struct MyCheesesView: View {
                 }
                 viewModel.isLoading = false
             }
- 
-//            .toolbar {
-//                ToolbarItem(placement: .principal, content: {       Text("My Cheeses")
-//                          .font(.custom(AppConfig.fontName, size: 24))
-//                          .foregroundColor(CustomColors.textColor)})
-//             
-//
-//            
-//
-//             
-//            }
-//
-//        
-
-         
+            
+            //            .toolbar {
+            //                ToolbarItem(placement: .principal, content: {       Text("My Cheeses")
+            //                          .font(.custom(AppConfig.fontName, size: 24))
+            //                          .foregroundColor(CustomColors.textColor)})
+            //             
+            //
+            //            
+            //
+            //             
+            //            }
+            //
+            //        
+            
+            
         }
     }
 }

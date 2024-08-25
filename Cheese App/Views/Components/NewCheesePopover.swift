@@ -23,7 +23,7 @@ struct NewCheesePopover: View {
     @AppStorage("userId") var userId: String?
     @Binding var showNewCheesePopover: Bool
     let cupboardId: String?
-    
+    let cupboardName: String?
     
     var body: some View {
    
@@ -109,7 +109,7 @@ struct NewCheesePopover: View {
                             showNewCheesePopover = false
                         }
                         
-                        if (cupboardId != "" && (cheese?.id != "" || cheese?.id != nil)){
+                        if (cupboardId != "" && (cheese?.id != "" || cheese?.id != nil) && cupboardName != AppConfig.createByMe){
                             await Database().addCheeseToCupboard(cupboardId: cupboardId!, cheeseId: cheese?.id ?? "")
                         }
                    
@@ -139,7 +139,7 @@ struct NewCheesePopover: View {
 struct NewCheesePopoverViewPreview: View {
     @State var showCheesePopover: Bool = true
     var body: some View{
-        NewCheesePopover(showNewCheesePopover: $showCheesePopover, cupboardId: "")
+        NewCheesePopover(showNewCheesePopover: $showCheesePopover, cupboardId: "", cupboardName: "")
     }
 }
 

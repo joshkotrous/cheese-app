@@ -227,13 +227,18 @@ class Database {
     }
     
     func createCreatedByMeCupboard(profileId: String) async -> Void {
-        await createNewCupboard(profileId: profileId, cupboardName: "Created By Me")
+        await createNewCupboard(profileId: profileId, cupboardName: AppConfig.createByMe)
 
     }
     
     
     func createDefaultCupboards(profileId: String) async -> Void {
-        let defaultCupboards: [Cupboard] = [Cupboard(name: "Eaten", profile_id: profileId), Cupboard(name: "Want to Eat", profile_id: profileId), Cupboard(name: "In the Fridge", profile_id: profileId), Cupboard(name: "Created By Me", profile_id: profileId)]
+        var defaultCupboards: [Cupboard] = []
+//        [[Cupboard(name: "Eaten", profile_id: profileId), Cupboard(name: "Want to Eat", profile_id: profileId), Cupboard(name: "In the Fridge", profile_id: profileId), Cupboard(name: "Created By Me", profile_id: profileId)]]
+        for item in AppConfig.defaultCupboards {
+            defaultCupboards.append(Cupboard(name: item, profile_id: profileId))
+        }
+        
         do {
             try await supabase.from("cupboard").insert(defaultCupboards).execute().value
             
@@ -264,7 +269,7 @@ class Database {
         do {
             let cheese: Cheese = try await supabase.from("cheese").insert(mewCheese).select().single().execute().value
             print(cheese)
-            let cupboard: Cupboard = try await supabase.from("cupboard").select().eq("name", value: "Created By Me").eq("user_id", value: userId).single().execute().value
+            let cupboard: Cupboard = try await supabase.from("cupboard").select().eq("name", value: AppConfig.createByMe).eq("user_id", value: userId).single().execute().value
             print(cupboard)
             var cupboardCheese = CheeseCupboard()
             cupboardCheese.cheese_id = cheese.id!

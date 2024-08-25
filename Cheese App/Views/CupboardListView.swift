@@ -8,13 +8,11 @@ import SwiftUI
 
 class CupboardListViewModel: ObservableObject {
     @Published var cupboardId: String
-    @Published var showAddCheeseButton: Bool
     @Published var cheeses: [CupboardCheeseList] = []
     @Binding var selectedTab: Tab
     @Published var cupboardName: String
-    init(cupboardId: String, showAddCheeseButton: Bool, selectedTab: Binding<Tab>, cupboardName: String) {
+    init(cupboardId: String, selectedTab: Binding<Tab>, cupboardName: String) {
         self.cupboardId = cupboardId
-        self.showAddCheeseButton = showAddCheeseButton
         self._selectedTab = selectedTab
         self.cupboardName = cupboardName
         
@@ -36,8 +34,8 @@ struct CupboardListView: View {
     @State var isLoading: Bool = true
     @State var idToDelete: String = ""
     @AppStorage("userId") var userId: String?
-    init(cupboardId: String, selectedTab: Binding<Tab>, showAddCheeseButton: Bool, cupboardName: String) {
-        _viewModel = StateObject(wrappedValue: CupboardListViewModel(cupboardId: cupboardId, showAddCheeseButton: showAddCheeseButton, selectedTab: selectedTab, cupboardName: cupboardName))
+    init(cupboardId: String, selectedTab: Binding<Tab>, cupboardName: String) {
+        _viewModel = StateObject(wrappedValue: CupboardListViewModel(cupboardId: cupboardId, selectedTab: selectedTab, cupboardName: cupboardName))
     }
     
     var body: some View {
@@ -51,32 +49,43 @@ struct CupboardListView: View {
             } else {
                 VStack{
                     if (viewModel.cheeses.count == 0){
-                        Text("No cheeses added yet")
-                            .font(.custom(AppConfig.fontName, size: 20))
+                           
+                        
+                        if (viewModel.cupboardName != AppConfig.reviewedByMe){
+                            Text("No cheeses added yet")
+                                .font(.custom(AppConfig.fontName, size: 20))
+                        } else {
+                            Text("No cheeses reviewed yet")
+                                .font(.custom(AppConfig.fontName, size: 20))
+                        }
+       
                         
                         
                         
-                        if (viewModel.showAddCheeseButton) {
-                            HStack{
-                                Button(action: {
-                                    showSearchPopover = true
-                                }){
-                                    Text("Add From Database")
-                                        .padding()
-                                        .font(.custom(AppConfig.fontName, size: 16))
-                                        .background(CustomColors.tan1)
+                        if (viewModel.cupboardName != AppConfig.createByMe) {
+                            if(viewModel.cupboardName != AppConfig.reviewedByMe){
+                                HStack{
+                                    Button(action: {
+                                        showSearchPopover = true
+                                    }){
+                                        Text("Add From Database")
+                                            .padding()
+                                            .font(.custom(AppConfig.fontName, size: 16))
+                                            .background(CustomColors.tan1)
+                                    }
+                                    .cornerRadius(16)
+                                    Button(action: {
+                                        showCheesePopover = true
+                                    }){
+                                        Text("Add New Cheese")
+                                            .padding()
+                                            .font(.custom(AppConfig.fontName, size: 16))
+                                            .background(CustomColors.tan1)
+                                    }
+                                    .cornerRadius(16)
                                 }
-                                .cornerRadius(16)
-                                Button(action: {
-                                    showCheesePopover = true
-                                }){
-                                    Text("Add New Cheese")
-                                        .padding()
-                                        .font(.custom(AppConfig.fontName, size: 16))
-                                        .background(CustomColors.tan1)
-                                }
-                                .cornerRadius(16)
                             }
+           
                         } else {
                             Button(action: {
                                 showCheesePopover = true
@@ -119,8 +128,7 @@ struct CupboardListView: View {
                                     let cupboardCheese = viewModel.cheeses[index]
                                     if let cheeseIdToDelete = cupboardCheese.cheese?.id {
                                         let cupboardIdToDelete = cupboardCheese.id
-                                        if viewModel.cupboardName == "Created By Me" {
-                                            showAlert = true
+                                        if viewModel.cupboardName == AppConfig.createByMe {
                                             Task {
                                                 await Database().deleteUserCheese(cheeseId: cheeseIdToDelete, userId: userId ?? "")
                                                 await viewModel.getCheesesForCupboard(cupboardId: viewModel.cupboardId)
@@ -139,8 +147,8 @@ struct CupboardListView: View {
                             })
                             .alert(isPresented: $showAlert) {
                                 Alert(
-                                    title: Text("Delete Account"),
-                                    message: Text("Are you sure you want to delete your account?"),
+                                    title: Text("Delete Cheese"),
+                                    message: Text("Deleting a cheese from " + AppConfig.createByMe + " will delete it in its entirety."),
                                     primaryButton: .destructive(Text("Delete")) {
                                         Task{
                                             await Database().deleteUserCheese(cheeseId: idToDelete, userId: userId ?? "")
@@ -176,7 +184,7 @@ struct CupboardListView: View {
             
         }
         .popover(isPresented: $showCheesePopover) {
-            NewCheesePopover(showNewCheesePopover: $showCheesePopover, cupboardId: viewModel.cupboardId).onDisappear(perform: {
+            NewCheesePopover(showNewCheesePopover: $showCheesePopover, cupboardId: viewModel.cupboardId, cupboardName: viewModel.cupboardName).onDisappear(perform: {
                 Task{
                     await viewModel.getCheesesForCupboard(cupboardId: viewModel.cupboardId)
                 }
@@ -204,7 +212,7 @@ struct CupboardListViewPreview: View {
     @State private var selectedTab: Tab = .home
     @State private var cupboardName: String = "Test Cupboard"
     var body: some View {
-        CupboardListView(cupboardId: "0cb474ab-b85c-49cd-8b31-b3089ab196da", selectedTab: $selectedTab, showAddCheeseButton: true, cupboardName: cupboardName)
+        CupboardListView(cupboardId: "0cb474ab-b85c-49cd-8b31-b3089ab196da", selectedTab: $selectedTab, cupboardName: cupboardName)
     }
 }
 

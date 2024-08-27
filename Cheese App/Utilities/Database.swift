@@ -7,12 +7,28 @@
 
 import Foundation
 import Supabase
+import os
+import GoogleSignIn
 
 class Database {
     let supabase: SupabaseClient
 
     init(){
+        let logger = Logger(subsystem: "Database.init", category: "network")
+
         let envDict = Bundle.main.infoDictionary?["LSEnvironment"] as! Dictionary<String, String>
+        if let url = envDict["SUPABASE_URL"] {
+            logger.info("Supabase URL: \(url, privacy: .public)")
+        } else {
+            logger.error("Supabase URL not found in envDict.")
+        }
+
+        if let key = envDict["SUPABASE_ANON_KEY"] {
+            logger.info("Supbase key: \(key, privacy: .public)")
+        } else {
+            logger.error("Supabase key not found in envDict.")
+        }
+
         guard
             let supabaseURLString = envDict["SUPABASE_URL"],
             let supabaseURL = URL(string: supabaseURLString),
@@ -189,14 +205,17 @@ class Database {
         UserDefaults.standard.removeObject(forKey: "profileId")
     }
     
-    func signInWithSupabase(idToken: String, nonce: String) async -> Void {
-            do {
+    func signInWithSupabase(idToken: String, nonce: String) async throws -> Void {
+                let logger = Logger(subsystem: "Database.signInWithSupabase", category: "network")
+                logger.info("ID Token:\(idToken, privacy: .public)")
+                logger.info("Nonce:\(nonce, privacy: .public)")
                 let session = try await Database().supabase.auth.signInWithIdToken(
                     credentials: .init(provider: .apple, idToken: idToken, nonce: nonce))
                 let userId = session.user.id.uuidString
                 UserDefaults.standard.set(session.accessToken, forKey: "accessToken")
                 UserDefaults.standard.set(userId, forKey: "userId")
                 if(userId != ""){
+                    logger.info("User ID:\(userId, privacy: .public)")
                     var profile = await getUserProfile(userId: userId)
                     if(profile == nil){
                         profile = await handleFirstTimeSignUp(userId: userId)
@@ -204,21 +223,46 @@ class Database {
                         UserDefaults.standard.set(profile?.id, forKey: "profileId")
 
                     }
+
                 }
                 UserDefaults.standard.set(true, forKey: "isSignedIn")
-            } catch {
-                print(error)
-            }
+     
         }
+    
+    func googleSignIn(idToken: String, accessToken: String) async throws {
+        let logger = Logger(subsystem: "Database.googleSignIn", category: "network")
+
+       let session = try await supabase.auth.signInWithIdToken(
+         credentials: OpenIDConnectCredentials(
+           provider: .google,
+           idToken: idToken,
+           accessToken: accessToken
+         )
+       )
+        let userId = session.user.id.uuidString
+        UserDefaults.standard.set(session.accessToken, forKey: "accessToken")
+        UserDefaults.standard.set(userId, forKey: "userId")
+        if(userId != ""){
+            logger.info("User ID:\(userId, privacy: .public)")
+            var profile = await getUserProfile(userId: userId)
+            if(profile == nil){
+                profile = await handleFirstTimeSignUp(userId: userId)
+            } else {
+                UserDefaults.standard.set(profile?.id, forKey: "profileId")
+
+            }
+
+        }
+        UserDefaults.standard.set(true, forKey: "isSignedIn")
+     }
     
     func handleFirstTimeSignUp(userId: String) async -> Profile? {
             let rand1 = Int.random(in: 0...CheeseWords.count - 1)
             let rand2 = Int.random(in: 0...CheeseWords.count - 1)
             let currentTimestamp = Int(Date().timeIntervalSince1970)
-        let username = "\(CheeseWords[rand1])\(CheeseWords[rand2])\(currentTimestamp)".lowercased()
+            let username = "\(CheeseWords[rand1])\(CheeseWords[rand2])\(currentTimestamp)".lowercased()
             let profile = await createUserProfile(userId: userId, username: username)
             if (profile?.id != nil){
-//                await createCreatedByMeCupboard(profileId: profile?.id ?? "")
                 await createDefaultCupboards(profileId: profile?.id ?? "")
                 UserDefaults.standard.set(profile?.id, forKey: "profileId")
             }

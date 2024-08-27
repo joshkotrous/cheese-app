@@ -37,7 +37,7 @@ struct CheeseDetailView: View {
                             
                             Section {
                                 ForEach(cupboards ?? []) { cupboard in
-                                    if(cupboard.name != AppConfig.createByMe) {
+                                    if(cupboard.name != AppConfig.createByMe && cupboard.name != AppConfig.reviewedByMe) {
                                         Button(action: {
                                             selectedOption = cupboard
                                             Task {

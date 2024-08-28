@@ -336,5 +336,19 @@ class Database {
         }
     }
     
+    func searchForCheeses(query: String) async -> [Cheese] {
+        var result: [Cheese] = []
+        print(query)
+        do {
+//            result = try await supabase.from("cheese").select().like("name", pattern: "%\(query)%").execute().value
+            result = try await supabase.from("cheese").select().or("name.ilike.%\(query)%,category.ilike.%\(query)%").execute().value
+            print(result)
+        } catch {
+            print(error)
+        }
+        
+        return result
+    }
+    
 }
 

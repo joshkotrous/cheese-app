@@ -341,7 +341,7 @@ class Database {
         print(query)
         do {
 //            result = try await supabase.from("cheese").select().like("name", pattern: "%\(query)%").execute().value
-            result = try await supabase.from("cheese").select().or("name.ilike.%\(query)%,category.ilike.%\(query)%").execute().value
+            result = try await supabase.from("cheese").select().or("name.ilike.%\(query.trimmingCharacters(in: .whitespaces))%,category.ilike.%\(query.trimmingCharacters(in: .whitespaces))%").execute().value
             print(result)
         } catch {
             print(error)

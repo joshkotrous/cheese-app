@@ -72,6 +72,16 @@ struct SearchBar: View {
                                     }
                                 }
                             }
+                        if(!viewModel.searchText.isEmpty){
+                            Button(action: {
+                                viewModel.searchText = ""
+                                viewModel.isSearched = false
+                                isFocused = false
+                            }) {
+                                Image(systemName: "xmark.circle.fill")
+                                    .foregroundColor(CustomColors.textColor)
+                            }
+                        }
                     }
                     .padding()
                     .background(.white)

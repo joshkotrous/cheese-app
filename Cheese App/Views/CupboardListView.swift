@@ -49,7 +49,7 @@ struct CupboardListView: View {
             } else {
                 VStack{
                     if (viewModel.cheeses.count == 0){
-                           
+                        
                         
                         if (viewModel.cupboardName != AppConfig.reviewedByMe){
                             Text("No cheeses added yet")
@@ -58,7 +58,7 @@ struct CupboardListView: View {
                             Text("No cheeses reviewed yet")
                                 .font(.custom(AppConfig.fontName, size: 20))
                         }
-       
+                        
                         
                         
                         
@@ -85,7 +85,7 @@ struct CupboardListView: View {
                                     .cornerRadius(16)
                                 }
                             }
-           
+                            
                         } else {
                             Button(action: {
                                 showCheesePopover = true
@@ -123,6 +123,7 @@ struct CupboardListView: View {
                                 }
                                 
                             }
+                            
                             .onDelete(perform: { indexSet in
                                 for index in indexSet {
                                     let cupboardCheese = viewModel.cheeses[index]
@@ -130,34 +131,25 @@ struct CupboardListView: View {
                                         let cupboardIdToDelete = cupboardCheese.id
                                         if viewModel.cupboardName == AppConfig.createByMe {
                                             Task {
-                                                await Database().deleteUserCheese(cheeseId: cheeseIdToDelete, userId: userId ?? "")
-                                                await viewModel.getCheesesForCupboard(cupboardId: viewModel.cupboardId)
+                                                idToDelete = cheeseIdToDelete
+                                                showAlert = true
+                                                //                                                await Database().deleteUserCheese(cheeseId: cheeseIdToDelete, userId: userId ?? "")
+                                                //                                                await viewModel.getCheesesForCupboard(cupboardId: viewModel.cupboardId)
                                             }
                                         } else {
                                             Task {
                                                 await Database().deleteCupboardCheese(cupboardCheeseId: cupboardIdToDelete)
                                                 await viewModel.getCheesesForCupboard(cupboardId: viewModel.cupboardId)
                                             }
+                                            viewModel.cheeses.remove(atOffsets: indexSet)
+                                            
                                         }
                                     }
                                 }
-                                viewModel.cheeses.remove(atOffsets: indexSet)
                                 
                                 print("deleted")
                             })
-                            .alert(isPresented: $showAlert) {
-                                Alert(
-                                    title: Text("Delete Cheese"),
-                                    message: Text("Deleting a cheese from " + AppConfig.createByMe + " will delete it in its entirety."),
-                                    primaryButton: .destructive(Text("Delete")) {
-                                        Task{
-                                            await Database().deleteUserCheese(cheeseId: idToDelete, userId: userId ?? "")
-                                        }
-                                        print("Account deleted")
-                                    },
-                                    secondaryButton: .cancel()
-                                )
-                            }
+                            
                         }
                         
                         .background(CustomColors.background)
@@ -166,10 +158,25 @@ struct CupboardListView: View {
                     }
                     
                     
+                    
                 }
                 .foregroundColor(CustomColors.textColor)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(CustomColors.background)
+                .alert(isPresented: $showAlert) {
+                    Alert(
+                        title: Text("Delete Cheese"),
+                        message: Text("Deleting a cheese from " + AppConfig.createByMe + " will delete it in its entirety."),
+                        primaryButton: .destructive(Text("Delete")) {
+                            Task{
+                                await Database().deleteUserCheese(cheeseId: idToDelete, userId: userId ?? "")
+                                await viewModel.getCheesesForCupboard(cupboardId: viewModel.cupboardId)
+                            }
+                            print("Account deleted")
+                        },
+                        secondaryButton: .cancel()
+                    )
+                }
             }
         }
         .tint(Color(CustomColors.tan2))

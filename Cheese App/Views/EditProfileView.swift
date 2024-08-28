@@ -9,7 +9,6 @@ import SwiftUI
 
 class EditProfileViewModel: ObservableObject {
     @Published var isLoading: Bool = false
-    @Published var updatedSuccessfully: Bool = false
     @Published var opacity: Double = 1.0
 }
 
@@ -19,13 +18,13 @@ struct EditProfileView: View {
     @Binding var profileId: String
     @State var showAlert: Bool = false
     @StateObject var viewModel = EditProfileViewModel()
-    
+    @State var updatedSuccessfully: Bool = false
+
     
     var body: some View {
-
-        ZStack{
-            CustomColors.background
-                .ignoresSafeArea(.all)
+            ZStack{
+                CustomColors.background
+                    .ignoresSafeArea(.all)
                 if(viewModel.isLoading){
                     VStack{
                         ProgressView() // Spinner shown when loading
@@ -33,26 +32,31 @@ struct EditProfileView: View {
                             .scaleEffect(1.5) // Make the spinner larger if needed
                     }.frame(maxWidth: .infinity, maxHeight: .infinity).background(CustomColors.background)
                 }
-            
-            if (viewModel.updatedSuccessfully) {
-                HStack{
-                    Text("Profile Updated Successfully")
-                        .foregroundColor(.black)
-                    Image(systemName: "checkmark.circle.fill").foregroundColor(.green)
-                }
-                .opacity(viewModel.opacity)
-                .onAppear {
-                    
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                
+                if (updatedSuccessfully) {
+                    HStack{
+                        Text("Profile Updated Successfully")
+                            .foregroundColor(.black)
+                        Image(systemName: "checkmark.circle.fill").foregroundColor(.green)
+                    }
+                    .opacity(viewModel.opacity)
+                    .onAppear {
                         
-                        withAnimation(.easeInOut(duration: 1)) {
-                            viewModel.opacity = 0.0
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                            
+                            withAnimation(.easeInOut(duration: 1)) {
+                                viewModel.opacity = 0.0
+                            }
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                                updatedSuccessfully = false
+                            }
                         }
+                    }.onDisappear {
+                        viewModel.opacity = 1.0
                     }
                 }
-            }
-               
-            
+                ScrollView {
+                
                 VStack(spacing: 16){
                     Text("Edit Profile")
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -62,7 +66,7 @@ struct EditProfileView: View {
                         Text("Username")
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .font(.custom(AppConfig.fontName, size: 16))
-
+                        
                         TextField("", text: $username, prompt: Text("Username").foregroundColor(CustomColors.textColor).font(.custom(AppConfig.fontName, size: 18)))
                             .padding(8)
                             .foregroundColor(CustomColors.textColor)
@@ -72,7 +76,7 @@ struct EditProfileView: View {
                                     .stroke(CustomColors.textColor, lineWidth: 1)
                             )
                             .ignoresSafeArea(.keyboard)
-
+                        
                     }
                     
                     VStack{
@@ -88,7 +92,7 @@ struct EditProfileView: View {
                                     .stroke(CustomColors.textColor, lineWidth: 1)
                             )
                             .ignoresSafeArea(.keyboard)
-
+                        
                     }
                     
                     Button(action: {
@@ -96,10 +100,7 @@ struct EditProfileView: View {
                             viewModel.isLoading = true
                             await Database().updateProfile(profileId: profileId, bio: bio, username: username)
                             viewModel.isLoading = false
-                            viewModel.updatedSuccessfully = true
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-                                viewModel.updatedSuccessfully = false
-                            }
+                            updatedSuccessfully = true
                             
                         }
                     }) {
@@ -108,12 +109,12 @@ struct EditProfileView: View {
                             .font(.custom(AppConfig.fontName, size: 16))
                             .frame(maxWidth: .infinity)
                             .background(CustomColors.tan1)
-
-
+                        
+                        
                     }
                     .cornerRadius(16)
                     
-                    Spacer()
+                    Spacer(minLength: 278)
                     Button(action: {
                         Task {
                             await Database().signOut()
@@ -124,8 +125,8 @@ struct EditProfileView: View {
                             .font(.custom(AppConfig.fontName, size: 16))
                             .frame(maxWidth: .infinity)
                             .background(CustomColors.tan1)
-
-
+                        
+                        
                     }
                     .cornerRadius(16)
                     
@@ -163,11 +164,14 @@ struct EditProfileView: View {
                 .ignoresSafeArea(.keyboard)
                 
             }
-        .frame(maxHeight: .infinity)
-        .ignoresSafeArea(.keyboard)
-        
+            .frame(maxHeight: .infinity)
+            .ignoresSafeArea(.keyboard)
             
-        }
+            
+        }      .frame(maxHeight: .infinity)
+            .ignoresSafeArea(.keyboard)
+
+    }
     
 }
 

@@ -9,20 +9,28 @@ import SwiftUI
 
 struct DiscoverView: View {
     var body: some View {
-        VStack(spacing: 0){
-            SearchBar()
-            ZStack{
-                CustomColors.background
-                    .edgesIgnoringSafeArea(.all)
-                VStack{
-                    Text("Explore Categories")
-                        .font(.custom(AppConfig.fontName, size: 28))
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    Spacer()
+        ZStack{
+            
+            
+            VStack(spacing: 0){
+                Spacer(minLength: 75)
+                ZStack{
+                    CustomColors.background
+                        .edgesIgnoringSafeArea(.all)
+                    VStack{
+                        Text("Explore Categories")
+                            .font(.custom(AppConfig.fontName, size: 28))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        Spacer()
+                    }
+                    .padding()
                 }
-                .padding()
+                .foregroundColor(CustomColors.textColor)
             }
-            .foregroundColor(CustomColors.textColor)
+            VStack{
+                SearchBar()
+
+            }
         }
     }
 }

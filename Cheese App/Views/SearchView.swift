@@ -34,8 +34,11 @@ struct SearchView: View {
     
     var body: some View {
         NavigationStack {
+            ZStack{
+                
+            
             VStack(spacing: 0) {
-                SearchBar()
+
                 ZStack {
                     CustomColors.background
                         .ignoresSafeArea(.all)
@@ -44,6 +47,7 @@ struct SearchView: View {
                             .progressViewStyle(CircularProgressViewStyle())
                             .scaleEffect(1.5) // Make the spinner larger if needed
                     } else {
+
                         let columns: [GridItem] = [
                             GridItem(.fixed(110)),
                             GridItem(.fixed(110)),
@@ -52,6 +56,8 @@ struct SearchView: View {
                         ScrollView(.vertical) {
                             VStack(spacing: 30) {
                                 VStack {
+                                    Spacer(minLength: 75)
+
                                     Text("Categories")
                                         .font(.custom(AppConfig.fontName, size: 24))
                                         .fontWeight(.bold)
@@ -120,6 +126,11 @@ struct SearchView: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                         }
                     }
+                    VStack{
+                        SearchBar()
+
+                    }
+                }
                 }
                 .task {
                     await viewModel.getAllCategories()

@@ -257,10 +257,10 @@ class Database {
      }
     
     func handleFirstTimeSignUp(userId: String) async -> Profile? {
-            let rand1 = Int.random(in: 0...CheeseWords.count - 1)
-            let rand2 = Int.random(in: 0...CheeseWords.count - 1)
+        let rand1 = Int.random(in: 0...AppConfig.cheeseWords.count - 1)
+            let rand2 = Int.random(in: 0...AppConfig.cheeseWords.count - 1)
             let currentTimestamp = Int(Date().timeIntervalSince1970)
-            let username = "\(CheeseWords[rand1])\(CheeseWords[rand2])\(currentTimestamp)".lowercased()
+            let username = "\(AppConfig.cheeseWords[rand1])\(AppConfig.cheeseWords[rand2])\(currentTimestamp)".lowercased()
             let profile = await createUserProfile(userId: userId, username: username)
             if (profile?.id != nil){
                 await createDefaultCupboards(profileId: profile?.id ?? "")

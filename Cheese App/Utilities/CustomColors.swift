@@ -12,13 +12,13 @@ import UIKit
 import SwiftUI
 
 struct CustomColors {
-    static let background = Color(hex: "#FFF5DC")
-    static let textColor = Color(hex: "#C2A253")
-    static let tan1 = Color(hex: "#FAEBC6")
-    static let tan2 = Color(hex: "#6C5B30")
+    static let background = Color(hex: AppConfig.tan)
+    static let textColor = Color(hex: AppConfig.tan3)
+    static let tan1 = Color(hex: AppConfig.tan1)
+    static let tan2 = Color(hex: AppConfig.tan2)
+    static let button = Color(hex: AppConfig.tan1)
+    static let input = Color(hex: AppConfig.tan1)
 
-
-    // Add more colors as needed
 }
 
 extension Color {

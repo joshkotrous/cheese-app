@@ -39,7 +39,6 @@
 		376F52D92C77226D00BC1F27 /* CupboardCheeseList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 376F52D82C77226D00BC1F27 /* CupboardCheeseList.swift */; };
 		376F52DB2C772B0B00BC1F27 /* CheeseList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 376F52DA2C772B0B00BC1F27 /* CheeseList.swift */; };
 		376F52DD2C77AA4600BC1F27 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 376F52DC2C77AA4600BC1F27 /* EditProfileView.swift */; };
-		376F52DF2C7836DC00BC1F27 /* CheeseWords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 376F52DE2C7836DC00BC1F27 /* CheeseWords.swift */; };
 		37959DA02C5F5823004E4A02 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37959D9E2C5F5823004E4A02 /* LoginView.swift */; };
 		37959DA12C5F5823004E4A02 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37959D9F2C5F5823004E4A02 /* WelcomeView.swift */; };
 		37959DA82C5F584F004E4A02 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37959DA72C5F584F004E4A02 /* AppView.swift */; };
@@ -106,7 +105,6 @@
 		376F52D82C77226D00BC1F27 /* CupboardCheeseList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CupboardCheeseList.swift; sourceTree = "<group>"; };
 		376F52DA2C772B0B00BC1F27 /* CheeseList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheeseList.swift; sourceTree = "<group>"; };
 		376F52DC2C77AA4600BC1F27 /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
-		376F52DE2C7836DC00BC1F27 /* CheeseWords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheeseWords.swift; sourceTree = "<group>"; };
 		37959D9E2C5F5823004E4A02 /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		37959D9F2C5F5823004E4A02 /* WelcomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		37959DA72C5F584F004E4A02 /* AppView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
@@ -244,7 +242,6 @@
 			children = (
 				3751F0622C5F1407006499C2 /* CustomColors.swift */,
 				3742A8E42C60797300705D5E /* Database.swift */,
-				376F52DE2C7836DC00BC1F27 /* CheeseWords.swift */,
 				37B4F6622C785A33008A1CFE /* AppConfig.swift */,
 			);
 			path = Utilities;
@@ -449,7 +446,6 @@
 				3742A8D62C6053ED00705D5E /* HomeView.swift in Sources */,
 				376F52CC2C76DB0700BC1F27 /* Profile.swift in Sources */,
 				376F52DB2C772B0B00BC1F27 /* CheeseList.swift in Sources */,
-				376F52DF2C7836DC00BC1F27 /* CheeseWords.swift in Sources */,
 				3742A8D82C60546700705D5E /* MyCheesesView.swift in Sources */,
 				3742A8E52C60797300705D5E /* Database.swift in Sources */,
 				374AE4E32C61C76600FB6063 /* CheeseItem.swift in Sources */,
@@ -649,7 +645,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Cheese App/Cheese AppDebug.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.23;
+				CURRENT_PROJECT_VERSION = 1.25;
 				DEVELOPMENT_ASSET_PATHS = "\"Cheese App/Preview Content\"";
 				DEVELOPMENT_TEAM = 4QQWV97LL7;
 				ENABLE_PREVIEWS = YES;
@@ -666,7 +662,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.23;
+				MARKETING_VERSION = 1.25;
 				PRODUCT_BUNDLE_IDENTIFIER = "JoshKotrous.Cheese-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -689,7 +685,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Cheese App/Cheese App.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.23;
+				CURRENT_PROJECT_VERSION = 1.25;
 				DEVELOPMENT_ASSET_PATHS = "\"Cheese App/Preview Content\"";
 				DEVELOPMENT_TEAM = 4QQWV97LL7;
 				ENABLE_PREVIEWS = YES;
@@ -706,7 +702,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.23;
+				MARKETING_VERSION = 1.25;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "JoshKotrous.Cheese-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";

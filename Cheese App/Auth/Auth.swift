@@ -24,6 +24,7 @@ class Auth {
     init(){
         nonce = randomNonceString()
     }
+    
     func startSignInWithAppleFlow() {
         guard let topVC = UIApplication.getTopViewController() else {
             return
@@ -83,47 +84,9 @@ class Auth {
       return String(nonce)
     }
     
-    
-    
-    func handleSignInWithAppleCompletion(credential: ASAuthorizationAppleIDCredential) {
-
-        
-    }
 
         
 }
-
-//extension Auth: ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding{
-//    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
-//        return ASPresentationAnchor(frame: .zero)
-//    }
-//
-//    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
-//        if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
-//            guard let nonce = currentNonce, let completion = completionHandler else {
-//                fatalError("Invalid state: A login callback was received, but no login request was sent.")
-//            }
-//            guard let appleIDToken = appleIDCredential.identityToken else {
-//                print("Unable to fetch identity token")
-//                return
-//            }
-//            guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
-//                print("Unable to serialize token string from data: \(appleIDToken.debugDescription)")
-//                return
-//            }
-//            let authResult = AuthResult(idToken: idTokenString, nonce: nonce)
-//        }
-//        
-//        func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
-//            // Handle error.
-//            print("Sign in with Apple errored: \(error)")
-//        }
-//        
-//    }
-//    
-//    
-//}
-
 
 extension UIViewController: ASAuthorizationControllerPresentationContextProviding {
     public func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {

@@ -13,9 +13,8 @@ struct WelcomeView: View {
                 .aspectRatio(contentMode: .fill) // Adjust the aspect ratio
                 .clipped() // Ensure the image fits within the frame
 
-            // Foreground content
             VStack {
-                Text("Cheese \n App")
+                Text("Cheese \n Board")
                     .font(.custom(AppConfig.fontName, size: 48))
                     .fontWeight(.bold)
                     .foregroundColor(CustomColors.textColor)

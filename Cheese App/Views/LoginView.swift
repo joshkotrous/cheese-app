@@ -54,12 +54,14 @@ struct LoginView: View {
     @State var errorText: String = ""
     @State var isSignedIn = false
     @StateObject private var googleSignInManager = GoogleSignInManager()
+    @State var showPopover: Bool = false
     
     init() {
         if let token = accessToken, !token.isEmpty {
             print("is signed in")
             isSignedIn = true
         }
+    
     }
     
     var body: some View {
@@ -67,40 +69,73 @@ struct LoginView: View {
             ZStack {
                 CustomColors.background
                     .edgesIgnoringSafeArea(.all)
-                VStack {
+                VStack(spacing: 96) {
                     Text("Sign In")
                         .font(.custom(AppConfig.fontName, size: 48))
                         .fontWeight(.bold)
                         .foregroundColor(CustomColors.textColor)
                         .multilineTextAlignment(.center)
-                    
-                    SignInWithAppleButton(
-                        onRequest: { request in
-                            currentNonce = handleOnRequest(request: request)
-                        },
-                        onCompletion: { result in
-                            handleOnCompletion(result: result, currentNonce: currentNonce)
+                    VStack(spacing: 16) {
+                    VStack(spacing: 8) {
+                        SignInWithAppleButton(
+                            onRequest: { request in
+                                currentNonce = handleOnRequest(request: request)
+                            },
+                            onCompletion: { result in
+                                handleOnCompletion(result: result, currentNonce: currentNonce)
+                            }
+                        )
+                        .frame(width: 280, height: 45)
+                        
+                        Button(action: {
+                            // Implement sign in with Google
+                            if let rootViewController = UIApplication.shared.windows.first?.rootViewController {
+                                googleSignInManager.signIn(withPresenting: rootViewController)
+                            }
+                        }) {
+                            HStack{
+                                Image("Google").imageScale(.small)
+                                Text("Sign in with Google")
+                                    .font(.custom("Helvetica-Neue", size: 18))
+                                    .foregroundColor(.black)
+                            }
+                            
                         }
-                    )
-                    .frame(width: 280, height: 45)
-                    
-                    Button(action: {
-                        // Implement sign in with Google
-                        if let rootViewController = UIApplication.shared.windows.first?.rootViewController {
-                            googleSignInManager.signIn(withPresenting: rootViewController)
-                        }
-                    }) {
-                        HStack{
-                            Image("Google").imageScale(.small)
-                            Text("Sign in with Google")
-                                .font(.custom("Helvetica-Neue", size: 18))
-                                .foregroundColor(.black)
-                        }
+                        .frame(width: 280, height: 45)
+                        .background(.white)
+                        .cornerRadius(8)
                         
                     }
-                    .frame(width: 280, height: 45)
-                    .background(.white)
-                    .cornerRadius(8)
+                    
+                    Button(action: {
+                        showPopover = true
+                    }) {
+                        Text("By signing up you agree to the ")
+                            .foregroundStyle(CustomColors.textColor)
+                            .font(.custom("Helvetica-Neue", size: 14))
+                        + Text("terms & conditions")
+                            .underline() // Underlines only this part
+                            .font(.custom("Helvetica-Neue", size: 14))
+                            .foregroundStyle(CustomColors.textColor)
+                    }
+                    .popover(isPresented: $showPopover, content: {
+                        ZStack{
+                            CustomColors.background
+                                .edgesIgnoringSafeArea(.all)
+                            VStack{
+                                Text(AppConfig.termsAndConditions)
+                                    .foregroundStyle(CustomColors.textColor)
+                                    .padding()
+                                Spacer()
+                            }
+                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+                        }
+                    })
+                    
+                }
+        
+                    
+                  
                     
                     NavigationLink(destination: AppView(), isActive: $googleSignInManager.isSignedIn) {
                         EmptyView()
@@ -134,6 +169,7 @@ struct LoginView: View {
                 showAlert = true
             }
         }
+ 
     }
     
     // Existing Apple sign-in helper functions

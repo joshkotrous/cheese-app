@@ -40,6 +40,7 @@ struct AppView: View {
         UITabBar.appearance().standardAppearance = tabBarAppearance
         
     }
+    
     var body: some View {
         TabView(selection: $selectedTab){
             HomeView()

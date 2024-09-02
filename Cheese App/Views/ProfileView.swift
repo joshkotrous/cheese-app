@@ -16,6 +16,8 @@ struct ProfileView: View {
     @AppStorage("userId") var userId: String?
     @State var profileId: String = ""
     @State var bio: String = ""
+    @State var profileImageUrl: String?
+
     @State var username: String = ""
     @State var profile: Profile?
     @StateObject var viewModel = ProfileViewModel()
@@ -45,7 +47,7 @@ struct ProfileView: View {
                         
                         HStack{
                             ZStack{
-                                AsyncImage(url: URL(string: profile?.image ?? "")) { phase in
+                                AsyncImage(url: URL(string: profileImageUrl ?? "")) { phase in
                                     switch phase {
                                     case .empty:
                                         ProgressView()
@@ -65,6 +67,7 @@ struct ProfileView: View {
                                             .foregroundColor(.gray)
                                     }
                                 }
+                                .id(UUID())
                                 .aspectRatio(contentMode: .fill)
                                 .cornerRadius(24)
                             }.frame(width: 100, height: 100)
@@ -99,7 +102,7 @@ struct ProfileView: View {
 
                         }
                         Text(profile?.bio ?? "").frame(maxWidth: .infinity, alignment: .leading)
-                            NavigationLink(destination: EditProfileView(username: $username, bio: $bio, profileId: $profileId, profileImageUrl: profile?.image)){
+                            NavigationLink(destination: EditProfileView(username: $username, bio: $bio, profileId: $profileId, profileImageUrl: $profileImageUrl)){
                             Text("Edit Profile")
                                 .padding()
                                 .font(.custom(AppConfig.fontName, size: 16))
@@ -119,6 +122,7 @@ struct ProfileView: View {
                             username = profile?.username ?? ""
                             profileId = profile?.id ?? ""
                             bio = profile?.bio ?? ""
+                            profileImageUrl = profile?.image ?? ""
                         }
                         viewModel.isLoading = false
 

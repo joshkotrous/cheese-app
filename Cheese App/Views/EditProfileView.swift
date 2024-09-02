@@ -23,7 +23,7 @@ struct EditProfileView: View {
     @State var imagePickerSourceType: UIImagePickerController.SourceType = .camera
     @State private var showActionSheet = false
     @State var showImagePicker: Bool = false
-    @State var profileImageUrl: String?
+    @Binding var profileImageUrl: String?
     
     var body: some View {
             ZStack{
@@ -169,7 +169,7 @@ struct EditProfileView: View {
                             viewModel.isLoading = true
                             await Database().updateProfile(profileId: profileId, bio: bio, username: username)
                             if image != nil {
-                                await Database().uploadProfileImage(image: image!, profileId: profileId)
+                                profileImageUrl = await Database().uploadProfileImage(image: image!, profileId: profileId)
                             }
                             viewModel.isLoading = false
                             updatedSuccessfully = true
@@ -251,9 +251,9 @@ struct EditProfileViewPreviewWrapper: View {
     @State private var username: String = "test"
     @State private var bio: String = "testbio"
     @State private var profileId: String = "testprofileId"
-    @State private var profileImageUrl: String = ""
+    @State private var profileImageUrl: String?
     var body: some View {
-        EditProfileView(username: $username, bio: $bio, profileId: $profileId, profileImageUrl: profileImageUrl)
+        EditProfileView(username: $username, bio: $bio, profileId: $profileId, profileImageUrl: $profileImageUrl)
     }
 }
 

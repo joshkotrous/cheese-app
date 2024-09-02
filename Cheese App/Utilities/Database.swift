@@ -375,5 +375,30 @@ class Database {
         }
     }
     
+    func uploadProfileImage(image: UIImage, profileId: String) async -> Void {
+        guard let imageData = image.jpegData(compressionQuality: 1.0) else {
+            print("Failed to convert UIImage to Data")
+            return
+        }
+        let fileName = "\(profileId).jpg"
+        let filePath = "public/\(fileName)"
+        do {
+            try await supabase.storage.from("profile_images").upload(
+                path: filePath,
+                file: imageData,
+                options: FileOptions(
+                  cacheControl: "3600",
+                  contentType: "image/jpeg",
+                  upsert: false
+                )
+            )
+            let imageUrl = try supabase.storage.from("profile_images").getPublicURL(path: filePath)
+            try await supabase.from("profile").update(["image": imageUrl]).eq("id", value: profileId).execute().value
+            
+        } catch {
+            print(error)
+        }
+    }
+    
 }
 

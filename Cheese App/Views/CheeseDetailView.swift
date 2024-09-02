@@ -24,28 +24,35 @@ struct CheeseDetailView: View {
                 VStack(alignment: .leading, spacing: 20) {
                     if let imageUrl = cheese.image {
                         VStack{
-                            AsyncImage(url: URL(string: imageUrl)) { phase in
-                                switch phase {
-                                case .empty:
-                                    ProgressView()
-                                case .success(let image):
-                                    image
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                case .failure:
-                                    Image(systemName: "photo")
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                        .foregroundColor(.gray)
-                                @unknown default:
-                                    Image(systemName: "photo")
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                        .foregroundColor(.gray)
+                            VStack{
+                                AsyncImage(url: URL(string: imageUrl)) { phase in
+                                    switch phase {
+                                    case .empty:
+                                        ProgressView()
+                                    case .success(let image):
+                                        image
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                    case .failure:
+                                        Image(systemName: "photo")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)
+                                            .foregroundColor(.gray)
+                                    @unknown default:
+                                        Image(systemName: "photo")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)
+                                            .foregroundColor(.gray)
+                                    }
                                 }
-                            }
-                            .frame(width: 250, height: 250)
-                            .cornerRadius(24)
+                                .aspectRatio(contentMode: .fill)
+                                .cornerRadius(24)
+                                
+                                
+                            }    .frame(width: 250, height: 250)
+                                .cornerRadius(24)
+          
+                        
                         }.frame(maxWidth: .infinity, alignment: .center)
       
                     }
@@ -138,7 +145,7 @@ struct CheeseDetailView: View {
 #Preview {
     
     CheeseDetailView(cheese: Cheese(
-        id: "123",
+        id: "e982925f-c735-4289-820c-03c932f0840a",
         name: "Cheddar",
         category: "Hard Cheese",
         url: "",
@@ -146,7 +153,8 @@ struct CheeseDetailView: View {
         notes:"",
         allergens: "",
         ingredients: "",
-        additionalFacts: ""
+        additionalFacts: "",
+        image: "https://kdbdsvrqhkmsgsgildrt.supabase.co/storage/v1/object/public/cheese_images/public/e982925f-c735-4289-820c-03c932f0840a.jpg"
     ))
     //    HomeView()
 }

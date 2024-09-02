@@ -22,10 +22,10 @@ struct NewCheesePopover: View {
     
     @AppStorage("userId") var userId: String?
     @Binding var showNewCheesePopover: Bool
-    @State var showImagePicker: Bool = false
     @State var image: UIImage?
     @State var imagePickerSourceType: UIImagePickerController.SourceType = .camera
     @State private var showActionSheet = false
+    @State var showImagePicker: Bool = false
 
     let cupboardId: String?
     let cupboardName: String?
@@ -46,7 +46,7 @@ struct NewCheesePopover: View {
                     if let image = image {
                         Image(uiImage: image)
                             .resizable()
-                            .aspectRatio(contentMode: .fit)
+                            .aspectRatio(contentMode: .fill)
                             .frame(maxWidth: .infinity) // Allow the image to take up the full width
                     }
                     Menu {

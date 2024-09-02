@@ -19,7 +19,11 @@ struct EditProfileView: View {
     @State var showAlert: Bool = false
     @StateObject var viewModel = EditProfileViewModel()
     @State var updatedSuccessfully: Bool = false
-
+    @State var image: UIImage?
+    @State var imagePickerSourceType: UIImagePickerController.SourceType = .camera
+    @State private var showActionSheet = false
+    @State var showImagePicker: Bool = false
+    @State var profileImageUrl: String?
     
     var body: some View {
             ZStack{
@@ -62,20 +66,89 @@ struct EditProfileView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .font(.custom(AppConfig.fontName, size: 24))
                         .fontWeight(.bold)
+                    
+                    
+                    ZStack{
+                        if let image = image {
+                            Image(uiImage: image)
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                        } else if profileImageUrl != nil && profileImageUrl != "" {
+                            AsyncImage(url: URL(string: profileImageUrl ?? "")) { phase in
+                                switch phase {
+                                case .empty:
+                                    ProgressView()
+                                case .success(let image):
+                                    image
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                case .failure:
+                                    Image(systemName: "photo")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .foregroundColor(.gray)
+                                @unknown default:
+                                    Image(systemName: "photo")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .foregroundColor(.gray)
+                                }
+                            }
+                            .aspectRatio(contentMode: .fill)
+                            .cornerRadius(24)
+                        }
+                        Menu {
+                            Button(action: {
+                                imagePickerSourceType = .camera
+                                showImagePicker = true
+                            }) {
+                                Label("Take Photo", systemImage: "camera")
+                            }
+                            
+                            Button(action: {
+                                imagePickerSourceType = .photoLibrary
+                                showImagePicker = true
+                            }) {
+                                Label("Photo Library", systemImage: "photo.on.rectangle")
+                            }
+                        } label: {
+                            if image != nil || (profileImageUrl != nil && profileImageUrl != "") {
+                                Label("Edit Photo", systemImage: "camera")
+                                    .padding()
+                                    .foregroundColor(CustomColors.textColor)
+                                    .background(CustomColors.button)
+                                    .cornerRadius(18)
+                            } else {
+                                Label("Add Photo", systemImage: "camera")
+                                    .padding()
+                                    .foregroundColor(CustomColors.textColor)
+                            }
+                            
+                        }
+                        .sheet(isPresented: $showImagePicker) {
+                            ZStack{
+                                Color.black.edgesIgnoringSafeArea(.all)
+                                ImagePicker(image: $image, sourceType: imagePickerSourceType)
+
+                            }
+                                
+                            
+                        }
+                    }.frame(width: 150, height: 150)
+                        .background(CustomColors.button) // Set the background color
+                        .cornerRadius(.infinity)
+                        .padding()
+                    
                     VStack{
                         Text("Username")
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .font(.custom(AppConfig.fontName, size: 16))
                         
                         TextField("", text: $username, prompt: Text("Username").foregroundColor(CustomColors.textColor).font(.custom(AppConfig.fontName, size: 18)))
-                            .padding(8)
                             .foregroundColor(CustomColors.textColor)
+                            .padding(8)
                             .font(.custom(AppConfig.fontName, size: 18))
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 12)
-                                    .stroke(CustomColors.textColor, lineWidth: 1)
-                            )
-                            .ignoresSafeArea(.keyboard)
+                            .background(RoundedRectangle(cornerRadius: 12).fill(CustomColors.tan1))
                         
                     }
                     
@@ -84,14 +157,10 @@ struct EditProfileView: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .font(.custom(AppConfig.fontName, size: 16))
                         TextField("", text: $bio, prompt: Text("Bio").foregroundColor(CustomColors.textColor).font(.custom(AppConfig.fontName, size: 18)))
-                            .padding(8)
                             .foregroundColor(CustomColors.textColor)
+                            .padding(8)
                             .font(.custom(AppConfig.fontName, size: 18))
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 12)
-                                    .stroke(CustomColors.textColor, lineWidth: 1)
-                            )
-                            .ignoresSafeArea(.keyboard)
+                            .background(RoundedRectangle(cornerRadius: 12).fill(CustomColors.tan1))
                         
                     }
                     
@@ -99,6 +168,9 @@ struct EditProfileView: View {
                         Task {
                             viewModel.isLoading = true
                             await Database().updateProfile(profileId: profileId, bio: bio, username: username)
+                            if image != nil {
+                                await Database().uploadProfileImage(image: image!, profileId: profileId)
+                            }
                             viewModel.isLoading = false
                             updatedSuccessfully = true
                             
@@ -179,9 +251,9 @@ struct EditProfileViewPreviewWrapper: View {
     @State private var username: String = "test"
     @State private var bio: String = "testbio"
     @State private var profileId: String = "testprofileId"
-
+    @State private var profileImageUrl: String = ""
     var body: some View {
-        EditProfileView(username: $username, bio: $bio, profileId: $profileId)
+        EditProfileView(username: $username, bio: $bio, profileId: $profileId, profileImageUrl: profileImageUrl)
     }
 }
 

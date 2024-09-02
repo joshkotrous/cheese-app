@@ -12,7 +12,7 @@ struct Profile: Codable, Identifiable {
     var id: String?
     var bio: String?
     var username: String
-    
+    var image: String?
     init(id: String? = nil, user_id: String? = nil, username: String = ""){
         self.id = id
         self.user_id = user_id

@@ -44,12 +44,41 @@ struct ProfileView: View {
                         }
                         
                         HStack{
-                            Image("AiOutlineUser")
+                            ZStack{
+                                AsyncImage(url: URL(string: profile?.image ?? "")) { phase in
+                                    switch phase {
+                                    case .empty:
+                                        ProgressView()
+                                    case .success(let image):
+                                        image
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                    case .failure:
+                                        Image(systemName: "photo")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)
+                                            .foregroundColor(.gray)
+                                    @unknown default:
+                                        Image(systemName: "photo")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)
+                                            .foregroundColor(.gray)
+                                    }
+                                }
+                                .aspectRatio(contentMode: .fill)
+                                .cornerRadius(24)
+                            }.frame(width: 100, height: 100)
+                                .background(CustomColors.button) // Set the background color
+                                .cornerRadius(.infinity)
+             
                             Spacer()
                             VStack{
                                 Text("0")
                                 Text("Cheeses")
+
                             }
+                            .font(.custom(AppConfig.fontName, size: 16))
+
                             Divider()
                                 .frame(width: 25)
                                 .frame(height: 75)
@@ -57,6 +86,8 @@ struct ProfileView: View {
                                 Text("0")
                                 Text("Followers")
                             }
+                            .font(.custom(AppConfig.fontName, size: 16))
+
                             Divider()
                                 .frame(width: 25)
                                 .frame(height: 75)
@@ -64,9 +95,11 @@ struct ProfileView: View {
                                 Text("0")
                                 Text("Following")
                             }
+                            .font(.custom(AppConfig.fontName, size: 16))
+
                         }
                         Text(profile?.bio ?? "").frame(maxWidth: .infinity, alignment: .leading)
-                        NavigationLink(destination: EditProfileView(username: $username, bio: $bio, profileId: $profileId)){
+                            NavigationLink(destination: EditProfileView(username: $username, bio: $bio, profileId: $profileId, profileImageUrl: profile?.image)){
                             Text("Edit Profile")
                                 .padding()
                                 .font(.custom(AppConfig.fontName, size: 16))

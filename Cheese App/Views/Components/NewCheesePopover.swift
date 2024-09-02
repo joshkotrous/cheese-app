@@ -22,12 +22,18 @@ struct NewCheesePopover: View {
     
     @AppStorage("userId") var userId: String?
     @Binding var showNewCheesePopover: Bool
+    @State var showImagePicker: Bool = false
+    @State var image: UIImage?
+    @State var imagePickerSourceType: UIImagePickerController.SourceType = .camera
+    @State private var showActionSheet = false
+
     let cupboardId: String?
     let cupboardName: String?
     
     var body: some View {
    
         ZStack{
+            
             CustomColors.background
                 .ignoresSafeArea(.all)
             VStack {
@@ -35,6 +41,55 @@ struct NewCheesePopover: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .font(.custom(AppConfig.fontName, size: 24))
                     .fontWeight(.bold)
+                
+                ZStack{
+                    if let image = image {
+                        Image(uiImage: image)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(maxWidth: .infinity) // Allow the image to take up the full width
+                    }
+                    Menu {
+                        Button(action: {
+                            imagePickerSourceType = .camera
+                            showImagePicker = true
+                        }) {
+                            Label("Take Photo", systemImage: "camera")
+                        }
+                        
+                        Button(action: {
+                            imagePickerSourceType = .photoLibrary
+                            showImagePicker = true
+                        }) {
+                            Label("Photo Library", systemImage: "photo.on.rectangle")
+                        }
+                    } label: {
+                        if image != nil {
+                            Label("Edit Photo", systemImage: "camera")
+                                .padding()
+                                .foregroundColor(CustomColors.textColor)
+                                .background(CustomColors.button)
+                                .cornerRadius(18)
+                        } else {
+                            Label("Add Photo", systemImage: "camera")
+                                .padding()
+                                .foregroundColor(CustomColors.textColor)
+                        }
+                        
+                    }
+                    .sheet(isPresented: $showImagePicker) {
+                        ZStack{
+                            Color.black.edgesIgnoringSafeArea(.all)
+                            ImagePicker(image: $image, sourceType: imagePickerSourceType)
+
+                        }
+                            
+                        
+                    }
+                }.frame(width: 250, height: 250)
+                    .background(CustomColors.button) // Set the background color
+                    .cornerRadius(28)
+                    .padding()
                 VStack(spacing: 2){
                     Text("Cheese name")
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -111,6 +166,10 @@ struct NewCheesePopover: View {
                         
                         if (cupboardId != "" && (cheese?.id != "" || cheese?.id != nil) && cupboardName != AppConfig.createByMe){
                             await Database().addCheeseToCupboard(cupboardId: cupboardId!, cheeseId: cheese?.id ?? "")
+                        }
+                        
+                        if image != nil {
+                            await Database().uploadCheesePhoto(image: image!, cheeseId: cheese?.id ?? "")
                         }
                    
                     }

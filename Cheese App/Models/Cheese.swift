@@ -19,8 +19,9 @@ struct Cheese: Codable, Identifiable {
     var additionalFacts: String?
     var community_added: Bool?
     var user_id: String?
+    var image: String?
 
-    init(id: String? = nil, name: String = "", category: String = "", url: String? = nil, description: String = "", notes: String? = nil, allergens: String? = nil, ingredients: String? = nil, additionalFacts: String? = nil, community_added: Bool? = nil, user_id: String? = nil) {
+    init(id: String? = nil, name: String = "", category: String = "", url: String? = nil, description: String = "", notes: String? = nil, allergens: String? = nil, ingredients: String? = nil, additionalFacts: String? = nil, community_added: Bool? = nil, user_id: String? = nil, image: String? = nil) {
         self.id = id
         self.name = name
         self.category = category
@@ -32,6 +33,7 @@ struct Cheese: Codable, Identifiable {
         self.additionalFacts = additionalFacts
         self.community_added = community_added
         self.user_id = user_id
+        self.image = image
     }
 }
 

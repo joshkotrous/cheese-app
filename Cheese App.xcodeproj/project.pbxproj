@@ -49,6 +49,7 @@
 		37B2F3552C72D99C006D71B3 /* GoTrue in Frameworks */ = {isa = PBXBuildFile; productRef = 37B2F3542C72D99C006D71B3 /* GoTrue */; };
 		37B4F6632C785A33008A1CFE /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B4F6622C785A33008A1CFE /* AppConfig.swift */; };
 		37B9B3E82C6726B500CB433E /* CategoryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B9B3E72C6726B500CB433E /* CategoryListView.swift */; };
+		37CCAC6D2C850D4D00FE403A /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CCAC6C2C850D4D00FE403A /* ImagePicker.swift */; };
 		37DFBE1E2C5F33720079A637 /* Cheese-App-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 37DFBE1D2C5F33720079A637 /* Cheese-App-Info.plist */; };
 		37F5BE682C796DAB004F569D /* UserCheese.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F5BE672C796DAB004F569D /* UserCheese.swift */; };
 /* End PBXBuildFile section */
@@ -113,6 +114,7 @@
 		37B2F3562C72E3B5006D71B3 /* Cheese App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Cheese App.entitlements"; sourceTree = "<group>"; };
 		37B4F6622C785A33008A1CFE /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
 		37B9B3E72C6726B500CB433E /* CategoryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryListView.swift; sourceTree = "<group>"; };
+		37CCAC6C2C850D4D00FE403A /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		37DFBE1D2C5F33720079A637 /* Cheese-App-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Cheese-App-Info.plist"; sourceTree = "<group>"; };
 		37E1679E2C7AFB39005D7DB2 /* release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = release.xcconfig; sourceTree = "<group>"; };
 		37E1679F2C7B0091005D7DB2 /* Cheese AppDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Cheese AppDebug.entitlements"; sourceTree = "<group>"; };
@@ -284,6 +286,7 @@
 				374AE4E02C61A6FE00FB6063 /* NewCheesePopover.swift */,
 				374AE4E22C61C76600FB6063 /* CheeseItem.swift */,
 				376F52DA2C772B0B00BC1F27 /* CheeseList.swift */,
+				37CCAC6C2C850D4D00FE403A /* ImagePicker.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -464,6 +467,7 @@
 				37B4F6632C785A33008A1CFE /* AppConfig.swift in Sources */,
 				376F52CE2C76E90800BC1F27 /* Cupboard.swift in Sources */,
 				3751F0382C5F1289006499C2 /* Cheese_AppApp.swift in Sources */,
+				37CCAC6D2C850D4D00FE403A /* ImagePicker.swift in Sources */,
 				37B2F3502C72D7C1006D71B3 /* Auth.swift in Sources */,
 				374AE4E82C61E04900FB6063 /* Cheese.swift in Sources */,
 				3742A8E02C6054AC00705D5E /* DiscoverView.swift in Sources */,
@@ -645,7 +649,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Cheese App/Cheese AppDebug.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2.1.0;
+				CURRENT_PROJECT_VERSION = 2.2.0;
 				DEVELOPMENT_ASSET_PATHS = "\"Cheese App/Preview Content\"";
 				DEVELOPMENT_TEAM = 4QQWV97LL7;
 				ENABLE_PREVIEWS = YES;
@@ -662,7 +666,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1.0;
+				MARKETING_VERSION = 2.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "JoshKotrous.Cheese-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -685,7 +689,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Cheese App/Cheese App.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2.1.0;
+				CURRENT_PROJECT_VERSION = 2.2.0;
 				DEVELOPMENT_ASSET_PATHS = "\"Cheese App/Preview Content\"";
 				DEVELOPMENT_TEAM = 4QQWV97LL7;
 				ENABLE_PREVIEWS = YES;
@@ -702,7 +706,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1.0;
+				MARKETING_VERSION = 2.2.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "JoshKotrous.Cheese-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";

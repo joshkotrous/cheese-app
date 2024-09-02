@@ -26,6 +26,7 @@ struct NewCheesePopover: View {
     @State var imagePickerSourceType: UIImagePickerController.SourceType = .camera
     @State private var showActionSheet = false
     @State var showImagePicker: Bool = false
+    @State var isLoading: Bool = false
 
     let cupboardId: String?
     let cupboardName: String?
@@ -36,6 +37,14 @@ struct NewCheesePopover: View {
             
             CustomColors.background
                 .ignoresSafeArea(.all)
+            
+            if isLoading {
+                ProgressView() // Spinner shown when loading
+                    .progressViewStyle(CircularProgressViewStyle())
+                    .scaleEffect(1.5) // Make the spinner larger if needed
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            }
+            
             VStack {
                 Text("Add Cheese")
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -157,11 +166,11 @@ struct NewCheesePopover: View {
                     
                 Button(action: {
                     Task{
+                        isLoading = true
                         var cheese: Cheese?
 
                         if (viewModel.cheeseName != ""){
                            cheese = await Database().createUserCheese(name: viewModel.cheeseName, description: viewModel.description, category: viewModel.selectedCategory, userId: userId ?? "")
-                            showNewCheesePopover = false
                         }
                         
                         if (cupboardId != "" && (cheese?.id != "" || cheese?.id != nil) && cupboardName != AppConfig.createByMe){
@@ -171,6 +180,8 @@ struct NewCheesePopover: View {
                         if image != nil {
                             await Database().uploadCheesePhoto(image: image!, cheeseId: cheese?.id ?? "")
                         }
+                        showNewCheesePopover = false
+                        isLoading = false
                    
                     }
                     

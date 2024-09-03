@@ -10,11 +10,15 @@ import SwiftUI
 struct CheeseDetailView: View {
     let cheese: Cheese
     @State var cupboards: [Cupboard]?
+    @State var userReview: CheeseReview?
     @State var selectedOption: Cupboard?
     @AppStorage("profileId") var profileId: String?
     @State private var selectedView: String?
     @State private var description: String = ""
     @State private var rating: Double = 0.0
+    @AppStorage("userId") var userId: String?
+    @State var disabled: Bool = false
+
     
     var body: some View {
         ZStack{
@@ -135,6 +139,7 @@ struct CheeseDetailView: View {
                                     Image("StarEmpty")
                                 }
                             }
+                            .disabled(disabled)
                             Button(action: {
                                 if (rating == 0.0){
                                     rating = 1.5
@@ -155,6 +160,8 @@ struct CheeseDetailView: View {
                                     Image("StarEmpty")
                                 }
                             }
+                            .disabled(disabled)
+
                             Button(action: {
                                 if (rating == 0.0){
                                     rating = 2.5
@@ -175,6 +182,8 @@ struct CheeseDetailView: View {
                                     Image("StarEmpty")
                                 }
                             }
+                            .disabled(disabled)
+
                             Button(action: {
                                 if (rating == 0.0){
                                     rating = 3.5
@@ -195,6 +204,8 @@ struct CheeseDetailView: View {
                                     Image("StarEmpty")
                                 }
                             }
+                            .disabled(disabled)
+
                             Button(action: {
                                 if (rating == 0.0){
                                     rating = 4.5
@@ -215,15 +226,19 @@ struct CheeseDetailView: View {
                                     Image("StarEmpty")
                                 }
                             }
+                            .disabled(disabled)
+
                             Text("\(String(format: "%.1f", rating))").font(.custom("", size: 20))
                       
                       
 
                         }
                         VStack(spacing: 2){
-                            Text("Description")
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .font(.custom(AppConfig.fontName, size: 18))
+                            if userReview  == nil {
+                                Text("Description")
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .font(.custom(AppConfig.fontName, size: 18))
+                            }
                             TextEditor(text: $description)
                                     .foregroundColor(CustomColors.textColor) // Set the text color
                                     .font(.custom(AppConfig.fontName, size: 18)) // Set the custom font and size
@@ -234,13 +249,31 @@ struct CheeseDetailView: View {
 
 
                         }
-                        Button(action: {}){
-                            Text("Add Review")
-                                .padding(8)
-                                .frame(maxWidth: .infinity)
-                                .background(CustomColors.button)
-                                .cornerRadius(12)
+                        if userReview == nil {
+                            Button(action: {
+                                Task{
+                                    if (cheese.id != nil && cheese.id != "") && (userId != nil && userId != ""){
+                                        await Database().addCheeseReview(cheeseId: cheese.id ?? "", userId: userId ?? "", description: description, rating: rating )
+                                    }
+                                    userReview = await Database().getUserCheeseReview(cheeseId: cheese.id!, userId: userId!)
+                                    if userReview != nil {
+                                        rating = userReview?.rating ?? 0.0
+                                        if userReview?.description != nil && userReview?.description != "" {
+                                            description = userReview?.description ?? ""
+                                        }
+                                    }
+             
+                                }
+                                
+                            }){
+                                Text("Add Review")
+                                    .padding(8)
+                                    .frame(maxWidth: .infinity)
+                                    .background(CustomColors.button)
+                                    .cornerRadius(12)
+                            }
                         }
+
                     }
 
             
@@ -259,7 +292,15 @@ struct CheeseDetailView: View {
         .task {
             if(profileId != nil && profileId != "") {
                 cupboards = await Database().getUserCupboards(profileId: profileId!)
-                
+                userReview = await Database().getUserCheeseReview(cheeseId: cheese.id!, userId: userId!)
+                if userReview != nil {
+                    disabled = true
+                    rating = userReview?.rating ?? 0.0
+                    if userReview?.description != nil && userReview?.description != "" {
+                        description = userReview?.description ?? ""
+                    }
+                }
+      
             }
         }    .toolbar {
             ToolbarItem(placement: .principal, content: {       Text(cheese.name)

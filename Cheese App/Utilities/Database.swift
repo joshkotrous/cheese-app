@@ -410,5 +410,51 @@ class Database {
         }
     }
     
+    func addCheeseReview(cheeseId: String, userId: String, description: String, rating: Double) async -> Void {
+        var review = CheeseReview()
+        review.user_id = userId
+        review.cheese_id = cheeseId
+        review.description = description
+        review.rating = rating
+        do {
+            try await supabase.from("cheese_review").insert(review).execute().value
+            let cupboardId: String? = await getCupboardIdByName(userId: userId, cupboardName: AppConfig.reviewedByMe)
+            if cupboardId != nil && cupboardId != "" {
+                await addCheeseToCupboard(cupboardId: cupboardId!, cheeseId: cheeseId)
+            }
+        } catch {
+            print(error)
+        }
+    }
+    
+    func getUserCheeseReview(cheeseId: String, userId: String) async -> CheeseReview? {
+        var review: CheeseReview?
+        do {
+            let result: [CheeseReview] = try await supabase.from("cheese_review").select().eq("user_id", value: userId).eq("cheese_id", value: cheeseId).limit(1).execute().value
+            if result.count > 0 {
+                review = result[0]
+                return review
+            }
+            
+        } catch {
+            print(error)
+        }
+        return nil
+    }
+    
+    func getCupboardIdByName(userId: String, cupboardName: String) async -> String? {
+        do {
+            let result: [Cupboard] = try await supabase.from("cupboard").select().eq("user_id", value: userId).eq("name", value: cupboardName).limit(1).execute().value
+            if result.count > 0 {
+                let cupboardId = result[0].id
+                return cupboardId
+            }
+    
+        } catch {
+            print(error)
+        }
+        return nil
+    }
+    
 }
 

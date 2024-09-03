@@ -39,6 +39,7 @@
 		376F52D92C77226D00BC1F27 /* CupboardCheeseList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 376F52D82C77226D00BC1F27 /* CupboardCheeseList.swift */; };
 		376F52DB2C772B0B00BC1F27 /* CheeseList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 376F52DA2C772B0B00BC1F27 /* CheeseList.swift */; };
 		376F52DD2C77AA4600BC1F27 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 376F52DC2C77AA4600BC1F27 /* EditProfileView.swift */; };
+		378660F62C86BB620006B488 /* CheeseReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378660F52C86BB620006B488 /* CheeseReview.swift */; };
 		37959DA02C5F5823004E4A02 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37959D9E2C5F5823004E4A02 /* LoginView.swift */; };
 		37959DA12C5F5823004E4A02 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37959D9F2C5F5823004E4A02 /* WelcomeView.swift */; };
 		37959DA82C5F584F004E4A02 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37959DA72C5F584F004E4A02 /* AppView.swift */; };
@@ -106,6 +107,7 @@
 		376F52D82C77226D00BC1F27 /* CupboardCheeseList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CupboardCheeseList.swift; sourceTree = "<group>"; };
 		376F52DA2C772B0B00BC1F27 /* CheeseList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheeseList.swift; sourceTree = "<group>"; };
 		376F52DC2C77AA4600BC1F27 /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
+		378660F52C86BB620006B488 /* CheeseReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheeseReview.swift; sourceTree = "<group>"; };
 		37959D9E2C5F5823004E4A02 /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		37959D9F2C5F5823004E4A02 /* WelcomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		37959DA72C5F584F004E4A02 /* AppView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 				376F52D22C76FD4C00BC1F27 /* CheeseCupboard.swift */,
 				376F52D82C77226D00BC1F27 /* CupboardCheeseList.swift */,
 				37F5BE672C796DAB004F569D /* UserCheese.swift */,
+				378660F52C86BB620006B488 /* CheeseReview.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -456,6 +459,7 @@
 				374AE4E52C61C81C00FB6063 /* CheeseDetailView.swift in Sources */,
 				37959DA02C5F5823004E4A02 /* LoginView.swift in Sources */,
 				37959DA82C5F584F004E4A02 /* AppView.swift in Sources */,
+				378660F62C86BB620006B488 /* CheeseReview.swift in Sources */,
 				374AE4DD2C61A67A00FB6063 /* NewCupboardPopover.swift in Sources */,
 				376F52D92C77226D00BC1F27 /* CupboardCheeseList.swift in Sources */,
 				376F52DD2C77AA4600BC1F27 /* EditProfileView.swift in Sources */,

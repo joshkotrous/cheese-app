@@ -47,29 +47,38 @@ struct ProfileView: View {
                         
                         HStack{
                             ZStack{
-                                AsyncImage(url: URL(string: profileImageUrl ?? "")) { phase in
-                                    switch phase {
-                                    case .empty:
-                                        ProgressView()
-                                    case .success(let image):
-                                        image
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fill)
-                                    case .failure:
-                                        Image(systemName: "photo")
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fit)
-                                            .foregroundColor(.gray)
-                                    @unknown default:
-                                        Image(systemName: "photo")
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fit)
-                                            .foregroundColor(.gray)
+                                if profileImageUrl != nil && profileImageUrl != "" {
+                                    AsyncImage(url: URL(string: profileImageUrl ?? "")) { phase in
+                                        switch phase {
+                                        case .empty:
+                                            ProgressView()
+                                        case .success(let image):
+                                            image
+                                                .resizable()
+                                                .aspectRatio(contentMode: .fill)
+                                        case .failure:
+                                            Image(systemName: "photo")
+                                                .resizable()
+                                                .aspectRatio(contentMode: .fit)
+                                                .foregroundColor(.gray)
+                                        @unknown default:
+                                            Image(systemName: "photo")
+                                                .resizable()
+                                                .aspectRatio(contentMode: .fit)
+                                                .foregroundColor(.gray)
+                                        }
                                     }
+                                    .id(UUID())
+                                    .aspectRatio(contentMode: .fill)
+                                    .cornerRadius(24)
+                                } else {
+                                    Image(systemName: "camera")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: 28)
+                                        .foregroundColor(CustomColors.textColor)
                                 }
-                                .id(UUID())
-                                .aspectRatio(contentMode: .fill)
-                                .cornerRadius(24)
+                
                             }.frame(width: 100, height: 100)
                                 .background(CustomColors.button) // Set the background color
                                 .cornerRadius(.infinity)

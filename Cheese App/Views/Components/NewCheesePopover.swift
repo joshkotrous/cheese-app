@@ -23,7 +23,7 @@ struct NewCheesePopover: View {
     @AppStorage("userId") var userId: String?
     @Binding var showNewCheesePopover: Bool
     @State var image: UIImage?
-    @State var imagePickerSourceType: UIImagePickerController.SourceType = .camera
+//    @State var imagePickerSourceType: UIImagePickerController.SourceType = .camera
     @State private var showActionSheet = false
     @State var showImagePicker: Bool = false
     @State var isLoading: Bool = false
@@ -32,7 +32,8 @@ struct NewCheesePopover: View {
     let cupboardName: String?
     
     var body: some View {
-   
+        var imagePickerSourceType: UIImagePickerController.SourceType = .camera
+
         ZStack{
             
             CustomColors.background
@@ -50,7 +51,6 @@ struct NewCheesePopover: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .font(.custom(AppConfig.fontName, size: 24))
                     .fontWeight(.bold)
-                
                 ZStack{
                     if let image = image {
                         Image(uiImage: image)

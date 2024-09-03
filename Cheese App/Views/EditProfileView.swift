@@ -20,12 +20,13 @@ struct EditProfileView: View {
     @StateObject var viewModel = EditProfileViewModel()
     @State var updatedSuccessfully: Bool = false
     @State var image: UIImage?
-    @State var imagePickerSourceType: UIImagePickerController.SourceType = .camera
     @State private var showActionSheet = false
     @State var showImagePicker: Bool = false
     @Binding var profileImageUrl: String?
     
     var body: some View {
+        var imagePickerSourceType: UIImagePickerController.SourceType = .camera
+
             ZStack{
                 CustomColors.background
                     .ignoresSafeArea(.all)

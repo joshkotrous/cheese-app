@@ -45,7 +45,7 @@ struct ProfileView: View {
                         if (accessToken != "" && accessToken != nil) {
                         }
                         
-                        HStack{
+                            HStack(spacing: 0){
                             ZStack{
                                 if profileImageUrl != nil && profileImageUrl != "" {
                                     AsyncImage(url: URL(string: profileImageUrl ?? "")) { phase in
@@ -87,16 +87,19 @@ struct ProfileView: View {
                             VStack{
                                 Text("0")
                                 Text("Cheeses")
+                                    .lineLimit(1)
 
                             }
                             .font(.custom(AppConfig.fontName, size: 16))
-
+                            
                             Divider()
                                 .frame(width: 25)
                                 .frame(height: 75)
                             VStack{
                                 Text("0")
                                 Text("Followers")
+                                    .lineLimit(1)
+
                             }
                             .font(.custom(AppConfig.fontName, size: 16))
 
@@ -106,6 +109,8 @@ struct ProfileView: View {
                             VStack{
                                 Text("0")
                                 Text("Following")
+                                    .lineLimit(1)
+
                             }
                             .font(.custom(AppConfig.fontName, size: 16))
 

@@ -102,59 +102,88 @@ struct CupboardListView: View {
                         
                         
                     } else {
-                        
-                        List {
-                            ForEach(viewModel.cheeses) { cupboardCheese in
-                                if let cheese = cupboardCheese.cheese {
-                                    NavigationLink(destination: CheeseDetailView(cheese: cheese)) {
-                                        VStack(alignment: .leading) {
-                                            Text(cheese.name)
-                                                .font(.headline)
-                                                .foregroundColor(CustomColors.textColor)
-                                            Text(cheese.category)
-                                                .font(.subheadline)
-                                                .foregroundColor(.gray)
+                        if (viewModel.cupboardName != AppConfig.reviewedByMe){
+                            List {
+                                ForEach(viewModel.cheeses) { cupboardCheese in
+                                    if let cheese = cupboardCheese.cheese {
+                                        NavigationLink(destination: CheeseDetailView(cheese: cheese)) {
+                                            VStack(alignment: .leading) {
+                                                Text(cheese.name)
+                                                    .font(.headline)
+                                                    .foregroundColor(CustomColors.textColor)
+                                                Text(cheese.category)
+                                                    .font(.subheadline)
+                                                    .foregroundColor(.gray)
+                                            }
+                                            
+                                            .padding(.vertical, 5)
                                         }
+                                        .listRowBackground(CustomColors.background)
                                         
-                                        .padding(.vertical, 5)
                                     }
-                                    .listRowBackground(CustomColors.background)
                                     
                                 }
                                 
-                            }
-                            
-                            .onDelete(perform: { indexSet in
-                                for index in indexSet {
-                                    let cupboardCheese = viewModel.cheeses[index]
-                                    if let cheeseIdToDelete = cupboardCheese.cheese?.id {
-                                        let cupboardIdToDelete = cupboardCheese.id
-                                        if viewModel.cupboardName == AppConfig.createByMe {
-                                            Task {
-                                                idToDelete = cheeseIdToDelete
-                                                showAlert = true
-                                                //                                                await Database().deleteUserCheese(cheeseId: cheeseIdToDelete, userId: userId ?? "")
-                                                //                                                await viewModel.getCheesesForCupboard(cupboardId: viewModel.cupboardId)
+                                .onDelete(perform: { indexSet in
+                                    for index in indexSet {
+                                        let cupboardCheese = viewModel.cheeses[index]
+                                        if let cheeseIdToDelete = cupboardCheese.cheese?.id {
+                                            let cupboardIdToDelete = cupboardCheese.id
+                                            if viewModel.cupboardName == AppConfig.createByMe {
+                                                Task {
+                                                    idToDelete = cheeseIdToDelete
+                                                    showAlert = true
+                                                    //                                                await Database().deleteUserCheese(cheeseId: cheeseIdToDelete, userId: userId ?? "")
+                                                    //                                                await viewModel.getCheesesForCupboard(cupboardId: viewModel.cupboardId)
+                                                }
+                                            } else {
+                                                Task {
+                                                    await Database().deleteCupboardCheese(cupboardCheeseId: cupboardIdToDelete)
+                                                    await viewModel.getCheesesForCupboard(cupboardId: viewModel.cupboardId)
+                                                }
+                                                viewModel.cheeses.remove(atOffsets: indexSet)
+                                                
                                             }
-                                        } else {
-                                            Task {
-                                                await Database().deleteCupboardCheese(cupboardCheeseId: cupboardIdToDelete)
-                                                await viewModel.getCheesesForCupboard(cupboardId: viewModel.cupboardId)
-                                            }
-                                            viewModel.cheeses.remove(atOffsets: indexSet)
-                                            
                                         }
                                     }
-                                }
+                                    
+                                    print("deleted")
+                                })
                                 
-                                print("deleted")
-                            })
+                            }
                             
+                            .background(CustomColors.background)
+                            .scrollContentBackground(.hidden)
+                            .listStyle(PlainListStyle())
+                        } else {
+                            List {
+                                ForEach(viewModel.cheeses) { cupboardCheese in
+                                    if let cheese = cupboardCheese.cheese {
+                                        NavigationLink(destination: CheeseDetailView(cheese: cheese)) {
+                                            VStack(alignment: .leading) {
+                                                Text(cheese.name)
+                                                    .font(.headline)
+                                                    .foregroundColor(CustomColors.textColor)
+                                                Text(cheese.category)
+                                                    .font(.subheadline)
+                                                    .foregroundColor(.gray)
+                                            }
+                                            
+                                            .padding(.vertical, 5)
+                                        }
+                                        .listRowBackground(CustomColors.background)
+                                        
+                                    }
+                                    
+                                }
+                            
+                            }
+                            
+                            .background(CustomColors.background)
+                            .scrollContentBackground(.hidden)
+                            .listStyle(PlainListStyle())
                         }
-                        
-                        .background(CustomColors.background)
-                        .scrollContentBackground(.hidden)
-                        .listStyle(PlainListStyle())
+              
                     }
                     
                     

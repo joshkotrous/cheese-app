@@ -35,7 +35,7 @@ struct EditProfileView: View {
                         ProgressView() // Spinner shown when loading
                             .progressViewStyle(CircularProgressViewStyle())
                             .scaleEffect(1.5) // Make the spinner larger if needed
-                    }.frame(maxWidth: .infinity, maxHeight: .infinity).background(CustomColors.background)
+                    }.frame(maxWidth: .infinity, maxHeight: .infinity).zIndex(100)
                 }
                 
                 if (updatedSuccessfully) {
@@ -44,6 +44,7 @@ struct EditProfileView: View {
                             .foregroundColor(.black)
                         Image(systemName: "checkmark.circle.fill").foregroundColor(.green)
                     }
+                    .zIndex(100)
                     .opacity(viewModel.opacity)
                     .onAppear {
                         

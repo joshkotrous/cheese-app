@@ -13,14 +13,15 @@ struct CheeseDetailView: View {
     @State var selectedOption: Cupboard?
     @AppStorage("profileId") var profileId: String?
     @State private var selectedView: String?
-    
+    @State private var description: String = ""
+    @State private var rating: Double = 0.0
     
     var body: some View {
         ZStack{
             CustomColors.background
                 .ignoresSafeArea(.all)
             ScrollView{
-
+                
                 VStack(alignment: .leading, spacing: 20) {
                     if let imageUrl = cheese.image {
                         VStack{
@@ -51,10 +52,10 @@ struct CheeseDetailView: View {
                                 
                             }    .frame(width: 250, height: 250)
                                 .cornerRadius(24)
-          
-                        
+                            
+                            
                         }.frame(maxWidth: .infinity, alignment: .center)
-      
+                        
                     }
                     
                     VStack(alignment: .leading) {
@@ -109,6 +110,140 @@ struct CheeseDetailView: View {
                         Text(cheese.description)
                             .font(.custom(AppConfig.fontName, size: 20))
                     }
+                    VStack(alignment: .leading, spacing: 8){
+                        Text("My Review")
+                            .font(.custom(AppConfig.fontName, size: 24))
+                            .fontWeight(.bold)
+                        HStack{
+                            Button(action: {
+                                if (rating == 0.0){
+                                    rating = 0.5
+                                } else if (rating == 0.5) {
+                                    rating = 1
+
+                                } else {
+                                    rating = 0.0
+                                }
+                            }) {
+                                if (rating == 0.5){
+                                    Image("StarHalfFill")
+
+                                } else if (rating >= 1) {
+                                    Image("StarFill")
+
+                                } else {
+                                    Image("StarEmpty")
+                                }
+                            }
+                            Button(action: {
+                                if (rating == 0.0){
+                                    rating = 1.5
+                                } else if (rating == 1.5) {
+                                    rating = 2
+
+                                } else {
+                                    rating = 1.5
+                                }
+                            }) {
+                                if (rating == 1.5){
+                                    Image("StarHalfFill")
+
+                                } else if (rating >= 2) {
+                                    Image("StarFill")
+
+                                } else {
+                                    Image("StarEmpty")
+                                }
+                            }
+                            Button(action: {
+                                if (rating == 0.0){
+                                    rating = 2.5
+                                } else if (rating == 2.5) {
+                                    rating = 3
+
+                                } else {
+                                    rating = 2.5
+                                }
+                            }) {
+                                if (rating == 2.5){
+                                    Image("StarHalfFill")
+
+                                } else if (rating >= 3) {
+                                    Image("StarFill")
+
+                                } else {
+                                    Image("StarEmpty")
+                                }
+                            }
+                            Button(action: {
+                                if (rating == 0.0){
+                                    rating = 3.5
+                                } else if (rating == 3.5) {
+                                    rating = 4
+
+                                } else {
+                                    rating = 3.5
+                                }
+                            }) {
+                                if (rating == 3.5){
+                                    Image("StarHalfFill")
+
+                                } else if (rating >= 4) {
+                                    Image("StarFill")
+
+                                } else {
+                                    Image("StarEmpty")
+                                }
+                            }
+                            Button(action: {
+                                if (rating == 0.0){
+                                    rating = 4.5
+                                } else if (rating == 4.5) {
+                                    rating = 5
+
+                                } else {
+                                    rating = 4.5
+                                }
+                            }) {
+                                if (rating == 4.5){
+                                    Image("StarHalfFill")
+
+                                } else if (rating >= 5) {
+                                    Image("StarFill")
+
+                                } else {
+                                    Image("StarEmpty")
+                                }
+                            }
+                            Text("\(String(format: "%.1f", rating))").font(.custom("", size: 20))
+                      
+                      
+
+                        }
+                        VStack(spacing: 2){
+                            Text("Description")
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .font(.custom(AppConfig.fontName, size: 18))
+                            TextEditor(text: $description)
+                                    .foregroundColor(CustomColors.textColor) // Set the text color
+                                    .font(.custom(AppConfig.fontName, size: 18)) // Set the custom font and size
+                                    .frame(height: 100, alignment: .top)
+                                    .scrollContentBackground(.hidden) // <- Hide it
+                                    .cornerRadius(12)
+                                    .background(RoundedRectangle(cornerRadius: 12).fill(CustomColors.tan1))
+
+
+                        }
+                        Button(action: {}){
+                            Text("Add Review")
+                                .padding(8)
+                                .frame(maxWidth: .infinity)
+                                .background(CustomColors.button)
+                                .cornerRadius(12)
+                        }
+                    }
+
+            
                     Text("Reviews")
                         .font(.custom(AppConfig.fontName, size: 24))
                         .fontWeight(.bold)
@@ -120,7 +255,7 @@ struct CheeseDetailView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-
+        
         .task {
             if(profileId != nil && profileId != "") {
                 cupboards = await Database().getUserCupboards(profileId: profileId!)
@@ -128,13 +263,13 @@ struct CheeseDetailView: View {
             }
         }    .toolbar {
             ToolbarItem(placement: .principal, content: {       Text(cheese.name)
-                      .font(.custom(AppConfig.fontName, size: 24))
-                      .foregroundColor(CustomColors.textColor)})
-         
-
-        
-
-         
+                    .font(.custom(AppConfig.fontName, size: 24))
+                .foregroundColor(CustomColors.textColor)})
+            
+            
+            
+            
+            
         }
         
     }

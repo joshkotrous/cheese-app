@@ -44,6 +44,7 @@ struct NewCheesePopover: View {
                     .progressViewStyle(CircularProgressViewStyle())
                     .scaleEffect(1.5) // Make the spinner larger if needed
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .zIndex(100)
             }
             
             VStack {

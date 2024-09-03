@@ -12,10 +12,19 @@ struct NewCupboardPopover: View {
     @State private var newCupboardInput: String = ""
     @AppStorage("profileId") var profileId: String?
     @Binding var cupboards: [Cupboard]?
+    @State var isLoading: Bool = false
     var body: some View {
         ZStack{
             CustomColors.background
                 .ignoresSafeArea(.all)
+            if isLoading {
+                ProgressView() // Spinner shown when loading
+                    .progressViewStyle(CircularProgressViewStyle())
+                    .scaleEffect(1.5) // Make the spinner larger if needed
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .zIndex(100)
+            }
+            
             VStack {
                 Text("Add Cupboard")
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -34,11 +43,13 @@ struct NewCupboardPopover: View {
      
                 Button(action: {
                     Task {
+                        isLoading = true
                         if (profileId != nil && newCupboardInput != "") {
                             await Database().createNewCupboard(profileId: profileId ?? "", cupboardName: newCupboardInput)
                             showCupboardPopover = false
                         }
                         cupboards = await Database().getUserCupboards(profileId: profileId ?? "")
+                        isLoading = false
                     }
                     
                     

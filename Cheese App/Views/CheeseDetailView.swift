@@ -18,12 +18,20 @@ struct CheeseDetailView: View {
     @State private var rating: Double = 0.0
     @AppStorage("userId") var userId: String?
     @State var disabled: Bool = false
-
+    @State var isLoading: Bool = false
     
     var body: some View {
         ZStack{
             CustomColors.background
                 .ignoresSafeArea(.all)
+            if isLoading {
+                ProgressView() // Spinner shown when loading
+                    .progressViewStyle(CircularProgressViewStyle())
+                    .scaleEffect(1.5) // Make the spinner larger if needed
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .zIndex(100)
+            }
+            
             ScrollView{
                 
                 VStack(alignment: .leading, spacing: 20) {
@@ -82,9 +90,11 @@ struct CheeseDetailView: View {
                                         Button(action: {
                                             selectedOption = cupboard
                                             Task {
+                                                isLoading = true
                                                 if (cupboard.id != nil && cheese.id != nil) {
                                                     await Database().addCheeseToCupboard(cupboardId: cupboard.id!, cheeseId: cheese.id!)
                                                 }
+                                                isLoading = false
                                                 
                                             }
                                         }) {
@@ -246,12 +256,14 @@ struct CheeseDetailView: View {
                                     .scrollContentBackground(.hidden) // <- Hide it
                                     .cornerRadius(12)
                                     .background(RoundedRectangle(cornerRadius: 12).fill(CustomColors.tan1))
+                                    .disabled(disabled)
 
 
                         }
                         if userReview == nil {
                             Button(action: {
                                 Task{
+                                    isLoading = true
                                     if (cheese.id != nil && cheese.id != "") && (userId != nil && userId != ""){
                                         await Database().addCheeseReview(cheeseId: cheese.id ?? "", userId: userId ?? "", description: description, rating: rating )
                                     }
@@ -262,12 +274,13 @@ struct CheeseDetailView: View {
                                             description = userReview?.description ?? ""
                                         }
                                     }
+                                    isLoading = false
              
                                 }
                                 
                             }){
                                 Text("Add Review")
-                                    .padding(8)
+                                    .padding(16)
                                     .frame(maxWidth: .infinity)
                                     .background(CustomColors.button)
                                     .cornerRadius(12)
@@ -290,6 +303,7 @@ struct CheeseDetailView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         
         .task {
+            isLoading = true
             if(profileId != nil && profileId != "") {
                 cupboards = await Database().getUserCupboards(profileId: profileId!)
                 userReview = await Database().getUserCheeseReview(cheeseId: cheese.id!, userId: userId!)
@@ -302,6 +316,7 @@ struct CheeseDetailView: View {
                 }
       
             }
+            isLoading = false
         }    .toolbar {
             ToolbarItem(placement: .principal, content: {       Text(cheese.name)
                     .font(.custom(AppConfig.fontName, size: 24))

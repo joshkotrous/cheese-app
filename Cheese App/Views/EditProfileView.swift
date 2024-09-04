@@ -23,6 +23,7 @@ struct EditProfileView: View {
     @State private var showActionSheet = false
     @State var showImagePicker: Bool = false
     @Binding var profileImageUrl: String?
+    @AppStorage("userId") var userId: String?
     
     var body: some View {
         var imagePickerSourceType: UIImagePickerController.SourceType = .camera
@@ -113,6 +114,21 @@ struct EditProfileView: View {
                             }) {
                                 Label("Photo Library", systemImage: "photo.on.rectangle")
                             }
+                            Button(role: .destructive, action: {
+                                if image != nil {
+                                    image = nil
+                                }
+                             
+                                Task {
+                                    if (profileImageUrl != nil && profileImageUrl != "") && image == nil {
+                                        await Database().deleteProfilePhoto(userId: userId!)
+
+                                    }
+
+                                }
+                            }) {
+                                Label("Remove Image", systemImage: "xmark")
+                            }
                         } label: {
                             if image != nil || (profileImageUrl != nil && profileImageUrl != "") {
                                 Label("Edit Photo", systemImage: "camera")
@@ -171,7 +187,7 @@ struct EditProfileView: View {
                             viewModel.isLoading = true
                             await Database().updateProfile(profileId: profileId, bio: bio, username: username)
                             if image != nil {
-                                profileImageUrl = await Database().uploadProfileImage(image: image!, profileId: profileId)
+                                profileImageUrl = await Database().uploadProfileImage(image: image!, userId: userId!)
                             }
                             viewModel.isLoading = false
                             updatedSuccessfully = true

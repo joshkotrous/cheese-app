@@ -73,6 +73,14 @@ struct NewCheesePopover: View {
                         }) {
                             Label("Photo Library", systemImage: "photo.on.rectangle")
                         }
+                        Button(role: .destructive, action: {
+                            if image != nil {
+                                image = nil
+                            }
+                        }) {
+                            Label("Remove Image", systemImage: "xmark")
+                        }
+                        
                     } label: {
                         if image != nil {
                             Label("Edit Photo", systemImage: "camera")

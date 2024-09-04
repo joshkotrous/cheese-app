@@ -192,7 +192,9 @@ class Database {
         do {
             let userId = UserDefaults.standard.string(forKey: "userId")
             if (userId != nil){
+                await deleteProfilePhoto(userId: userId!)
                 try await supabase.auth.admin.deleteUser(id: userId!)
+
             }
             await signOut()
         } catch {
@@ -332,6 +334,7 @@ class Database {
     func deleteUserCheese(cheeseId: String, userId: String) async -> Void {
         do {
             try await supabase.from("cheese").delete().eq("id", value: cheeseId).execute().value
+            await deleteCheesePhoto(cheeseId: cheeseId)
         } catch {
             print(error)
         }
@@ -376,13 +379,13 @@ class Database {
         }
     }
     
-    func uploadProfileImage(image: UIImage, profileId: String) async -> String? {
+    func uploadProfileImage(image: UIImage, userId: String) async -> String? {
         guard let imageData = image.jpegData(compressionQuality: 1.0) else {
             print("Failed to convert UIImage to Data")
             return nil
         }
         
-        let fileName = "\(profileId).jpg"
+        let fileName = "\(userId).jpg"
         let filePath = "public/\(fileName)"
         
         do {
@@ -401,7 +404,7 @@ class Database {
             let imageUrl = try supabase.storage.from("profile_images").getPublicURL(path: filePath)
             
             // Update the profile with the image URL
-            try await supabase.from("profile").update(["image": imageUrl]).eq("id", value: profileId).execute().value
+            try await supabase.from("profile").update(["image": imageUrl]).eq("user_id", value: userId).execute().value
             
             // Return the image URL
             return imageUrl.absoluteString
@@ -467,6 +470,24 @@ class Database {
             print(error)
         }
         return results
+    }
+    
+    func deleteCheesePhoto(cheeseId: String) async -> Void {
+        do {
+            try await supabase.storage.from("cheese_images").remove(paths: ["public/\(cheeseId).jpg"])
+            
+        } catch {
+            print(error)
+        }
+    }
+    
+    func deleteProfilePhoto(userId: String) async -> Void {
+        do {
+            try await supabase.storage.from("profile_images").remove(paths: ["public/\(userId).jpg"])
+            
+        } catch {
+            print(error)
+        }
     }
     
 }

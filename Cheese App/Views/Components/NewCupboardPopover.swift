@@ -13,6 +13,9 @@ struct NewCupboardPopover: View {
     @AppStorage("profileId") var profileId: String?
     @Binding var cupboards: [Cupboard]?
     @State var isLoading: Bool = false
+    
+    let client = Database.shared
+    
     var body: some View {
         ZStack{
             CustomColors.background
@@ -45,10 +48,10 @@ struct NewCupboardPopover: View {
                     Task {
                         isLoading = true
                         if (profileId != nil && newCupboardInput != "") {
-                            await Database().createNewCupboard(profileId: profileId ?? "", cupboardName: newCupboardInput)
+                            await client.createNewCupboard(profileId: profileId ?? "", cupboardName: newCupboardInput)
                             showCupboardPopover = false
                         }
-                        cupboards = await Database().getUserCupboards(profileId: profileId ?? "")
+                        cupboards = await client.getUserCupboards(profileId: profileId ?? "")
 
                     }
                     

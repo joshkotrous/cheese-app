@@ -11,7 +11,9 @@ import os
 import GoogleSignIn
 
 class Database {
-    let supabase: SupabaseClient
+    static let shared = Database()
+    
+    let client: SupabaseClient
 
     init(){
         let logger = Logger(subsystem: "Database.init", category: "network")
@@ -36,7 +38,7 @@ class Database {
         else {
             fatalError("Supabase environment variables are not set correctly.")
         }
-        supabase = SupabaseClient(
+        self.client = SupabaseClient(
             supabaseURL: supabaseURL,
             supabaseKey: supabaseKey
         )
@@ -47,7 +49,7 @@ class Database {
         var results: [Cheese] = []
         
         do {
-            results  = try await supabase.from("cheese").select().neq("community_added", value: "TRUE").order("created_on").execute().value
+            results  = try await client.from("cheese").select().neq("community_added", value: "TRUE").order("created_on").execute().value
         }
         catch {
             print(error)
@@ -58,7 +60,7 @@ class Database {
     func getAllCategories() async -> [Category] {
         var results: [Category] = []
         do {
-            results = try await supabase.from("categories").select().execute().value
+            results = try await client.from("categories").select().execute().value
         }
         catch {
             print (error)
@@ -69,7 +71,7 @@ class Database {
     func getAllGateways() async -> [Gateway] {
         var results: [Gateway] = []
         do {
-            results = try await supabase.from("gateways").select().execute().value
+            results = try await client.from("gateways").select().execute().value
         }
         catch {
             print(error)
@@ -80,7 +82,7 @@ class Database {
     func getCheesesByCategory(category: String) async -> [Cheese] {
         var results: [Cheese] = []
         do {
-            results = try await supabase.from("cheese").select().eq("category", value: category).execute().value
+            results = try await client.from("cheese").select().eq("category", value: category).execute().value
         }
         catch {
             print(error)
@@ -91,7 +93,7 @@ class Database {
     func getUserProfile(userId: String) async -> Profile? {
         var results: [Profile] = []
         do {
-            results = try await supabase.from("profile").select().eq("user_id", value: userId).limit(1).execute().value
+            results = try await client.from("profile").select().eq("user_id", value: userId).limit(1).execute().value
         } catch {
             print(error)
         }
@@ -105,7 +107,7 @@ class Database {
         var results: Profile?
         let profile = Profile(user_id: userId, username: username)
         do {
-            results = try await supabase.from("profile").insert(profile).select().single().execute().value
+            results = try await client.from("profile").insert(profile).select().single().execute().value
         } catch {
             print(error)
         }
@@ -115,7 +117,7 @@ class Database {
     func getUserCupboards(profileId: String) async -> [Cupboard] {
         var results: [Cupboard] = []
         do {
-            results = try await supabase.from("cupboard").select("*, cupboard_cheese(count)").eq("profile_id", value: profileId).execute().value
+            results = try await client.from("cupboard").select("*, cupboard_cheese(count)").eq("profile_id", value: profileId).execute().value
             print(results)
         } catch {
             print(error)
@@ -128,7 +130,7 @@ class Database {
         cupboard.name = cupboardName
         cupboard.profile_id = profileId
         do {
-            try await supabase.from("cupboard").insert(cupboard).execute().value
+            try await client.from("cupboard").insert(cupboard).execute().value
         } catch {
             print(error)
         }
@@ -140,7 +142,7 @@ class Database {
         cheeseCupboard.cupboard_id = cupboardId
         print(cheeseCupboard)
         do {
-            try await supabase.from("cupboard_cheese").insert(cheeseCupboard).execute().value
+            try await client.from("cupboard_cheese").insert(cheeseCupboard).execute().value
         } catch {
             print(error)
         }
@@ -148,7 +150,7 @@ class Database {
     
     func deleteCupboard(cupboardId: String) async -> Void {
         do {
-            try await supabase.from("cupboard").delete().eq("id", value: cupboardId).execute().value
+            try await client.from("cupboard").delete().eq("id", value: cupboardId).execute().value
         } catch {
             print(error)
         }
@@ -162,7 +164,7 @@ class Database {
         """
         var result: [CupboardCheeseList] = []
         do {
-            result = try await supabase.from("cupboard_cheese").select(query).eq("cupboard_id", value: cupboardId).execute().value
+            result = try await client.from("cupboard_cheese").select(query).eq("cupboard_id", value: cupboardId).execute().value
             print(result.count)
             print(result)
         } catch {
@@ -173,7 +175,7 @@ class Database {
     
     func updateProfile(profile: Profile) async -> Void {
         do {
-            try await supabase.from("profile").update(profile).eq("id", value: profile.id).execute().value
+            try await client.from("profile").update(profile).eq("id", value: profile.id).execute().value
         } catch {
             print(error)
         }
@@ -181,7 +183,7 @@ class Database {
     
     func signOut() async -> Void{
         do {
-            try await supabase.auth.signOut()
+            try await client.auth.signOut()
             clearAppStorage()
         } catch {
             print(error)
@@ -193,7 +195,7 @@ class Database {
             let userId = UserDefaults.standard.string(forKey: "userId")
             if (userId != nil){
                 await deleteProfilePhoto(userId: userId!)
-                try await supabase.auth.admin.deleteUser(id: userId!)
+                try await client.auth.admin.deleteUser(id: userId!)
 
             }
             await signOut()
@@ -212,7 +214,7 @@ class Database {
                 let logger = Logger(subsystem: "Database.signInWithSupabase", category: "network")
                 logger.info("ID Token:\(idToken, privacy: .public)")
                 logger.info("Nonce:\(nonce, privacy: .public)")
-                let session = try await Database().supabase.auth.signInWithIdToken(
+                let session = try await client.auth.signInWithIdToken(
                     credentials: .init(provider: .apple, idToken: idToken, nonce: nonce))
                 let userId = session.user.id.uuidString
                 UserDefaults.standard.set(session.accessToken, forKey: "accessToken")
@@ -235,7 +237,7 @@ class Database {
     func googleSignIn(idToken: String, accessToken: String) async throws {
         let logger = Logger(subsystem: "Database.googleSignIn", category: "network")
 
-       let session = try await supabase.auth.signInWithIdToken(
+       let session = try await client.auth.signInWithIdToken(
          credentials: OpenIDConnectCredentials(
            provider: .google,
            idToken: idToken,
@@ -287,7 +289,7 @@ class Database {
         }
         
         do {
-            try await supabase.from("cupboard").insert(defaultCupboards).execute().value
+            try await client.from("cupboard").insert(defaultCupboards).execute().value
             
         } catch {
             print(error)
@@ -297,7 +299,7 @@ class Database {
     
     func deleteCupboardCheese(cupboardCheeseId: String) async -> Void {
         do {
-            try await supabase.from("cupboard_cheese").delete().eq("id", value: cupboardCheeseId).execute().value
+            try await client.from("cupboard_cheese").delete().eq("id", value: cupboardCheeseId).execute().value
         } catch {
             print(error)
         }
@@ -314,15 +316,15 @@ class Database {
         mewCheese.community_added = true
         print(mewCheese)
         do {
-            let cheese: Cheese = try await supabase.from("cheese").insert(mewCheese).select().single().execute().value
+            let cheese: Cheese = try await client.from("cheese").insert(mewCheese).select().single().execute().value
             print(cheese)
-            let cupboard: Cupboard = try await supabase.from("cupboard").select().eq("name", value: AppConfig.createByMe).eq("user_id", value: userId).single().execute().value
+            let cupboard: Cupboard = try await client.from("cupboard").select().eq("name", value: AppConfig.createByMe).eq("user_id", value: userId).single().execute().value
             print(cupboard)
             var cupboardCheese = CheeseCupboard()
             cupboardCheese.cheese_id = cheese.id!
             cupboardCheese.cupboard_id = cupboard.id!
             print(cupboardCheese)
-            try await supabase.from("cupboard_cheese").insert(cupboardCheese).execute().value
+            try await client.from("cupboard_cheese").insert(cupboardCheese).execute().value
             return cheese
 
         } catch {
@@ -333,7 +335,7 @@ class Database {
     
     func deleteUserCheese(cheeseId: String, userId: String) async -> Void {
         do {
-            try await supabase.from("cheese").delete().eq("id", value: cheeseId).execute().value
+            try await client.from("cheese").delete().eq("id", value: cheeseId).execute().value
             await deleteCheesePhoto(cheeseId: cheeseId)
         } catch {
             print(error)
@@ -344,8 +346,8 @@ class Database {
         var result: [Cheese] = []
         print(query)
         do {
-//            result = try await supabase.from("cheese").select().like("name", pattern: "%\(query)%").execute().value
-            result = try await supabase.from("cheese").select().or("name.ilike.%\(query.trimmingCharacters(in: .whitespaces))%,category.ilike.%\(query.trimmingCharacters(in: .whitespaces))%").execute().value
+//            result = try await client.from("cheese").select().like("name", pattern: "%\(query)%").execute().value
+            result = try await client.from("cheese").select().or("name.ilike.%\(query.trimmingCharacters(in: .whitespaces))%,category.ilike.%\(query.trimmingCharacters(in: .whitespaces))%").execute().value
             print(result)
         } catch {
             print(error)
@@ -362,7 +364,7 @@ class Database {
         let fileName = "\(cheeseId).jpg"
         let filePath = "public/\(fileName)"
         do {
-            try await supabase.storage.from("cheese_images").upload(
+            try await client.storage.from("cheese_images").upload(
                 path: filePath,
                 file: imageData,
                 options: FileOptions(
@@ -371,8 +373,8 @@ class Database {
                   upsert: false
                 )
             )
-            let imageUrl = try supabase.storage.from("cheese_images").getPublicURL(path: filePath)
-            try await supabase.from("cheese").update(["image": imageUrl]).eq("id", value: cheeseId).execute().value
+            let imageUrl = try client.storage.from("cheese_images").getPublicURL(path: filePath)
+            try await client.from("cheese").update(["image": imageUrl]).eq("id", value: cheeseId).execute().value
             
         } catch {
             print(error)
@@ -390,7 +392,7 @@ class Database {
         
         do {
             // Upload the image to Supabase
-            try await supabase.storage.from("profile_images").upload(
+            try await client.storage.from("profile_images").upload(
                 path: filePath,
                 file: imageData,
                 options: FileOptions(
@@ -401,10 +403,10 @@ class Database {
             )
             
             // Get the public URL for the uploaded image
-            let imageUrl = try supabase.storage.from("profile_images").getPublicURL(path: filePath)
+            let imageUrl = try client.storage.from("profile_images").getPublicURL(path: filePath)
             
             // Update the profile with the image URL
-            try await supabase.from("profile").update(["image": imageUrl]).eq("user_id", value: userId).execute().value
+            try await client.from("profile").update(["image": imageUrl]).eq("user_id", value: userId).execute().value
             
             // Return the image URL
             return imageUrl.absoluteString
@@ -421,7 +423,7 @@ class Database {
         review.description = description
         review.rating = rating
         do {
-            try await supabase.from("cheese_review").insert(review).execute().value
+            try await client.from("cheese_review").insert(review).execute().value
             let cupboardId: String? = await getCupboardIdByName(userId: userId, cupboardName: AppConfig.reviewedByMe)
             if cupboardId != nil && cupboardId != "" {
                 await addCheeseToCupboard(cupboardId: cupboardId!, cheeseId: cheeseId)
@@ -434,7 +436,7 @@ class Database {
     func getUserCheeseReview(cheeseId: String, userId: String) async -> CheeseReview? {
         var review: CheeseReview?
         do {
-            let result: [CheeseReview] = try await supabase.from("cheese_review").select().eq("user_id", value: userId).eq("cheese_id", value: cheeseId).limit(1).execute().value
+            let result: [CheeseReview] = try await client.from("cheese_review").select().eq("user_id", value: userId).eq("cheese_id", value: cheeseId).limit(1).execute().value
             if result.count > 0 {
                 review = result[0]
                 return review
@@ -448,7 +450,7 @@ class Database {
     
     func getCupboardIdByName(userId: String, cupboardName: String) async -> String? {
         do {
-            let result: [Cupboard] = try await supabase.from("cupboard").select().eq("user_id", value: userId).eq("name", value: cupboardName).limit(1).execute().value
+            let result: [Cupboard] = try await client.from("cupboard").select().eq("user_id", value: userId).eq("name", value: cupboardName).limit(1).execute().value
             if result.count > 0 {
                 let cupboardId = result[0].id
                 return cupboardId
@@ -464,7 +466,7 @@ class Database {
         print(userId, cheeseId)
         var results: [CheeseReview] = []
         do {
-            results = try await supabase.from("cheese_review").select().filter("cheese_id", operator: "eq", value: cheeseId).filter("user_id", operator: "neq", value: userId).execute().value
+            results = try await client.from("cheese_review").select().filter("cheese_id", operator: "eq", value: cheeseId).filter("user_id", operator: "neq", value: userId).execute().value
 
         } catch {
             print(error)
@@ -474,7 +476,7 @@ class Database {
     
     func deleteCheesePhoto(cheeseId: String) async -> Void {
         do {
-            try await supabase.storage.from("cheese_images").remove(paths: ["public/\(cheeseId).jpg"])
+            try await client.storage.from("cheese_images").remove(paths: ["public/\(cheeseId).jpg"])
             
         } catch {
             print(error)
@@ -483,7 +485,7 @@ class Database {
     
     func deleteProfilePhoto(userId: String) async -> Void {
         do {
-            try await supabase.storage.from("profile_images").remove(paths: ["public/\(userId).jpg"])
+            try await client.storage.from("profile_images").remove(paths: ["public/\(userId).jpg"])
             
         } catch {
             print(error)

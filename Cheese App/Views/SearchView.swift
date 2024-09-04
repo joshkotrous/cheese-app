@@ -11,8 +11,10 @@ class SearchViewModel: ObservableObject {
     @Published var categories: [Category] = []
     @Published var gateways: [Gateway] = []
     @Published var isLoading: Bool = true
+    let client = Database.shared
+
     func getAllCategories() async {
-            let fetchedCategories =  await Database().getAllCategories()
+            let fetchedCategories =  await client.getAllCategories()
             DispatchQueue.main.async {
                 self.categories = fetchedCategories
             }
@@ -20,7 +22,7 @@ class SearchViewModel: ObservableObject {
     }
     
     func getAllGateways() async {
-            let fetchedGateways =  await Database().getAllGateways()
+            let fetchedGateways =  await client.getAllGateways()
             DispatchQueue.main.async{
                 self.gateways = fetchedGateways
             }
@@ -31,7 +33,7 @@ class SearchViewModel: ObservableObject {
 struct SearchView: View {
     @State private var opacity: Double = 0.0
     @StateObject private var viewModel = SearchViewModel()
-    
+
     var body: some View {
         NavigationStack {
             ZStack{

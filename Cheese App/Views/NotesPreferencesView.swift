@@ -24,9 +24,11 @@ class NotesPreferencesViewmModel: ObservableObject {
     @Published var categories: [SelectableCategory2] = []  // Changed from Category to SelectableCategory
     @Published var gateways: [Gateway] = []
     @Published var isLoading: Bool = true
+    let client = Database.shared
+
     
     func getAllCategories() async {
-        let fetchedCategories = await Database().getAllCategories()
+        let fetchedCategories = await client.getAllCategories()
         
         DispatchQueue.main.async {
             // Map fetched categories to SelectableCategory, with initial isSelected set to false
@@ -38,7 +40,7 @@ class NotesPreferencesViewmModel: ObservableObject {
     }
     
     func getAllGateways() async {
-        let fetchedGateways = await Database().getAllGateways()
+        let fetchedGateways = await client.getAllGateways()
         
         DispatchQueue.main.async {
             self.gateways = fetchedGateways

@@ -17,7 +17,8 @@ import GoogleSignInSwift
 class GoogleSignInManager: ObservableObject {
     @Published var isSignedIn = false
     @Published var errorText: String? = nil
-    
+    let client = Database.shared
+
     func signIn(withPresenting presentingViewController: UIViewController) {
         Task {
             do {
@@ -30,7 +31,7 @@ class GoogleSignInManager: ObservableObject {
                 let accessToken = result.user.accessToken.tokenString
 
                 // Call your backend or database manager to handle sign-in
-                try await Database().googleSignIn(idToken: idToken, accessToken: accessToken)
+                try await client.googleSignIn(idToken: idToken, accessToken: accessToken)
 
                 // Update the state
                 DispatchQueue.main.async {
@@ -55,7 +56,8 @@ struct LoginView: View {
     @State var isSignedIn = false
     @StateObject private var googleSignInManager = GoogleSignInManager()
     @State var showPopover: Bool = false
-    
+    let client = Database.shared
+
     init() {
         if let token = accessToken, !token.isEmpty {
             print("is signed in")
@@ -212,7 +214,7 @@ struct LoginView: View {
                 print(fullName?.givenName ?? "given name missing", fullName?.familyName ?? "family name missing")
                 Task {
                     do {
-                        try await Database().signInWithSupabase(idToken: idTokenString, nonce: nonce)
+                        try await client.signInWithSupabase(idToken: idTokenString, nonce: nonce)
                     } catch {
                         errorText = "Authorization failed at supabase sign in: \(error.localizedDescription)"
                         showAlert = true

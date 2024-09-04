@@ -13,6 +13,8 @@ class CheeseSearchViewModel: ObservableObject {
     @Published var searchResults: [Cheese] = []
     @Published var isSearched: Bool = false
     @Published var isLoading: Bool = true
+    let client = Database.shared
+
     func searchForCheese() async {
         // Replace with your actual search logic
         if searchText.isEmpty {
@@ -20,7 +22,7 @@ class CheeseSearchViewModel: ObservableObject {
         } else {
             self.isLoading = true
             // Simulate fetching data
-             let results = await Database().searchForCheeses(query: searchText)
+             let results = await client.searchForCheeses(query: searchText)
             DispatchQueue.main.async {
                 self.searchResults = results
                 print(self.searchResults)
@@ -36,7 +38,7 @@ struct SearchBar: View {
     @State private var isFocused: Bool = false
     @FocusState private var textFieldIsFocused: Bool // Focus state for the TextField
     @StateObject var viewModel = CheeseSearchViewModel() // Create an instance of the view model
-    
+
     var body: some View {
         ZStack{
             Color.black

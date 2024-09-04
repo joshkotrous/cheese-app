@@ -73,13 +73,13 @@ struct AppView: View {
             DiscoverView()
                 .tabItem {
                     if (selectedTab == Tab.discover){
-                        Image("AiOutlineCompassDark")
+                        Image("CgFeedDark")
 
                     } else {
-                        Image("AiOutlineCompass")
+                        Image("CgFeed")
 
                     }
-                    Text("Discover")
+                    Text("Feed")
                 }
                 .tag(Tab.discover)
             

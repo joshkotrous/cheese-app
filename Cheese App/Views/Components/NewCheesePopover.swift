@@ -30,7 +30,8 @@ struct NewCheesePopover: View {
 
     let cupboardId: String?
     let cupboardName: String?
-    
+    let client = Database.shared
+
     var body: some View {
         var imagePickerSourceType: UIImagePickerController.SourceType = .camera
 
@@ -182,15 +183,15 @@ struct NewCheesePopover: View {
                         var cheese: Cheese?
 
                         if (viewModel.cheeseName != ""){
-                           cheese = await Database().createUserCheese(name: viewModel.cheeseName, description: viewModel.description, category: viewModel.selectedCategory, userId: userId ?? "")
+                           cheese = await client.createUserCheese(name: viewModel.cheeseName, description: viewModel.description, category: viewModel.selectedCategory, userId: userId ?? "")
                         }
                         
                         if (cupboardId != "" && (cheese?.id != "" || cheese?.id != nil) && cupboardName != AppConfig.createByMe){
-                            await Database().addCheeseToCupboard(cupboardId: cupboardId!, cheeseId: cheese?.id ?? "")
+                            await client.addCheeseToCupboard(cupboardId: cupboardId!, cheeseId: cheese?.id ?? "")
                         }
                         
                         if image != nil {
-                            await Database().uploadCheesePhoto(image: image!, cheeseId: cheese?.id ?? "")
+                            await client.uploadCheesePhoto(image: image!, cheeseId: cheese?.id ?? "")
                         }
                         showNewCheesePopover = false
                         isLoading = false
@@ -213,7 +214,7 @@ struct NewCheesePopover: View {
             .foregroundColor(CustomColors.textColor)
             .padding()
         }.task {
-            viewModel.categories = await Database().getAllCategories()
+            viewModel.categories = await client.getAllCategories()
         }
     }
 }

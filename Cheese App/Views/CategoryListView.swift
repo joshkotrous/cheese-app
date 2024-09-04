@@ -10,12 +10,13 @@ import SwiftUI
 class CategoryListViewModel: ObservableObject {
     @Published var category: String
     @Published var cheeses: [Cheese] = []
-    
+    let client = Database.shared
+
     init(category: String) {
         self.category = category
     }
     func getCheesesForCategory(category: String) async {
-            let fetchedCheeses =  await Database().getCheesesByCategory(category: category)
+            let fetchedCheeses =  await client.getCheesesByCategory(category: category)
             DispatchQueue.main.async {
                 self.cheeses = fetchedCheeses
             }

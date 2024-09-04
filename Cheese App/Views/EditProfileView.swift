@@ -25,7 +25,8 @@ struct EditProfileView: View {
     @Binding var profileImageUrl: String?
     @AppStorage("userId") var userId: String?
     @Binding var profile: Profile?
-    
+    let client = Database.shared
+
     var body: some View {
         var imagePickerSourceType: UIImagePickerController.SourceType = .camera
 
@@ -123,9 +124,9 @@ struct EditProfileView: View {
                                  
                                     Task {
                                         if (profileImageUrl != nil && profileImageUrl != "") && image == nil {
-                                            await Database().deleteProfilePhoto(userId: userId!)
+                                            await client.deleteProfilePhoto(userId: userId!)
                                             profile?.image = ""
-                                            await Database().updateProfile(profile: profile!)
+                                            await client.updateProfile(profile: profile!)
 
                                         }
 
@@ -194,10 +195,10 @@ struct EditProfileView: View {
                             if profile != nil {
                                 profile?.bio = bio
                                 profile?.username = username
-                                await Database().updateProfile(profile: profile!)
+                                await client.updateProfile(profile: profile!)
                             }
                             if image != nil {
-                                profileImageUrl = await Database().uploadProfileImage(image: image!, userId: userId!)
+                                profileImageUrl = await client.uploadProfileImage(image: image!, userId: userId!)
                             }
                             viewModel.isLoading = false
                             updatedSuccessfully = true
@@ -217,7 +218,7 @@ struct EditProfileView: View {
                     Spacer(minLength: 278)
                     Button(action: {
                         Task {
-                            await Database().signOut()
+                            await client.signOut()
                         }
                     }){
                         Text("Sign Out")
@@ -250,7 +251,7 @@ struct EditProfileView: View {
                             message: Text("Are you sure you want to delete your account?"),
                             primaryButton: .destructive(Text("Delete")) {
                                 Task{
-                                    await Database().deleteUser()
+                                    await client.deleteUser()
                                 }
                                 print("Account deleted")
                             },

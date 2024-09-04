@@ -22,7 +22,8 @@ struct MyCheesesView: View {
     @State private var cupboards: [Cupboard]?
     @Binding var selectedTab: Tab
     @StateObject var viewModel = MyCheesesViewModel()
-    
+    let client = Database.shared
+
     var body: some View {
         NavigationStack {
             VStack(spacing: 0){
@@ -82,7 +83,7 @@ struct MyCheesesView: View {
                                             return
                                         }
                                         Task{
-                                            await Database().deleteCupboard(cupboardId: idsToDelete[0]!)
+                                            await client.deleteCupboard(cupboardId: idsToDelete[0]!)
                                             
                                             
                                         }
@@ -143,7 +144,7 @@ struct MyCheesesView: View {
             }
             .task {
                 if(profileId != nil){
-                    cupboards = await Database().getUserCupboards(profileId: profileId!)
+                    cupboards = await client.getUserCupboards(profileId: profileId!)
                     
                 }
                 viewModel.isLoading = false

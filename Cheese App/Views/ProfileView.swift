@@ -21,7 +21,8 @@ struct ProfileView: View {
     @State var username: String = ""
     @State var profile: Profile?
     @StateObject var viewModel = ProfileViewModel()
-    
+    let client = Database.shared
+
     var body: some View {
         NavigationStack{
             
@@ -145,7 +146,7 @@ struct ProfileView: View {
                     .foregroundColor(CustomColors.textColor)
                     .task {
                         if (userId != nil){
-                            profile = await Database().getUserProfile(userId: userId!)
+                            profile = await client.getUserProfile(userId: userId!)
                             username = profile?.username ?? ""
                             profileId = profile?.id ?? ""
                             bio = profile?.bio ?? ""

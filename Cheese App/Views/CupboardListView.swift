@@ -11,6 +11,8 @@ class CupboardListViewModel: ObservableObject {
     @Published var cheeses: [CupboardCheeseList] = []
     @Binding var selectedTab: Tab
     @Published var cupboardName: String
+    let client = Database.shared
+
     init(cupboardId: String, selectedTab: Binding<Tab>, cupboardName: String) {
         self.cupboardId = cupboardId
         self._selectedTab = selectedTab
@@ -19,7 +21,7 @@ class CupboardListViewModel: ObservableObject {
     }
     
     func getCheesesForCupboard(cupboardId: String) async {
-        let fetchedCheeses = await Database().getCheesesForCupboard(cupboardId: cupboardId)
+        let fetchedCheeses = await client.getCheesesForCupboard(cupboardId: cupboardId)
         DispatchQueue.main.async {
             self.cheeses = fetchedCheeses
         }
@@ -34,6 +36,8 @@ struct CupboardListView: View {
     @State var isLoading: Bool = true
     @State var idToDelete: String = ""
     @AppStorage("userId") var userId: String?
+    let client = Database.shared
+
     init(cupboardId: String, selectedTab: Binding<Tab>, cupboardName: String) {
         _viewModel = StateObject(wrappedValue: CupboardListViewModel(cupboardId: cupboardId, selectedTab: selectedTab, cupboardName: cupboardName))
     }
@@ -133,12 +137,12 @@ struct CupboardListView: View {
                                                 Task {
                                                     idToDelete = cheeseIdToDelete
                                                     showAlert = true
-                                                    //                                                await Database().deleteUserCheese(cheeseId: cheeseIdToDelete, userId: userId ?? "")
+                                                    //                                                await client.deleteUserCheese(cheeseId: cheeseIdToDelete, userId: userId ?? "")
                                                     //                                                await viewModel.getCheesesForCupboard(cupboardId: viewModel.cupboardId)
                                                 }
                                             } else {
                                                 Task {
-                                                    await Database().deleteCupboardCheese(cupboardCheeseId: cupboardIdToDelete)
+                                                    await client.deleteCupboardCheese(cupboardCheeseId: cupboardIdToDelete)
                                                     await viewModel.getCheesesForCupboard(cupboardId: viewModel.cupboardId)
                                                 }
                                                 viewModel.cheeses.remove(atOffsets: indexSet)
@@ -198,7 +202,7 @@ struct CupboardListView: View {
                         message: Text("Deleting a cheese from " + AppConfig.createByMe + " will delete it in its entirety."),
                         primaryButton: .destructive(Text("Delete")) {
                             Task{
-                                await Database().deleteUserCheese(cheeseId: idToDelete, userId: userId ?? "")
+                                await client.deleteUserCheese(cheeseId: idToDelete, userId: userId ?? "")
                                 await viewModel.getCheesesForCupboard(cupboardId: viewModel.cupboardId)
                             }
                             print("Account deleted")

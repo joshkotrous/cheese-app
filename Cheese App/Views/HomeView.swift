@@ -10,8 +10,10 @@ import SwiftUI
 class HomeViewModel: ObservableObject {
     @Published var cheeses: [Cheese] = []
     @Published var isLoading: Bool = true
+    let client = Database.shared
+
     func getAllCheeses() async {
-        let fetchedCheeses = await Database().getAllCheeses()
+        let fetchedCheeses = await client.getAllCheeses()
         DispatchQueue.main.async {
             self.cheeses = fetchedCheeses
         }

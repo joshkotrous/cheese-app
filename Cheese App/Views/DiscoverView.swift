@@ -13,24 +13,25 @@ struct DiscoverView: View {
             
             
             VStack(spacing: 0){
-                Spacer(minLength: 75)
+//                Spacer(minLength: 75)
                 ZStack{
                     CustomColors.background
                         .edgesIgnoringSafeArea(.all)
                     VStack{
-                        Text("Explore Categories")
+                        Text("Feed")
                             .font(.custom(AppConfig.fontName, size: 28))
                             .frame(maxWidth: .infinity, alignment: .leading)
+                            .fontWeight(.bold)
                         Spacer()
                     }
                     .padding()
                 }
                 .foregroundColor(CustomColors.textColor)
             }
-            VStack{
-                SearchBar()
-
-            }
+//            VStack{
+//                SearchBar()
+//
+//            }
         }
     }
 }

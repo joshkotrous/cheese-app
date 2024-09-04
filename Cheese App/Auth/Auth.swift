@@ -19,7 +19,7 @@ class Auth {
     private var currentNonce: String?
     private var completionHandler: ((Result<AuthResult, Error>) -> Void)?
     private var nonce: String?
-    let client = Database().supabase
+    let client = Database.shared.client
     
     init(){
         nonce = randomNonceString()

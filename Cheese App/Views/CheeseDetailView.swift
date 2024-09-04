@@ -20,7 +20,8 @@ struct CheeseDetailView: View {
     @AppStorage("userId") var userId: String?
     @State var disabled: Bool = false
     @State var isLoading: Bool = false
-    
+    let client = Database.shared
+
     var body: some View {
         ZStack{
             CustomColors.background
@@ -93,7 +94,7 @@ struct CheeseDetailView: View {
                                             Task {
                                                 isLoading = true
                                                 if (cupboard.id != nil && cheese.id != nil) {
-                                                    await Database().addCheeseToCupboard(cupboardId: cupboard.id!, cheeseId: cheese.id!)
+                                                    await client.addCheeseToCupboard(cupboardId: cupboard.id!, cheeseId: cheese.id!)
                                                 }
                                                 isLoading = false
                                                 
@@ -266,9 +267,9 @@ struct CheeseDetailView: View {
                                 Task{
                                     isLoading = true
                                     if (cheese.id != nil && cheese.id != "") && (userId != nil && userId != ""){
-                                        await Database().addCheeseReview(cheeseId: cheese.id ?? "", userId: userId ?? "", description: description, rating: rating )
+                                        await client.addCheeseReview(cheeseId: cheese.id ?? "", userId: userId ?? "", description: description, rating: rating )
                                     }
-                                    userReview = await Database().getUserCheeseReview(cheeseId: cheese.id!, userId: userId!)
+                                    userReview = await client.getUserCheeseReview(cheeseId: cheese.id!, userId: userId!)
                                     if userReview != nil {
                                         rating = userReview?.rating ?? 0.0
                                         if userReview?.description != nil && userReview?.description != "" {
@@ -386,9 +387,9 @@ struct CheeseDetailView: View {
         .task {
             isLoading = true
             if(profileId != nil && profileId != "") {
-                cupboards = await Database().getUserCupboards(profileId: profileId!)
-                userReview = await Database().getUserCheeseReview(cheeseId: cheese.id!, userId: userId!)
-                reviews = await Database().getCheeseReviews(userId: userId!, cheeseId: cheese.id!)
+                cupboards = await client.getUserCupboards(profileId: profileId!)
+                userReview = await client.getUserCheeseReview(cheeseId: cheese.id!, userId: userId!)
+                reviews = await client.getCheeseReviews(userId: userId!, cheeseId: cheese.id!)
                 print(reviews)
                 if userReview != nil {
                     disabled = true

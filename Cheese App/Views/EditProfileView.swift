@@ -24,6 +24,7 @@ struct EditProfileView: View {
     @State var showImagePicker: Bool = false
     @Binding var profileImageUrl: String?
     @AppStorage("userId") var userId: String?
+    @Binding var profile: Profile?
     
     var body: some View {
         var imagePickerSourceType: UIImagePickerController.SourceType = .camera
@@ -86,15 +87,15 @@ struct EditProfileView: View {
                                         .resizable()
                                         .aspectRatio(contentMode: .fill)
                                 case .failure:
-                                    Image(systemName: "photo")
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                        .foregroundColor(.gray)
+                                    Color.clear
                                 @unknown default:
-                                    Image(systemName: "photo")
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                        .foregroundColor(.gray)
+                                    Color.clear
+
+//                                    Image(systemName: "camera")
+//                                        .resizable()
+//                                        .aspectRatio(contentMode: .fit)
+//                                        .frame(width: 28)
+//                                        .foregroundColor(CustomColors.textColor)
                                 }
                             }
                             .aspectRatio(contentMode: .fill)
@@ -114,21 +115,26 @@ struct EditProfileView: View {
                             }) {
                                 Label("Photo Library", systemImage: "photo.on.rectangle")
                             }
-                            Button(role: .destructive, action: {
-                                if image != nil {
-                                    image = nil
-                                }
-                             
-                                Task {
-                                    if (profileImageUrl != nil && profileImageUrl != "") && image == nil {
-                                        await Database().deleteProfilePhoto(userId: userId!)
+                            if (profileImageUrl != nil && profileImageUrl != "") || image != nil {
+                                Button(role: .destructive, action: {
+                                    if image != nil {
+                                        image = nil
+                                    }
+                                 
+                                    Task {
+                                        if (profileImageUrl != nil && profileImageUrl != "") && image == nil {
+                                            await Database().deleteProfilePhoto(userId: userId!)
+                                            profile?.image = ""
+                                            await Database().updateProfile(profile: profile!)
+
+                                        }
 
                                     }
-
+                                }) {
+                                    Label("Remove Image", systemImage: "xmark")
                                 }
-                            }) {
-                                Label("Remove Image", systemImage: "xmark")
                             }
+             
                         } label: {
                             if image != nil || (profileImageUrl != nil && profileImageUrl != "") {
                                 Label("Edit Photo", systemImage: "camera")
@@ -185,7 +191,11 @@ struct EditProfileView: View {
                     Button(action: {
                         Task {
                             viewModel.isLoading = true
-                            await Database().updateProfile(profileId: profileId, bio: bio, username: username)
+                            if profile != nil {
+                                profile?.bio = bio
+                                profile?.username = username
+                                await Database().updateProfile(profile: profile!)
+                            }
                             if image != nil {
                                 profileImageUrl = await Database().uploadProfileImage(image: image!, userId: userId!)
                             }
@@ -270,8 +280,9 @@ struct EditProfileViewPreviewWrapper: View {
     @State private var bio: String = "testbio"
     @State private var profileId: String = "testprofileId"
     @State private var profileImageUrl: String?
+    @State private var profile: Profile? = Profile()
     var body: some View {
-        EditProfileView(username: $username, bio: $bio, profileId: $profileId, profileImageUrl: $profileImageUrl)
+        EditProfileView(username: $username, bio: $bio, profileId: $profileId, profileImageUrl: $profileImageUrl, profile: $profile)
     }
 }
 

@@ -171,9 +171,9 @@ class Database {
         return result
     }
     
-    func updateProfile(profileId: String, bio: String, username: String) async -> Void {
+    func updateProfile(profile: Profile) async -> Void {
         do {
-            try await supabase.from("profile").update(["bio": bio,"username": username]).eq("id", value: profileId).execute().value
+            try await supabase.from("profile").update(profile).eq("id", value: profile.id).execute().value
         } catch {
             print(error)
         }
@@ -489,6 +489,8 @@ class Database {
             print(error)
         }
     }
+    
+
     
 }
 

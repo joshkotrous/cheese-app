@@ -57,15 +57,17 @@ struct ProfileView: View {
                                                 .resizable()
                                                 .aspectRatio(contentMode: .fill)
                                         case .failure:
-                                            Image(systemName: "photo")
-                                                .resizable()
-                                                .aspectRatio(contentMode: .fit)
-                                                .foregroundColor(.gray)
+                                            Color.clear
+
+                     
                                         @unknown default:
-                                            Image(systemName: "photo")
-                                                .resizable()
-                                                .aspectRatio(contentMode: .fit)
-                                                .foregroundColor(.gray)
+                                            Color.clear
+
+//                                            Image(systemName: "camera")
+//                                                .resizable()
+//                                                .aspectRatio(contentMode: .fit)
+//                                                .frame(width: 28)
+//                                                .foregroundColor(CustomColors.textColor)
                                         }
                                     }
                                     .id(UUID())
@@ -116,7 +118,7 @@ struct ProfileView: View {
 
                         }
                         Text(profile?.bio ?? "").frame(maxWidth: .infinity, alignment: .leading)
-                            NavigationLink(destination: EditProfileView(username: $username, bio: $bio, profileId: $profileId, profileImageUrl: $profileImageUrl)){
+                            NavigationLink(destination: EditProfileView(username: $username, bio: $bio, profileId: $profileId, profileImageUrl: $profileImageUrl, profile: $profile)){
                             Text("Edit Profile")
                                 .padding()
                                 .font(.custom(AppConfig.fontName, size: 16))

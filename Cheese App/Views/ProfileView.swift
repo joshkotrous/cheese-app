@@ -71,7 +71,6 @@ struct ProfileView: View {
 //                                                .foregroundColor(CustomColors.textColor)
                                         }
                                     }
-                                    .id(UUID())
                                     .aspectRatio(contentMode: .fill)
                                     .cornerRadius(24)
                                 } else {

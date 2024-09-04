@@ -290,10 +290,90 @@ struct CheeseDetailView: View {
 
                     }
 
-            
-                    Text("Reviews")
-                        .font(.custom(AppConfig.fontName, size: 24))
-                        .fontWeight(.bold)
+                    VStack(spacing: 0){
+                        Text("Reviews")
+                            .font(.custom(AppConfig.fontName, size: 24))
+                            .fontWeight(.bold)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        VStack(spacing: 32){
+                            ForEach(reviews ?? []){ review in
+                                VStack{
+                                    
+                                    
+                                    HStack{
+                                                        
+                                        if (review.rating == 0.5){
+                                            Image("StarHalfFill")
+                                            
+                                        } else if (review.rating >= 1) {
+                                            Image("StarFill")
+                                            
+                                        } else {
+                                            Image("StarEmpty")
+                                        }
+                                        
+                                        if (review.rating == 1.5){
+                                            Image("StarHalfFill")
+                                            
+                                        } else if (review.rating >= 2) {
+                                            Image("StarFill")
+                                            
+                                        } else {
+                                            Image("StarEmpty")
+                                        }
+                                        
+                                        if (review.rating == 2.5){
+                                            Image("StarHalfFill")
+                                            
+                                        } else if (review.rating >= 3) {
+                                            Image("StarFill")
+                                            
+                                        } else {
+                                            Image("StarEmpty")
+                                        }
+                                        
+                                        if (review.rating == 3.5){
+                                            Image("StarHalfFill")
+                                            
+                                        } else if (review.rating >= 4) {
+                                            Image("StarFill")
+                                            
+                                        } else {
+                                            Image("StarEmpty")
+                                        }
+                                        
+                                        
+                                        if (review.rating == 4.5){
+                                            Image("StarHalfFill")
+                                            
+                                        } else if (review.rating >= 5) {
+                                            Image("StarFill")
+                                            
+                                        } else {
+                                            Image("StarEmpty")
+                                        }
+                                        
+                                        
+                                        Text("\(String(format: "%.1f", review.rating))").font(.custom("", size: 20))
+                                    }.frame(maxWidth: .infinity, alignment: .leading)
+
+                                        Text(review.description)
+                                            .foregroundColor(CustomColors.textColor) // Set the text color
+                                            .font(.custom(AppConfig.fontName, size: 18)) // Set the custom font and size
+                                            .cornerRadius(12)
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                            .padding()
+                                            .background(RoundedRectangle(cornerRadius: 12).fill(CustomColors.tan1))
+                                        
+                                        
+                                    
+                                }.frame(maxWidth: .infinity, alignment: .leading)
+                                
+                            }
+                           
+                    }.frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    }
                     Spacer()
                 }
                 .foregroundColor(CustomColors.textColor)

@@ -41,6 +41,7 @@ struct ProfileView: View {
                         Text(username)
                             .font(.custom(AppConfig.fontName, size: 28))
                             .frame(maxWidth: .infinity, alignment: .leading)
+                            .fontWeight(.bold)
                         
                         if (accessToken != "" && accessToken != nil) {
                         }
@@ -81,21 +82,32 @@ struct ProfileView: View {
                                         .foregroundColor(CustomColors.textColor)
                                 }
                 
-                            }.frame(width: 100, height: 100)
+                            }.frame(width: 75, height: 75)
                                 .background(CustomColors.button) // Set the background color
                                 .cornerRadius(.infinity)
              
-                            Spacer()
+                                Spacer().frame(maxWidth: 12)
+                                VStack{
+                                    Text("0")
+                                    Text("Reviews")
+                                        .lineLimit(1)
+
+                                }
+                                .font(.custom(AppConfig.fontName, size: 14))
+                                
+                                Divider()
+                                    .frame(width: 20)
+                                    .frame(height: 75)
                             VStack{
                                 Text("0")
                                 Text("Cheeses")
                                     .lineLimit(1)
 
                             }
-                            .font(.custom(AppConfig.fontName, size: 16))
+                            .font(.custom(AppConfig.fontName, size: 14))
                             
                             Divider()
-                                .frame(width: 25)
+                                .frame(width: 20)
                                 .frame(height: 75)
                             VStack{
                                 Text("0")
@@ -103,10 +115,10 @@ struct ProfileView: View {
                                     .lineLimit(1)
 
                             }
-                            .font(.custom(AppConfig.fontName, size: 16))
+                            .font(.custom(AppConfig.fontName, size: 14))
 
                             Divider()
-                                .frame(width: 25)
+                                .frame(width: 20)
                                 .frame(height: 75)
                             VStack{
                                 Text("0")
@@ -114,7 +126,7 @@ struct ProfileView: View {
                                     .lineLimit(1)
 
                             }
-                            .font(.custom(AppConfig.fontName, size: 16))
+                            .font(.custom(AppConfig.fontName, size: 14))
 
                         }
                         Text(profile?.bio ?? "").frame(maxWidth: .infinity, alignment: .leading)

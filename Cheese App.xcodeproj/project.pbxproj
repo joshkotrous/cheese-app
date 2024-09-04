@@ -52,6 +52,9 @@
 		37B9B3E82C6726B500CB433E /* CategoryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B9B3E72C6726B500CB433E /* CategoryListView.swift */; };
 		37CCAC6D2C850D4D00FE403A /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CCAC6C2C850D4D00FE403A /* ImagePicker.swift */; };
 		37DFBE1E2C5F33720079A637 /* Cheese-App-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 37DFBE1D2C5F33720079A637 /* Cheese-App-Info.plist */; };
+		37E685292C880C0100A6C2FA /* CheeseCategoryPreferencesSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E685282C880C0100A6C2FA /* CheeseCategoryPreferencesSelectionView.swift */; };
+		37E6852B2C8812EB00A6C2FA /* NotesPreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E6852A2C8812EB00A6C2FA /* NotesPreferencesView.swift */; };
+		37E6852D2C88137600A6C2FA /* PairingsPreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E6852C2C88137600A6C2FA /* PairingsPreferencesView.swift */; };
 		37F5BE682C796DAB004F569D /* UserCheese.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F5BE672C796DAB004F569D /* UserCheese.swift */; };
 /* End PBXBuildFile section */
 
@@ -120,6 +123,9 @@
 		37DFBE1D2C5F33720079A637 /* Cheese-App-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Cheese-App-Info.plist"; sourceTree = "<group>"; };
 		37E1679E2C7AFB39005D7DB2 /* release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = release.xcconfig; sourceTree = "<group>"; };
 		37E1679F2C7B0091005D7DB2 /* Cheese AppDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Cheese AppDebug.entitlements"; sourceTree = "<group>"; };
+		37E685282C880C0100A6C2FA /* CheeseCategoryPreferencesSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheeseCategoryPreferencesSelectionView.swift; sourceTree = "<group>"; };
+		37E6852A2C8812EB00A6C2FA /* NotesPreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesPreferencesView.swift; sourceTree = "<group>"; };
+		37E6852C2C88137600A6C2FA /* PairingsPreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairingsPreferencesView.swift; sourceTree = "<group>"; };
 		37F5BE672C796DAB004F569D /* UserCheese.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCheese.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -277,6 +283,9 @@
 				37B9B3E72C6726B500CB433E /* CategoryListView.swift */,
 				376F52D42C77142400BC1F27 /* CupboardListView.swift */,
 				376F52DC2C77AA4600BC1F27 /* EditProfileView.swift */,
+				37E685282C880C0100A6C2FA /* CheeseCategoryPreferencesSelectionView.swift */,
+				37E6852A2C8812EB00A6C2FA /* NotesPreferencesView.swift */,
+				37E6852C2C88137600A6C2FA /* PairingsPreferencesView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -449,6 +458,7 @@
 			files = (
 				3742A8DE2C60547F00705D5E /* ProfileView.swift in Sources */,
 				374AE4E12C61A6FE00FB6063 /* NewCheesePopover.swift in Sources */,
+				37E6852D2C88137600A6C2FA /* PairingsPreferencesView.swift in Sources */,
 				3742A8D62C6053ED00705D5E /* HomeView.swift in Sources */,
 				376F52CC2C76DB0700BC1F27 /* Profile.swift in Sources */,
 				376F52DB2C772B0B00BC1F27 /* CheeseList.swift in Sources */,
@@ -464,11 +474,13 @@
 				376F52D92C77226D00BC1F27 /* CupboardCheeseList.swift in Sources */,
 				376F52DD2C77AA4600BC1F27 /* EditProfileView.swift in Sources */,
 				376F52D32C76FD4C00BC1F27 /* CheeseCupboard.swift in Sources */,
+				37E6852B2C8812EB00A6C2FA /* NotesPreferencesView.swift in Sources */,
 				37B9B3E82C6726B500CB433E /* CategoryListView.swift in Sources */,
 				376F52D12C76F52100BC1F27 /* AppStoragePropertyWrapper.swift in Sources */,
 				3742A8E22C605EDD00705D5E /* SearchBar.swift in Sources */,
 				3751F0632C5F1407006499C2 /* CustomColors.swift in Sources */,
 				37B4F6632C785A33008A1CFE /* AppConfig.swift in Sources */,
+				37E685292C880C0100A6C2FA /* CheeseCategoryPreferencesSelectionView.swift in Sources */,
 				376F52CE2C76E90800BC1F27 /* Cupboard.swift in Sources */,
 				3751F0382C5F1289006499C2 /* Cheese_AppApp.swift in Sources */,
 				37CCAC6D2C850D4D00FE403A /* ImagePicker.swift in Sources */,
@@ -653,7 +665,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Cheese App/Cheese AppDebug.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2.7.0;
+				CURRENT_PROJECT_VERSION = 2.8.0;
 				DEVELOPMENT_ASSET_PATHS = "\"Cheese App/Preview Content\"";
 				DEVELOPMENT_TEAM = 4QQWV97LL7;
 				ENABLE_PREVIEWS = YES;
@@ -669,7 +681,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.7.0;
+				MARKETING_VERSION = 2.8.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "JoshKotrous.Cheese-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -692,7 +704,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Cheese App/Cheese App.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2.7.0;
+				CURRENT_PROJECT_VERSION = 2.8.0;
 				DEVELOPMENT_ASSET_PATHS = "\"Cheese App/Preview Content\"";
 				DEVELOPMENT_TEAM = 4QQWV97LL7;
 				ENABLE_PREVIEWS = YES;
@@ -708,7 +720,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.7.0;
+				MARKETING_VERSION = 2.8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "JoshKotrous.Cheese-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";

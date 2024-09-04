@@ -49,7 +49,7 @@ struct NewCupboardPopover: View {
                             showCupboardPopover = false
                         }
                         cupboards = await Database().getUserCupboards(profileId: profileId ?? "")
-                        isLoading = false
+
                     }
                     
                     

@@ -11,6 +11,7 @@ struct CheeseDetailView: View {
     let cheese: Cheese
     @State var cupboards: [Cupboard]?
     @State var userReview: CheeseReview?
+    @State var reviews: [CheeseReview]?
     @State var selectedOption: Cupboard?
     @AppStorage("profileId") var profileId: String?
     @State private var selectedView: String?
@@ -307,6 +308,8 @@ struct CheeseDetailView: View {
             if(profileId != nil && profileId != "") {
                 cupboards = await Database().getUserCupboards(profileId: profileId!)
                 userReview = await Database().getUserCheeseReview(cheeseId: cheese.id!, userId: userId!)
+                reviews = await Database().getCheeseReviews(userId: userId!, cheeseId: cheese.id!)
+                print(reviews)
                 if userReview != nil {
                     disabled = true
                     rating = userReview?.rating ?? 0.0
@@ -336,7 +339,7 @@ struct CheeseDetailView: View {
 #Preview {
     
     CheeseDetailView(cheese: Cheese(
-        id: "e982925f-c735-4289-820c-03c932f0840a",
+        id: "059afb49-a163-479d-917b-090acb0653e4",
         name: "Cheddar",
         category: "Hard Cheese",
         url: "",

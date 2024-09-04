@@ -115,7 +115,8 @@ class Database {
     func getUserCupboards(profileId: String) async -> [Cupboard] {
         var results: [Cupboard] = []
         do {
-            results = try await supabase.from("cupboard").select().eq("profile_id", value: profileId).execute().value
+            results = try await supabase.from("cupboard").select("*, cupboard_cheese(count)").eq("profile_id", value: profileId).execute().value
+            print(results)
         } catch {
             print(error)
         }
@@ -454,6 +455,18 @@ class Database {
             print(error)
         }
         return nil
+    }
+    
+    func getCheeseReviews(userId: String, cheeseId: String) async -> [CheeseReview] {
+        print(userId, cheeseId)
+        var results: [CheeseReview] = []
+        do {
+            results = try await supabase.from("cheese_review").select().filter("cheese_id", operator: "eq", value: cheeseId).filter("user_id", operator: "neq", value: userId).execute().value
+
+        } catch {
+            print(error)
+        }
+        return results
     }
     
 }

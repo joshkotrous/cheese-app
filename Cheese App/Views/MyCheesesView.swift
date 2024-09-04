@@ -45,20 +45,32 @@ struct MyCheesesView: View {
                             List{
                                 Section{
                                     ForEach(cupboards ?? []) { cupboard in
+                                        
+                                        let count = cupboard.cupboard_cheese![0].count ?? 0
                                         if  !AppConfig.defaultCupboards.contains(cupboard.name ?? "") {
                                             NavigationLink(destination: CupboardListView(cupboardId: cupboard.id!, selectedTab: $selectedTab, cupboardName: cupboard.name!)) {
-                                                Text(cupboard.name ?? "")
-                                                    .font(.custom(AppConfig.fontName, size: 24))
-                                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                                    .fontWeight(.bold)
+                                                VStack{
+                                                    Text(cupboard.name ?? "")
+                                                        .font(.custom(AppConfig.fontName, size: 24))
+                                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                                        .fontWeight(.bold)
+                                                    Text("\(count) cheeses") // Use nil-coalescing operator here
+                                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                                }
+                                
                                             }
                                             .padding()
                                         } else {
                                             NavigationLink(destination: CupboardListView(cupboardId: cupboard.id!, selectedTab: $selectedTab, cupboardName: cupboard.name!)) {
-                                                Text(cupboard.name ?? "")
-                                                    .font(.custom(AppConfig.fontName, size: 24))
-                                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                                    .fontWeight(.bold)
+                                                VStack{
+                                                    Text(cupboard.name ?? "")
+                                                        .font(.custom(AppConfig.fontName, size: 24))
+                                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                                        .fontWeight(.bold)
+                                                    Text("\(count) cheeses") // Use nil-coalescing operator here
+                                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                                }
+                                
                                             }
                                             .deleteDisabled(true)
                                             .padding()
